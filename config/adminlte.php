@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SCG Admin',
+    'title' => 'SCG',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>SCG</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => 'SCG',
+    'logo_img' => 'img/logo.svg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Logo_Subsecretaría_Educación_Parvularia_de_Chile',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,13 +84,13 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/logo.svg',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -111,13 +111,13 @@ return [
 
     'preloader' => [
         'enabled' => true,
-        'mode' => 'fullscreen',
+        'mode' => 'cwrapper',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/logo.svg',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -308,6 +308,10 @@ return [
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
+        ],
+        [
+            'type' => 'darkmode-widget',
+            'topnav_right' => true,     // Or "topnav => true" to place on the left.
         ],
 
         // Sidebar items:
