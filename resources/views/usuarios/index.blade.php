@@ -17,7 +17,10 @@
             $heads = [
                 'ID',
                 'Nombre',
-                ['label' => 'Teléfono', 'width' => 40],
+                'Correo Electrónico',
+                'Departamento',
+                'Perfil',
+                'Estado',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
             ];
 
@@ -28,13 +31,16 @@
         @endphp
         <hr>
         {{-- Minimal example / fill data using the component slot --}}
-        <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" bordered hoverable striped beatify
+        <x-adminlte-datatable id="usuarios" :heads="$heads" :config="$config" bordered hoverable striped beatify
         with-buttons>
-            @foreach ($users as $user)
+            @foreach ($usuarios as $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->phone }}</td>
+                    <td>{{ $user->cod_usuario }}</td>
+                    <td>{{ $user->nombre.' '.$user->primer_apellido.' '.$user->segundo_apellido }}</td>
+                    <td>{{ $user->correo_electronico }}</td>
+                    <td>{{ $user->departamento->departamento }}</td>
+                    <td>{{ $user->perfil->perfil }}</td>
+                    <td>{{ $user->estado->estado_usuario }}</td>
                     <td class="text-center">
                         {{-- <x-adminlte-button class="btn-xs" icon="fas fa-edit" data-toggle="modal"
                             data-target="#editModal{{ $user->id }}" title="Editar" />

@@ -13,17 +13,17 @@ class UsuarioController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:usuarios.index')->only('index');
-        $this->middleware('can:usuarios.create')->only('create', 'store');
-        $this->middleware('can:usuarios.edit')->only('edit', 'update');
-        $this->middleware('can:usuarios.destroy')->only('destroy');
+        // $this->middleware('can:usuarios.index')->only('index');
+        // $this->middleware('can:usuarios.create')->only('create', 'store');
+        // $this->middleware('can:usuarios.edit')->only('edit', 'update');
+        // $this->middleware('can:usuarios.destroy')->only('destroy');
     }
 
     public function index()
     {
         $usuarios = Usuario::with(['perfil', 'departamento', 'estado'])
             ->orderBy('primer_apellido')
-            ->paginate(10);
+            ->get();
 
         return view('usuarios.index', compact('usuarios'));
     }
