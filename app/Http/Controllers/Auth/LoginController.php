@@ -37,4 +37,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+
+    public function username()
+    {
+        return 'usuario'; // Cambia 'usuario' por el campo que usas para autenticar
+    }
 }

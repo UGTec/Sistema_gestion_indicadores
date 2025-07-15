@@ -75,6 +75,18 @@ class UsuarioSeeder extends Seeder
                 'cod_estado_usuario' => 1,
                 'password'           => Hash::make('123456789'),
             ],
+            [
+                'usuario'            => 'claudio.sanhueza',
+                'nombre'             => 'Claudio',
+                'primer_apellido'    => 'Sanhueza',
+                'segundo_apellido'   => 'Soto',
+                'correo_electronico' => 'claudio.sanhueza@mineduc.cl',
+                'cod_perfil'         => 1,
+                'cod_departamento'   => 6,
+                'cod_usuario'        => 99,
+                'cod_estado_usuario' => 1,
+                'password'           => Hash::make('123456789'),
+            ],
         ]);
     }
 }

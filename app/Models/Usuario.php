@@ -34,6 +34,11 @@ class Usuario extends Authenticable
         'remember_token',
     ];
 
+    public function getAuthIdentifierName()
+    {
+        return 'usuario';
+    }
+
     // Relaciones con otros modelos
     public function perfil()
     {
