@@ -4,6 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * 
+ *
+ * @property string $cod_perfil
+ * @property string $cod_permiso
+ * @property-read \App\Models\Perfil $perfil
+ * @property-read \App\Models\Permiso|null $permiso
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PerfilPermiso newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PerfilPermiso newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PerfilPermiso query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PerfilPermiso whereCodPerfil($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PerfilPermiso whereCodPermiso($value)
+ * @mixin \Eloquent
+ */
 class PerfilPermiso extends Pivot
 {
     protected $table      = 'perfil_permiso';

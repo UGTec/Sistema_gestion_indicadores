@@ -4,6 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property string $cod_tipo_indicador
+ * @property string $tipo_indicador
+ * @property string $descripcion
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Indicador> $indicadores
+ * @property-read int|null $indicadores_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereCodTipoIndicador($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereDescripcion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereTipoIndicador($value)
+ * @mixin \Eloquent
+ */
 class TipoIndicador extends Model
 {
     protected $table      = 'tipo_indicador';

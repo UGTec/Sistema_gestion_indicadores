@@ -4,6 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property string $cod_permiso
+ * @property string $permiso
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Perfil> $perfiles
+ * @property-read int|null $perfiles_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Permiso newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Permiso newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Permiso query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Permiso whereCodPermiso($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Permiso wherePermiso($value)
+ * @mixin \Eloquent
+ */
 class Permiso extends Model
 {
     protected $table      = 'permiso';

@@ -4,6 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 
+ *
+ * @property string $cod_division
+ * @property string $division
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Departamento> $departamentos
+ * @property-read int|null $departamentos_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division whereCodDivision($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division whereDivision($value)
+ * @mixin \Eloquent
+ */
 class Division extends Model
 {
     protected $table      = 'division';
