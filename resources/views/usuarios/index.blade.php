@@ -7,8 +7,6 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
-{{-- Extend the browser title --}}
-
 @section('content_body')
     {{-- Themes --}}
     <x-adminlte-card class="shadow" title="Usuarios" theme="primary" icon="fas fa-lg fa-users" collapsible maximizable>
@@ -30,30 +28,38 @@
             $config['fixHeader'] = true;
         @endphp
         <hr>
-        {{-- Minimal example / fill data using the component slot --}}
         <x-adminlte-datatable id="usuarios" :heads="$heads" :config="$config" bordered hoverable striped beatify
         with-buttons>
-            @foreach ($usuarios as $user)
+            @foreach ($usuarios as $usuario)
                 <tr>
-                    <td>{{ $user->cod_usuario }}</td>
-                    <td>{{ $user->nombre.' '.$user->primer_apellido.' '.$user->segundo_apellido }}</td>
-                    <td>{{ $user->correo_electronico }}</td>
-                    <td>{{ $user->departamento->departamento }}</td>
-                    <td>{{ $user->perfil->perfil }}</td>
-                    <td>{{ $user->estado->estado_usuario }}</td>
+                    <td>{{ $usuario->cod_usuario }}</td>
+                    <td>{{ $usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido }}</td>
+                    <td>{{ $usuario->correo_electronico }}</td>
+                    <td>{{ $usuario->departamento->departamento }}</td>
+                    <td>{{ $usuario->perfil->perfil }}</td>
+                    <td>{{ $usuario->estado->estado_usuario }}</td>
                     <td class="text-center">
-                        {{-- <x-adminlte-button class="btn-xs" icon="fas fa-edit" data-toggle="modal"
-                            data-target="#editModal{{ $user->id }}" title="Editar" />
-                        <x-adminlte-button class="btn-xs" icon="fas fa-trash" data-toggle="modal"
-                            data-target="#deleteModal{{ $user->id }}" title="Eliminar" /> --}}
+                        <x-adminlte-button
+                            theme="primary"
+                            class="btn-xs"
+                            icon="fas fa-edit"
+                            title="Editar"
+                            data-toggle="modal"
+                            data-target="#modalPurple"
+                        />
+                        <x-adminlte-button theme="danger" class="btn-xs" icon="fas fa-trash" title="Eliminar" />
                     </td>
                 </tr>
 
                 {{-- Edit Modal --}}
-                {{-- @include('users.edit', ['user' => $user]) --}}
+                <x-adminlte-modal id="modalPurple" title="Editar Usuario" theme="purple"
+                    icon="fas fa-bolt" size='lg' static-backdrop>
+                    @include('usuarios.edit', ['usuario' => $usuario])
+                </x-adminlte-modal>
+
 
                 {{-- Delete Modal --}}
-                {{-- @include('users.delete', ['user' => $user]) --}}
+                {{-- @include('usuarios.delete', ['usuario' => $usuario]) --}}
             @endforeach
         </x-adminlte-datatable>
 

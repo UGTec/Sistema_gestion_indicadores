@@ -34,6 +34,11 @@ class Usuario extends Authenticable
         'remember_token',
     ];
 
+    // public function getRouteKeyName()
+    // {
+    //     return 'cod_usuario';
+    // }
+
     public function getAuthIdentifierName()
     {
         return 'usuario';

@@ -24,8 +24,11 @@ class UsuarioController extends Controller
         $usuarios = Usuario::with(['perfil', 'departamento', 'estado'])
             ->orderBy('primer_apellido')
             ->get();
+        $perfiles = Perfil::all();
+        $departamentos = Departamento::orderBy('departamento')->get();
+        $estados = EstadoUsuario::all();
 
-        return view('usuarios.index', compact('usuarios'));
+        return view('usuarios.index', compact('usuarios', 'perfiles', 'departamentos', 'estados'));
     }
 
     public function create()
