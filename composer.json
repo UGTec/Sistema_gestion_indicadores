@@ -22,7 +22,7 @@
         "barryvdh/laravel-debugbar": "^3.15.4",
         "barryvdh/laravel-ide-helper": "^3.5.5",
         "fakerphp/faker": "^1.24.1",
-        "friendsofphp/php-cs-fixer": "^3.83",
+        "friendsofphp/php-cs-fixer": "^3.84",
         "laravel/pail": "^1.2.3",
         "laravel/pint": "^1.24.0",
         "laravel/sail": "^1.43.1",
@@ -49,7 +49,10 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "php artisan ide-helper:models -RW",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
