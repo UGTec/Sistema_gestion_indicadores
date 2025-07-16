@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.10.1",
         "laravel/ui": "^4.6.1",
         "laravolt/avatar": "^6.2",
-        "livewire/livewire": "^3.6.3"
+        "livewire/livewire": "^3.6.3",
+        "spatie/laravel-permission": "^6.20"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15.4",
