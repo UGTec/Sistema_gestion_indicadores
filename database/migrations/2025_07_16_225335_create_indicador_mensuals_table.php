@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
     /**
@@ -23,6 +23,9 @@ return new class () extends Migration {
             $table->primary(['cod_indicador', 'mes', 'año']);
             $table->foreign('cod_indicador')->references('cod_indicador')->on('indicador');
             $table->foreign('cod_usuario')->references('cod_usuario')->on('usuario');
+
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +34,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('indicador_mensual');
+        Schema::dropIfExists('indicador_mensuals');
     }
 };

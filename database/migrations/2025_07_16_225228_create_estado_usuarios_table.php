@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
     /**
@@ -12,7 +12,9 @@ return new class () extends Migration {
     {
         Schema::create('estado_usuario', function (Blueprint $table) {
             $table->decimal('cod_estado_usuario', 1, 0)->primary();
-            $table->string('estado_usuario', 20);
+            $table->string('estado_usuario', 20)->nullable();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -21,6 +23,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('estado_usuario');
+        Schema::dropIfExists('estado_usuarios');
     }
 };
