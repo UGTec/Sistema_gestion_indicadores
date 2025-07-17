@@ -326,22 +326,25 @@ return [
         ],
         [
             'text' => 'perfiles',
-            'url' => 'perfiles',
+            'url' => '#',
             'icon' => 'fas fa-fw fa-user-tag',
+            'active' => ['perfiles*'],
         ],
         [
             'text' => 'departamentos',
             'url' => 'departamentos',
             'icon' => 'fas fa-fw fa-building',
+            'active' => ['departamentos*'],
         ],
         [
             'text' => 'estados',
             'url' => 'estados',
             'icon' => 'fas fa-fw fa-exclamation-triangle',
+            'active' => ['estados*'],
         ],
         [
             'text' => 'reportes',
-            'url' => 'reportes',
+            'url' => '#',
             'icon' => 'fas fa-fw fa-chart-bar',
         ],
         ['header' => 'administration'],
