@@ -11,7 +11,6 @@
 
         @include('usuarios.form', [
             'usuario' => new App\Models\Usuario,
-            'perfiles' => $perfiles,
             'departamentos' => $departamentos,
             'estados' => $estados
         ])

@@ -322,6 +322,7 @@ return [
             'text' => 'usuarios',
             'url' => 'usuarios',
             'icon' => 'fas fa-fw fa-users',
+            'active' => ['usuarios*'],
         ],
         [
             'text' => 'perfiles',

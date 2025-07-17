@@ -39,27 +39,25 @@
                     <td></td>
                     <td>{{ $usuario->estado->estado_usuario }}</td>
                     <td class="text-center">
-                        <x-adminlte-button
-                            theme="primary"
-                            class="btn-xs"
-                            icon="fas fa-edit"
-                            title="Editar"
-                            data-toggle="modal"
-                            data-target="#modalPurple"
-                        />
-                        {{-- <x-adminlte-button theme="danger" class="btn-xs" icon="fas fa-trash" title="Eliminar" /> --}}
+                        <a href="{{ route('usuarios.show', $usuario->cod_usuario) }}"
+                            class="btn btn-xs btn-secondary"
+                            title="Ver Detalles">
+                            <i class="fas fa-eye "></i>
+                        </a>
+                        <a href="{{ route('usuarios.edit', $usuario->cod_usuario) }}"
+                            class="btn btn-xs btn-success"
+                            title="Editar Usuario">
+                                <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('usuarios.destroy', $usuario->cod_usuario) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
-
-                {{-- Edit Modal --}}
-                <x-adminlte-modal id="modalPurple" title="Editar Usuario" theme="purple"
-                    icon="fas fa-bolt" size='lg' static-backdrop>
-                    @include('usuarios.edit', ['usuario' => $usuario])
-                </x-adminlte-modal>
-
-
-                {{-- Delete Modal --}}
-                {{-- @include('usuarios.delete', ['usuario' => $usuario]) --}}
             @endforeach
         </x-adminlte-datatable>
 

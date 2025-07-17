@@ -18,11 +18,6 @@ class UsuarioController extends Controller
         // $this->middleware('can:usuarios.destroy')->only('destroy');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $usuarios = Usuario::with(['departamento', 'estado'])
@@ -34,11 +29,14 @@ class UsuarioController extends Controller
         return view('usuarios.index', compact('usuarios', 'departamentos', 'estados'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
+    public function show(Usuario $usuario)
+    {
+        $departamento = $usuario->departamento;
+        $estado = $usuario->estado;
+
+        return view('usuarios.show', compact('usuario', 'departamento', 'estado'));
+    }
+
     public function create()
     {
         $departamentos = Departamento::orderBy('departamento')->get();
@@ -47,12 +45,6 @@ class UsuarioController extends Controller
         return view('usuarios.create', compact('departamentos', 'estados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUsuarioRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(StoreUsuarioRequest $request)
     {
         // Generar código de usuario automático
@@ -67,12 +59,6 @@ class UsuarioController extends Controller
             ->with('success', 'Usuario creado exitosamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\View\View
-     */
     public function edit(Usuario $usuario)
     {
         $departamentos = Departamento::orderBy('departamento')->get();
@@ -81,13 +67,6 @@ class UsuarioController extends Controller
         return view('usuarios.edit', compact('usuario', 'departamentos', 'estados'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUsuarioRequest  $request
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UpdateUsuarioRequest $request, Usuario $usuario)
     {
         $usuario->update($request->validated());
@@ -96,12 +75,6 @@ class UsuarioController extends Controller
             ->with('success', 'Usuario actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Usuario  $usuario
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Usuario $usuario)
     {
         $usuario->delete();
