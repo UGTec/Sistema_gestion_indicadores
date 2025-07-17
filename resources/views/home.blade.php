@@ -15,7 +15,7 @@
         Bienvenido
         <x-adminlte-profile-widget
             name="{{ $usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido }}"
-            desc="{{ $usuario->perfil->perfil }}"
+            desc="Descripción del perfil"
             theme="primary"
             img="{{ Avatar::create($usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido)
             ->toBase64() }}"

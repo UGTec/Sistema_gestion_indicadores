@@ -24,6 +24,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_indicadors');
+        Schema::dropIfExists('tipo_indicador');
     }
 };

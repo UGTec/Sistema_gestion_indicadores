@@ -36,7 +36,7 @@
                     <td>{{ $usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido }}</td>
                     <td>{{ $usuario->correo_electronico }}</td>
                     <td>{{ $usuario->departamento->departamento }}</td>
-                    <td>{{ $usuario->perfil->perfil }}</td>
+                    <td></td>
                     <td>{{ $usuario->estado->estado_usuario }}</td>
                     <td class="text-center">
                         <x-adminlte-button
@@ -47,7 +47,7 @@
                             data-toggle="modal"
                             data-target="#modalPurple"
                         />
-                        <x-adminlte-button theme="danger" class="btn-xs" icon="fas fa-trash" title="Eliminar" />
+                        {{-- <x-adminlte-button theme="danger" class="btn-xs" icon="fas fa-trash" title="Eliminar" /> --}}
                     </td>
                 </tr>
 

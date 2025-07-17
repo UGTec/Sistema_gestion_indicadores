@@ -34,6 +34,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('indicador_mensuals');
+        Schema::dropIfExists('indicador_mensual');
     }
 };

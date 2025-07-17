@@ -5,7 +5,6 @@
 
         @include('usuarios.form', [
             'usuario' => $usuario,
-            'perfiles' => $perfiles,
             'departamentos' => $departamentos,
             'estados' => $estados
         ])

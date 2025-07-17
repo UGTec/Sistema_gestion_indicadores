@@ -42,11 +42,11 @@
         </div>
     </x-slot>
     <option value="">Seleccione un perfil</option>
-    @foreach($perfiles as $perfil)
+    {{-- @foreach($perfiles as $perfil)
     <option value="{{ $perfil->cod_perfil }}" {{ old('cod_perfil', $usuario->cod_perfil ?? '') == $perfil->cod_perfil ? 'selected' : '' }}>
         {{ $perfil->perfil }}
     </option>
-    @endforeach
+    @endforeach --}}
 </x-adminlte-select2>
 <x-adminlte-select2 name="cod_departamento" label="Departamento">
     <x-slot name="prependSlot">
