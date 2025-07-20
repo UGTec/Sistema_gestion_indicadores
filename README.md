@@ -4,7 +4,7 @@ Sistema de Gestión de Indicadores, para Subsecretaria de Educación Parvularia.
 
 ## Requisitos
 
-- PHP 8.4
+- PHP 8.2
   - extension pdo_pgsql (obligatorio para usar PostgreSQL)
 - Composer
 - Nodejs 24
