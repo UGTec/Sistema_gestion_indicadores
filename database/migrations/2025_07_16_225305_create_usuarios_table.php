@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('usuario', function (Blueprint $table) {
-            $table->decimal('cod_usuario', 2, 0)->autoIncrement()->primary();
+            $table->decimal('cod_usuario', 2, 0)->primary();
             $table->string('usuario', 40)->nullable();
             $table->string('nombre', 40)->nullable();
             $table->string('primer_apellido', 40)->nullable();

@@ -13,9 +13,27 @@ class TipoIndicadorSeeder extends Seeder
     public function run(): void
     {
         DB::table('tipo_indicador')->insert([
-            ['cod_tipo_indicador' => 1, 'tipo_indicador' => 'PMG', 'descripcion' => 'Programa de Mejoramiento de la Gestión'],
-            ['cod_tipo_indicador' => 2, 'tipo_indicador' => 'CDC', 'descripcion' => 'Convenio de Desempeño Colectivo'],
-            ['cod_tipo_indicador' => 3, 'tipo_indicador' => 'H', 'descripcion' => 'Indicadores de Desempeño'],
+            [
+                'cod_tipo_indicador' => 1,
+                'tipo_indicador'     => 'PMG',
+                'descripcion'        => 'Programa de Mejoramiento de la Gestión',
+                'created_at'         => now(),
+                'updated_at'         => now()
+            ],
+            [
+                'cod_tipo_indicador' => 2,
+                'tipo_indicador'     => 'CDC',
+                'descripcion'        => 'Convenio de Desempeño Colectivo',
+                'created_at'         => now(),
+                'updated_at'         => now()
+            ],
+            [
+                'cod_tipo_indicador' => 3,
+                'tipo_indicador'     => 'H',
+                'descripcion'        => 'Indicadores de Desempeño',
+                'created_at'         => now(),
+                'updated_at'         => now()
+            ],
         ]);
     }
 }

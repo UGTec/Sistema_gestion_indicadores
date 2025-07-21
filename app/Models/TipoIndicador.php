@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- *
- *
  * @property string $cod_tipo_indicador
  * @property string|null $tipo_indicador
  * @property string|null $descripcion
@@ -27,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereDescripcion($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereTipoIndicador($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TipoIndicador withoutTrashed()
  * @mixin \Eloquent
  */

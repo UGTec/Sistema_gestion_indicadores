@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:departamentos.ver')->only('index', 'show');
+        $this->middleware('can:departamentos.crear')->only('create', 'store');
+        $this->middleware('can:departamentos.editar')->only('edit', 'update');
+        $this->middleware('can:departamentos.eliminar')->only('destroy');
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -32,12 +41,23 @@ class DepartamentoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cod_departamento' => 'required|numeric',
-            'departamento' => 'required|string|max:75',
+            //'cod_departamento' => 'required|numeric|unique:departamento,cod_departamento',
+            'departamento' => 'required|string|max:75|unique:departamento,departamento',
             'cod_division' => 'required|numeric|exists:division,cod_division'
         ]);
 
-        Departamento::create($request->all());
+        // Verificar si el código de departamento ya existe
+        if (Departamento::where('cod_departamento', $request->cod_departamento)->exists()) {
+            return redirect()->back()
+                ->withErrors(['cod_departamento' => 'El código de departamento ya existe.'])
+                ->withInput();
+        }
+        // Crear el departamento
+        //Departamento::create($request->all());
+        Departamento::create(array_merge($request->all(), [
+            // Generar código de departamento automático
+            'cod_departamento' => Departamento::max('cod_departamento') + 1,
+        ]));
 
         return redirect()->route('departamentos.index')
             ->with('success', 'Departamento creado exitosamente.');

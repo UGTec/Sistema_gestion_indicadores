@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
 @section('title', 'Detalles del Departamento')
+@section('subtitle', 'Información del Departamento')
+@section('content_header_title', 'Detalles del Departamento')
+@section('content_header_subtitle', 'Información detallada del departamento seleccionado')
 
-@section('content')
-<div class="card">
-    <div class="card-header">
-        <h5 class="mb-0">Detalles del Departamento</h5>
-    </div>
-    <div class="card-body">
+@section('content_body')
+    <x-adminlte-card class="shadow" title="Detalles del Departamento" theme="primary" icon="fas fa-lg fa-building">
+        <x-slot name="toolsSlot">
+            <a href="{{ route('departamentos.index') }}" class="btn btn-xs btn-secondary" title="Volver al Listado">
+                <i class="fas fa-arrow-left"></i> Volver al Listado
+            </a>
+        </x-slot>
         <div class="row">
             <div class="col-md-6">
                 <h6>Información Básica</h6>
@@ -50,6 +54,5 @@
                 <i class="fas fa-arrow-left"></i> Volver
             </a>
         </div>
-    </div>
-</div>
-@endsection
+    </x-adminlte-card>
+@stop

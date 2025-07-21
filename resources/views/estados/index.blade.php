@@ -21,11 +21,13 @@
     {{-- Themes --}}
     <x-adminlte-card class="shadow" title="Estados de Usuario" theme="primary" icon="fas fa-lg fa-list" collapsible maximizable>
         {{-- Button to create new state --}}
-        <x-slot name="toolsSlot">
-            <a href="{{ route('estados.create') }}" class="btn btn-success" title="Nuevo Estado">
-                <i class="fas fa-plus"></i> Nuevo Estado
-            </a>
-        </x-slot>
+        @can('estados.crear')
+            <x-slot name="toolsSlot">
+                <a href="{{ route('estados.create') }}" class="btn btn-xs btn-success" title="Nuevo Estado">
+                    <i class="fas fa-plus"></i> Nuevo Estado
+                </a>
+            </x-slot>
+        @endcan
         {{-- Setup data for datatables --}}
         @php
             $heads = [
@@ -40,28 +42,32 @@
             $config['responsive'] = true;
             $config['fixHeader'] = true;
         @endphp
-        <hr>
         <x-adminlte-datatable id="estados" :heads="$heads" :config="$config" bordered hoverable striped beatify with-buttons>
             @foreach ($estados as $estado)
                 <tr>
                     <td>{{ $estado->cod_estado_usuario }}</td>
-                    <td>
+                    <td class="text-center">
                         <span class="badge badge-{{ $estado->cod_estado_usuario == 1 ? 'success' : 'danger' }}">
                             {{ $estado->estado_usuario }}
                         </span>
                     </td>
                     <td>{{ $estado->usuarios->count() }}</td>
                     <td class="text-center">
-                        <a href="{{ route('estados.show', $estado->cod_estado_usuario) }}"
-                            class="btn btn-xs btn-secondary"
-                            title="Ver Detalles">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="{{ route('estados.edit', $estado->cod_estado_usuario) }}"
-                            class="btn btn-xs btn-success"
-                            title="Editar Estado">
-                            <i class="fas fa-edit"></i>
-                        </a>
+                        @can('estados.ver')
+                            <a href="{{ route('estados.show', $estado->cod_estado_usuario) }}"
+                                class="btn btn-xs btn-secondary"
+                                title="Ver Detalles">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        @endcan
+                        @can('estados.editar')
+                            <a href="{{ route('estados.edit', $estado->cod_estado_usuario) }}"
+                                class="btn btn-xs btn-success"
+                                title="Editar Estado">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        @endcan
+                        @can('estados.eliminar')
                         <form action="{{ route('estados.destroy', $estado->cod_estado_usuario) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
@@ -69,6 +75,7 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property string $cod_indicador
  * @property string|null $indicador
  * @property string|null $objetivo
@@ -40,7 +38,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereParametro1($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereParametro2($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador withoutTrashed()
  * @mixin \Eloquent
  */

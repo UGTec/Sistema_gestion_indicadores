@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
 @section('title', 'Detalles del Estado')
+@section('subtitle', 'Estado de Usuario')
+@section('content_header_title', 'Detalles del Estado')
+@section('content_header_subtitle', 'Información del Estado de Usuario')
 
-@section('content')
-<div class="card">
-    <div class="card-header">
-        <h5 class="mb-0">Detalles del Estado</h5>
-    </div>
-    <div class="card-body">
+@section('content_body')
+    <x-adminlte-card class="shadow" title="Detalles del Estado" theme="primary" icon="fas fa-lg fa-info-circle">
+        <x-slot name="toolsSlot">
+            <a href="{{ route('estados.index') }}" class="btn btn-xs btn-secondary" title="Volver a Estados">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </x-slot>
         <div class="row">
             <div class="col-md-6">
                 <h6>Información Básica</h6>
@@ -61,5 +65,5 @@
             </a>
         </div>
     </div>
-</div>
-@endsection
+    </x-adminlte-card>
+@stop

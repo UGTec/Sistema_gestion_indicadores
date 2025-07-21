@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
 @section('title', 'Editar Estado de Usuario')
+@section('subtitle', 'Modificar Estado Existente')
+@section('content_header_title', 'Editar Estado de Usuario')
+@section('content_header_subtitle', 'Actualiza los detalles del estado de usuario')
 
-@section('content')
-<div class="card">
-    <div class="card-header">
-        <h5 class="mb-0">Editar Estado</h5>
-    </div>
-    <div class="card-body">
+@section('content_body')
+    <x-adminlte-card class="shadow" title="Editar Estado de Usuario" theme="primary" icon="fas fa-lg fa-edit" collapsible maximizable>
+        <x-slot name="toolsSlot">
+            <a href="{{ route('estados.index') }}" class="btn btn-xs btn-secondary" title="Volver a Estados">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </x-slot>
         <form action="{{ route('estados.update', $estado->cod_estado_usuario) }}" method="POST">
             @csrf
             @method('PUT')
@@ -34,6 +38,5 @@
                 </a>
             </div>
         </form>
-    </div>
-</div>
-@endsection
+    </x-adminlte-card>
+@stop

@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- *
- *
  * @property int $cod_usuario
  * @property string|null $usuario
  * @property string|null $nombre
@@ -22,7 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $cod_estado_usuario
  * @property string $password
  * @property string|null $remember_token
- * @property string|null $email_verified_at
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -58,7 +56,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario whereSegundoApellido($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario whereUsuario($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario withoutRole($roles, $guard = null)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Usuario withoutTrashed()
@@ -72,6 +70,8 @@ class Usuario extends Authenticatable
 
     protected $table = 'usuario';
     protected $primaryKey = 'cod_usuario';
+
+    public $timestamps = true;
 
     protected $fillable = [
         'cod_usuario',
@@ -90,6 +90,14 @@ class Usuario extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function getAuthIdentifierName(): string
     {

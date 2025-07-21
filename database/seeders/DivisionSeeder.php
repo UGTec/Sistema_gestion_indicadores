@@ -13,10 +13,30 @@ class DivisionSeeder extends Seeder
     public function run(): void
     {
         DB::table('division')->insert([
-            ['cod_division' => 1, 'division' => 'DIVISIÓN JURÍDICA'],
-            ['cod_division' => 2, 'division' => 'DIVISIÓN DE POLÍTICAS EDUCATIVAS'],
-            ['cod_division' => 3, 'division' => 'DIVISIÓN DE ADMINISTRACIÓN Y FINANZAS'],
-            ['cod_division' => 4, 'division' => 'GABINETE'],
+            [
+                'cod_division' => 1,
+                'division'     => 'DIVISIÓN JURÍDICA',
+                'created_at'   => now(),
+                'updated_at'   => now()
+            ],
+            [
+                'cod_division' => 2,
+                'division'     => 'DIVISIÓN DE POLÍTICAS EDUCATIVAS',
+                'created_at'   => now(),
+                'updated_at'   => now()
+            ],
+            [
+                'cod_division' => 3,
+                'division'     => 'DIVISIÓN DE ADMINISTRACIÓN Y FINANZAS',
+                'created_at'   => now(),
+                'updated_at'   => now()
+            ],
+            [
+                'cod_division' => 4,
+                'division'     => 'GABINETE',
+                'created_at'   => now(),
+                'updated_at'   => now()
+            ],
         ]);
     }
 }

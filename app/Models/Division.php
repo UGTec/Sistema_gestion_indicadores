@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- *
- *
  * @property string $cod_division
  * @property string $division
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -25,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Division whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Division whereDivision($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Division whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Division withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Division withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Division withoutTrashed()
  * @mixin \Eloquent
  */

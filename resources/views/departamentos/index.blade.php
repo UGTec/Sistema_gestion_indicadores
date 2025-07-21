@@ -21,11 +21,13 @@
     {{-- Card for Departments --}}
     <x-adminlte-card class="shadow" title="Departamentos" theme="primary" icon="fas fa-lg fa-building" collapsible maximizable>
         {{-- Button to create new department --}}
-        <x-slot name="toolsSlot">
-            <a href="{{ route('departamentos.create') }}" class="btn btn-success" title="Nuevo Departamento">
-                <i class="fas fa-plus"></i> Nuevo Departamento
-            </a>
-        </x-slot>
+        @can('departamentos.crear')
+            <x-slot name="toolsSlot">
+                <a href="{{ route('departamentos.create') }}" class="btn btn-xs btn-success" title="Nuevo Departamento">
+                    <i class="fas fa-plus"></i> Nuevo Departamento
+                </a>
+            </x-slot>
+        @endcan
         {{-- Setup data for datatables --}}
         @php
             $heads = [
@@ -50,23 +52,29 @@
                     <td>{{ $departamento->division->division ?? 'N/A' }}</td>
                     <td>{{ $departamento->usuarios->count() }}</td>
                     <td class="text-center">
-                        <a href="{{ route('departamentos.show', $departamento->cod_departamento) }}"
-                            class="btn btn-xs btn-secondary"
-                            title="Ver Detalles">
-                            <i class="fas fa-eye    "></i>
-                        </a>
-                        <a href="{{ route('departamentos.edit', $departamento->cod_departamento) }}"
-                            class="btn btn-xs btn-success"
-                            title="Editar Departamento">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form action="{{ route('departamentos.destroy', $departamento->cod_departamento) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro de eliminar este departamento?')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        @can('departamentos.ver')
+                            <a href="{{ route('departamentos.show', $departamento->cod_departamento) }}"
+                                class="btn btn-xs btn-secondary"
+                                title="Ver Detalles">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        @endcan
+                        @can('departamentos.editar')
+                            <a href="{{ route('departamentos.edit', $departamento->cod_departamento) }}"
+                                class="btn btn-xs btn-success"
+                                title="Editar Departamento">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        @endcan
+                        @can('departamentos.eliminar')
+                            <form action="{{ route('departamentos.destroy', $departamento->cod_departamento) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro de eliminar este departamento?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

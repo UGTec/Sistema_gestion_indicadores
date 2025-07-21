@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- *
- *
  * @property string $cod_estado_usuario
  * @property string|null $estado_usuario
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -25,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario whereEstadoUsuario($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EstadoUsuario withoutTrashed()
  * @mixin \Eloquent
  */

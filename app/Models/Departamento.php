@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property string $cod_departamento
  * @property string|null $departamento
  * @property string|null $cod_division
@@ -29,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento whereDepartamento($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Departamento withoutTrashed()
  * @mixin \Eloquent
  */

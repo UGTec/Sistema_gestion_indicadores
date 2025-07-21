@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property string $cod_indicador
  * @property string|null $numerador
  * @property string|null $denominador
@@ -37,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual whereNumerador($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual whereResultado($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IndicadorMensual withoutTrashed()
  * @mixin \Eloquent
  */

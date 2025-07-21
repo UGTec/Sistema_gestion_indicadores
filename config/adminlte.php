@@ -134,7 +134,7 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => true,
+    'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
@@ -260,7 +260,7 @@ return [
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => '',
+    'register_url' => '#',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
@@ -312,7 +312,6 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'buscar',
         ],
-        ['header' => 'Administración'],
         [
             'text' => 'dashboard',
             'url' => 'home',
@@ -323,25 +322,43 @@ return [
             'url' => 'usuarios',
             'icon' => 'fas fa-fw fa-users',
             'active' => ['usuarios*'],
+            'can' => 'usuarios.ver',
         ],
         [
-            'text' => 'Roles y Permisos',
+            'text' => 'Perfiles y Permisos',
             'url' => '#',
             'icon' => 'fas fa-fw fa-user-tag',
             'active' => ['perfiles*'],
-            'disabled' => true,
+            'submenu' => [
+                [
+                    'text' => 'Perfiles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-fw fa-user-shield',
+                    'active' => ['roles*'],
+                    'can' => 'roles.ver',
+                ],
+                [
+                    'text' => 'Permisos',
+                    'url' => 'permisos',
+                    'icon' => 'fas fa-fw fa-lock',
+                    'active' => ['permisos*'],
+                    'can' => 'permisos.ver',
+                ],
+            ],
         ],
         [
             'text' => 'departamentos',
             'url' => 'departamentos',
             'icon' => 'fas fa-fw fa-building',
             'active' => ['departamentos*'],
+            'can' => 'departamentos.ver',
         ],
         [
             'text' => 'Estados',
             'url' => 'estados',
             'icon' => 'fas fa-fw fa-exclamation-triangle',
             'active' => ['estados*'],
+            'can' => 'estados.ver',
         ],
         [
             'text' => 'Reportes',

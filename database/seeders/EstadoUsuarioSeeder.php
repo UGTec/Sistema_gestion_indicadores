@@ -13,8 +13,18 @@ class EstadoUsuarioSeeder extends Seeder
     public function run(): void
     {
         DB::table('estado_usuario')->insert([
-            ['cod_estado_usuario' => 1, 'estado_usuario' => 'Activo'],
-            ['cod_estado_usuario' => 2, 'estado_usuario' => 'Inactivo'],
+            [
+                'cod_estado_usuario' => 1,
+                'estado_usuario'     => 'Activo',
+                'created_at'         => now(),
+                'updated_at'         => now()
+            ],
+            [
+                'cod_estado_usuario' => 2,
+                'estado_usuario'     => 'Inactivo',
+                'created_at'         => now(),
+                'updated_at'         => now()
+            ],
         ]);
     }
 }
