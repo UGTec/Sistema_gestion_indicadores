@@ -360,11 +360,48 @@ return [
             'active' => ['estados*'],
             'can' => 'estados.ver',
         ],
+        ['header' => 'indicadores_management'],
         [
-            'text' => 'Reportes',
+            'text' => 'Indicadores Mensuales',
             'url' => '#',
-            'icon' => 'fas fa-fw fa-chart-bar',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+            'active' => ['indicadores.registros*'],
+            'submenu' => [
+                [
+                    'text' => 'Crear Registro Mensual',
+                    'url' => 'indicadores/{indicador}/registros/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                    #'can' => 'indicadores.registros.crear',
+                ],
+                [
+                    'text' => 'Ver Registros Mensuales',
+                    'url' => 'indicadores/{indicador}/registros',
+                    'icon' => 'fas fa-fw fa-list',
+                    #'can' => 'indicadores.registros.ver',
+                ],
+            ],
         ],
+        [
+            'text' => 'Indicadores',
+            'url' => 'indicadores',
+            'icon' => 'fas fa-fw fa-chart-line',
+            'active' => ['indicadores*'],
+            'can' => 'indicadores.ver',
+        ],
+        [
+            'text' => 'Tipos de Indicadores',
+            'url' => 'tipos_indicador',
+            'icon' => 'fas fa-fw fa-list-alt',
+            'active' => ['tipos_indicador*'],
+            'can' => 'tipos_indicador.ver',
+        ],
+        // [
+        //     'text' => 'Indicadores',
+        //     'url' => 'indicadores',
+        //     'icon' => 'fas fa-fw fa-chart-bar',
+        //     'active' => ['indicadores*'],
+        //     'can' => 'indicadores.ver',
+        // ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
@@ -606,16 +643,6 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/toastr/toastr.min.css',
-                ],
-            ],
-        ],
-        'inputmask' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/inputmask/jquery.inputmask.min.js',
                 ],
             ],
         ],

@@ -72,7 +72,7 @@ class Indicador extends Model
         return $this->belongsTo(Usuario::class, 'cod_usuario', 'cod_usuario');
     }
 
-    public function indicadoresMensuales(): HasMany
+    public function registrosMensuales(): HasMany
     {
         return $this->hasMany(IndicadorMensual::class, 'cod_indicador', 'cod_indicador');
     }
