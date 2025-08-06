@@ -31,7 +31,7 @@ return [
     */
 
     'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,9 +63,9 @@ return [
     |
     */
 
-    'logo' => 'SCG',
-    'logo_img' => 'img/logo.svg',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => 'SGI',
+    'logo_img' => 'img/SGI-Fondo_Negro.png',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Logo_Subsecretaría_Educación_Parvularia_de_Chile',
@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => 'img/logo.svg',
+            'path' => 'img/SGI-Fondo_Negro.png',
             'alt' => 'Auth Logo',
             'class' => '',
-            'width' => 100,
-            'height' => 100,
+            'width' => 200,
+            'height' => 150,
         ],
     ],
 
@@ -113,11 +113,12 @@ return [
         'enabled' => true,
         'mode' => 'cwrapper',
         'img' => [
-            'path' => 'img/logo.svg',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 100,
-            'height' => 100,
+            'path' => 'img/SGI-Fondo-Negro.png',
+            'alt' => 'SGI Preloader Image',
+            'effect' => 'animation__wobble',
+            'class' => null,
+            'width' => 200,
+            'height' => 'auto',
         ],
     ],
 
@@ -318,6 +319,9 @@ return [
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
+            'header' => 'ADMINISTRACIÓN',
+        ],
+        [
             'text' => 'Usuarios',
             'url' => 'usuarios',
             'icon' => 'fas fa-fw fa-users',
@@ -360,41 +364,43 @@ return [
             'active' => ['estados*'],
             'can' => 'estados.ver',
         ],
-        ['header' => 'indicadores_management'],
         [
-            'text' => 'Indicadores Mensuales',
+            'text' => 'Iframes',
+            'url' => 'iframes',
+            'icon' => 'fas fa-fw fa-list-alt',
+            'active' => ['iframes*'],
+        ],
+        [
+            'header' => 'INDICADORES',
+            'can' => 'indicadores.ver',
+        ],
+        [
+            'text' => 'Gestión de Indicadores',
             'url' => '#',
             'icon' => 'fas fa-fw fa-calendar-alt',
-            'active' => ['indicadores.registros*'],
+            //'active' => ['indicadores', 'tipos_indicador', 'regex:@^content/[0-9]+$@'],
             'submenu' => [
                 [
-                    'text' => 'Crear Registro Mensual',
-                    'url' => 'indicadores/{indicador}/registros/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                    #'can' => 'indicadores.registros.crear',
+                    'text' => 'Tipos de Indicadores',
+                    'url' => 'tipos_indicador',
+                    'icon' => 'fas fa-fw fa-list-alt',
+                    'active' => ['tipos_indicador*'],
                 ],
                 [
-                    'text' => 'Ver Registros Mensuales',
-                    'url' => 'indicadores/{indicador}/registros',
-                    'icon' => 'fas fa-fw fa-list',
-                    #'can' => 'indicadores.registros.ver',
+                    'text' => 'Indicadores',
+                    'url' => 'indicadores',
+                    'icon' => 'fas fa-fw fa-chart-line',
+                    'active' => ['indicadores*'],
+                    'can' => 'indicadores.ver',
                 ],
             ],
         ],
         [
-            'text' => 'Indicadores',
-            'url' => 'indicadores',
-            'icon' => 'fas fa-fw fa-chart-line',
-            'active' => ['indicadores*'],
-            'can' => 'indicadores.ver',
-        ],
-        [
-            'text' => 'Tipos de Indicadores',
-            'url' => 'tipos_indicador',
-            'icon' => 'fas fa-fw fa-list-alt',
-            'active' => ['tipos_indicador*'],
-            'can' => 'tipos_indicador.ver',
-        ],
+            'text' => 'Plantilla',
+            'url' => 'plantilla',
+            'icon' => 'fas fa-fw fa-file-alt',
+            'active' => ['plantilla*'],
+        ]
         // [
         //     'text' => 'Indicadores',
         //     'url' => 'indicadores',
@@ -607,17 +613,17 @@ return [
             ],
         ],
         'Pace' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css', //phpcs:ignore
+                    'asset' => true,
+                    'location' => 'vendor/pace-progress/themes/blue/pace-theme-minimal.css',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/pace-progress/pace.min.js',
                 ],
             ],
         ],

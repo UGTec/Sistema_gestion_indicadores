@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\IframeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EstadoUsuarioController;
-use App\Http\Controllers\IndicadorMensualController;
 use App\Http\Controllers\TipoIndicadorController;
+use App\Http\Controllers\IndicadorMensualController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -19,6 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('plantilla', function () {
+        return view('custom-plantilla.index');
+    })->name('plantilla.index');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('usuarios', UsuarioController::class);
@@ -58,6 +62,13 @@ Route::middleware(['auth'])->group(function () {
     // Tipos de Indicadores
     Route::resource('tipos_indicador', TipoIndicadorController::class)
         ->parameters([
-            'tipo_indicador' => 'tipo'
+            'cod_tipo_indicador' => 'tipo'
     ]);
+    // Power BI
+    Route::resource('iframes', IframeController::class);
+    Route::get('iframe/{iframe}', [IframeController::class, 'display'])
+        ->name('iframe.display')
+        ->where('iframe', '[0-9]+');
+    Route::get('api/iframe/active', [IframeController::class, 'getActive'])
+        ->name('iframe.active');
 });

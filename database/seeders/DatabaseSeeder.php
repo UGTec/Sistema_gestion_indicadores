@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             IndicadorSeeder::class,
             IndicadorMensualSeeder::class,
             PermissionSeeder::class,
+            IframeSeeder::class,
         ]);
     }
 }
