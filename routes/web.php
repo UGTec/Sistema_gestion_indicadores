@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\IframeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentoController;
@@ -34,4 +35,11 @@ Route::middleware(['auth'])->group(function () {
             ]
         )
         ->except(['show']);
+    // iframe para Power BI
+    Route::resource('iframes', IframeController::class);
+    Route::get('iframe/{iframe}', [IframeController::class, 'display'])
+        ->name('iframe.display')
+        ->where('iframe', '[0-9]+');
+    Route::get('api/iframe/active', [IframeController::class, 'getActive'])
+        ->name('iframe.active');
 });

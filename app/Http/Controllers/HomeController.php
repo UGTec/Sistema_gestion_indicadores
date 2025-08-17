@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Iframe;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,9 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $iframe = Iframe::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->first();
         $usuario = Usuario::where('usuario', Auth::user()->usuario)
             ->with('roles')
             ->first();
-        return view('home', compact('usuario'));
+        return view('home', compact('usuario', 'iframe'));
     }
 }
