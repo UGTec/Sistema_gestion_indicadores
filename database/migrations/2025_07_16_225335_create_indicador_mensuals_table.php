@@ -24,7 +24,6 @@ return new class () extends Migration {
             $table->foreign('cod_indicador')->references('cod_indicador')->on('indicador');
             $table->foreign('cod_usuario')->references('cod_usuario')->on('usuario');
 
-            $table->softDeletes();
             $table->timestamps();
         });
     }

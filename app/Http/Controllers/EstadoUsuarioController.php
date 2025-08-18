@@ -38,9 +38,9 @@ class EstadoUsuarioController extends Controller
     {
         $request->validate(
             [
-            //'cod_estado_usuario' => 'required|numeric|unique:estado_usuario,cod_estado_usuario',
-            'estado_usuario' => 'required|string|max:20|unique:estado_usuario,estado_usuario'
-        ],
+                //'cod_estado_usuario' => 'required|numeric|unique:estado_usuario,cod_estado_usuario',
+                'estado_usuario' => 'required|string|max:20|unique:estado_usuario,estado_usuario'
+            ],
             [
                 //'cod_estado_usuario.required' => 'El código del estado es obligatorio.',
                 //'cod_estado_usuario.numeric' => 'El código del estado debe ser un número.',

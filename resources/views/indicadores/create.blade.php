@@ -26,14 +26,14 @@
                 @csrf
 
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    {{-- <div class="form-group col-md-2">
                         <label for="cod_indicador">Código</label>
-                        <input type="number" class="form-control @error('cod_indicador') is-invalid @enderror" id="cod_indicador" name="cod_indicador" required>
+                        <input type="number" class="form-control @error('cod_indicador') is-invalid @enderror" id="cod_indicador" name="cod_indicador" >
                         <small class="form-text text-muted">Número único identificador</small>
-                    </div>
+                    </div> --}}
                     <div class="form-group col-md-5">
                         <label for="cod_tipo_indicador">Tipo de Indicador</label>
-                        <select class="form-control @error('cod_tipo_indicador') is-invalid @enderror" id="cod_tipo_indicador" name="cod_tipo_indicador" required>
+                        <select class="form-control @error('cod_tipo_indicador') is-invalid @enderror" id="cod_tipo_indicador" name="cod_tipo_indicador" >
                             <option value="">Seleccione un tipo</option>
                             @foreach($tipos as $tipo)
                                 <option value="{{ $tipo->cod_tipo_indicador }}">{{ $tipo->tipo_indicador }} - {{ $tipo->descripcion }}</option>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group col-md-5">
                         <label for="cod_usuario">Responsable</label>
-                        <select class="form-control @error('cod_usuario') is-invalid @enderror" id="cod_usuario" name="cod_usuario" required>
+                        <select class="form-control @error('cod_usuario') is-invalid @enderror" id="cod_usuario" name="cod_usuario" >
                             <option value="">Seleccione un responsable</option>
                             @foreach($usuarios as $usuario)
                                 <option value="{{ $usuario->cod_usuario }}">{{ $usuario->nombre }} {{ $usuario->primer_apellido }}</option>
@@ -53,12 +53,12 @@
 
                 <div class="form-group">
                     <label for="indicador">Nombre del Indicador</label>
-                    <textarea class="form-control @error('indicador') is-invalid @enderror" id="indicador" name="indicador" rows="2" required></textarea>
+                    <textarea class="form-control @error('indicador') is-invalid @enderror" id="indicador" name="indicador" rows="2" ></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="objetivo">Objetivo</label>
-                    <textarea class="form-control @error('objetivo') is-invalid @enderror" id="objetivo" name="objetivo" rows="2" required></textarea>
+                    <textarea class="form-control @error('objetivo') is-invalid @enderror" id="objetivo" name="objetivo" rows="2" ></textarea>
                 </div>
 
                 <div class="form-row">

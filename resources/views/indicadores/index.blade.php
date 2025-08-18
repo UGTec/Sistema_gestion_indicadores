@@ -41,6 +41,7 @@
                 'Indicador',
                 'Tipo',
                 'Responsable',
+                'Meta',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
             ];
             $config['language'] = ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es-cl.json'];
@@ -56,10 +57,13 @@
                 <td>{{ Str::limit($indicador->indicador, 50) }}</td>
                 <td>{{ $indicador->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
                 <td>{{ $indicador->usuario->nombre ?? 'N/A' }}</td>
+                <td>{{ $indicador->meta }}%</td>
                 <td>
+                    @can('indicadores.ver')
                     <a href="{{ route('indicadores.show', $indicador->cod_indicador) }}" class="btn btn-xs btn-info">
                         <i class="fas fa-eye"></i>
                     </a>
+                    @endcan
                     @can('indicadores.editar')
                     <a href="{{ route('indicadores.edit', $indicador->cod_indicador) }}" class="btn btn-xs btn-primary">
                         <i class="fas fa-edit"></i>

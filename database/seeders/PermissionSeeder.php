@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Usuario;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Models\Usuario;
 
 class PermissionSeeder extends Seeder
 {
@@ -62,6 +62,21 @@ class PermissionSeeder extends Seeder
             'permisos.eliminar',
         ];
 
+        $iframePermissions = [
+            'iframe.ver',
+            'iframe.crear',
+            'iframe.editar',
+            'iframe.eliminar',
+        ];
+
+        $reportesPermissions = [
+            'reportes.informar',
+            'reportes.revisar',
+            'reportes.controlar',
+            'reportes.jefatura',
+            'reportes.ver_todo',
+        ];
+
         // Combinar todos los permisos
         $allPermissions = array_merge(
             $indicadorPermissions,
@@ -69,7 +84,9 @@ class PermissionSeeder extends Seeder
             $departamentoPermissions,
             $estadoUsuarioPermissions,
             $rolePermissions,
-            $permissionPermissions
+            $permissionPermissions,
+            $iframePermissions,
+            $reportesPermissions,
         );
 
         // Crear permisos en la base de datos
@@ -89,7 +106,8 @@ class PermissionSeeder extends Seeder
             'indicadores.ver',
             'indicadores.reportes',
             'departamentos.ver',
-            'usuarios.ver'
+            'usuarios.ver',
+            'reportes.jefatura',
         ]);
 
         // 3. Informante
@@ -97,20 +115,23 @@ class PermissionSeeder extends Seeder
         $roleInformante->givePermissionTo([
             'indicadores.ver',
             'indicadores.crear',
-            'indicadores.editar'
+            'indicadores.editar',
+            'reportes.informar',
         ]);
 
         // 4. Revisor
         $roleRevisor = Role::create(['name' => 'Revisor', 'guard_name' => 'web']);
         $roleRevisor->givePermissionTo([
             'indicadores.ver',
-            'indicadores.editar'
+            'indicadores.editar',
+            'reportes.revisar',
         ]);
 
-        // 5. Observador
+        // 5. Observador / Auditor
         $roleObservador = Role::create(['name' => 'Observador', 'guard_name' => 'web']);
         $roleObservador->givePermissionTo([
-            'indicadores.ver'
+            'indicadores.ver',
+            'reportes.ver_todo',
         ]);
 
         // Asignar rol de Control de Gestión al usuario con ID 1 (admin principal)

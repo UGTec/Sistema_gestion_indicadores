@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\FlujoController;
 use App\Http\Controllers\IframeController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\EstadoUsuarioController;
-use App\Http\Controllers\TipoIndicadorController;
-use App\Http\Controllers\IndicadorMensualController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -20,9 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('plantilla', function () {
-        return view('custom-plantilla.index');
-    })->name('plantilla.index');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('usuarios', UsuarioController::class);
@@ -42,29 +39,26 @@ Route::middleware(['auth'])->group(function () {
         )
         ->except(['show']);
     // Indicadores
-    Route::resource('indicadores', IndicadorController::class)
-        ->parameters(
-            [
-                'indicadores' => 'indicador'
-            ]
-        );
-    Route::prefix('indicadores/{indicador}')->group(function () {
-        Route::resource('registros', IndicadorMensualController::class)
-            ->except(['index', 'show'])
-            ->names([
-                'create'  => 'indicadores.registros.create',
-                'store'   => 'indicadores.registros.store',
-                'edit'    => 'indicadores.registros.edit',
-                'update'  => 'indicadores.registros.update',
-                'destroy' => 'indicadores.registros.destroy'
-            ]);
+    Route::resource('indicadores', IndicadorController::class);
+    Route::prefix('indicadores/{indicador}/reportes/{año}/{mes}')->group(function () {
+        Route::get('crear', [ReporteController::class, 'create'])->name('reportes.create');
+        Route::post('/', [ReporteController::class, 'store'])->name('reportes.store');
+        Route::get('/', [ReporteController::class, 'show'])->name('reportes.show');
+
+        // Flujo
+        Route::post('enviar-a-revisor', [FlujoController::class, 'enviarARevisor'])
+            ->name('reportes.enviarRevisor');
+        Route::post('revisor', [FlujoController::class, 'revisorAccion'])
+            ->name('reportes.revisor');
+        Route::post('control', [FlujoController::class, 'controlAccion'])
+            ->name('reportes.control');
+        Route::post('jefatura', [FlujoController::class, 'jefaturaAccion'])
+            ->name('reportes.jefatura');
     });
-    // Tipos de Indicadores
-    Route::resource('tipos_indicador', TipoIndicadorController::class)
-        ->parameters([
-            'cod_tipo_indicador' => 'tipo'
-    ]);
-    // Power BI
+    Route::get('adjuntos/{adjunto}/descargar', [ReporteController::class, 'descargarAdjunto'])
+        ->name('adjuntos.descargar');
+
+    // iframe para Power BI
     Route::resource('iframes', IframeController::class);
     Route::get('iframe/{iframe}', [IframeController::class, 'display'])
         ->name('iframe.display')
