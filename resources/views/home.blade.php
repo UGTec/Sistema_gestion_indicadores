@@ -62,65 +62,6 @@
             @endif
         </div>
     </x-adminlte-card>
-
-    <x-adminlte-card class="shadow" theme="secondary" icon="fas fa-lg fa-info-circle" maximizable collapsible>
-        {{-- @can('dashboard.info') --}}
-        <x-slot name="toolsSlot">
-            <h3 class="card-title">
-                <i class="fas fa-lg fa-info-circle"></i>
-                Información del Sistema
-            </h3>
-        </x-slot>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#;"  class="btn btn-primary">
-                    btn-primary
-                </a>
-                <a href="#;"  class="btn btn-coral">
-                    btn-coral
-                </a>
-                <a href="#;"  class="btn btn-orange">
-                    btn-orange
-                </a>
-                <a href="#;"  class="btn btn-navy">
-                    btn-navy
-                </a>
-                <a href="#;"  class="btn btn-sky-blue">
-                    btn-sky-blue
-                </a>
-                <a href="#;"  class="btn btn-golden">
-                    btn-golden
-                </a>
-                <a href="#;"  class="btn btn-forest">
-                    btn-forest
-                </a>
-            </div>
-            <div class="col-md-6">
-                <a href="#;"  class="btn btn-outline-coral">
-                    btn-outline-coral
-                </a>
-                <a href="#;"  class="btn btn-outline-orange">
-                    btn-outline-orange
-                </a>
-                <a href="#;"  class="btn btn-outline-navy">
-                    btn-outline-navy
-                </a>
-                <a href="#;"  class="btn btn-outline-sky-blue">
-                    btn-outline-sky-blue
-                </a>
-                <a href="#;"  class="btn btn-outline-golden">
-                    btn-outline-golden
-                </a>
-                <a href="#;"  class="btn btn-outline-forest">
-                    btn-outline-forest
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-6"></div>
-        </div>
-    </x-adminlte-card>
 @stop
 
 {{-- Push extra CSS --}}
