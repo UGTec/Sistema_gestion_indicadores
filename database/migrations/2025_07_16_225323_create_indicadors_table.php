@@ -11,7 +11,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('indicador', function (Blueprint $table) {
-            $table->decimal('cod_indicador', 4, 0)->primary();
+            //$table->decimal('cod_indicador', 4, 0)->primary();
+            $table->integer('cod_indicador')->primary();
             $table->string('indicador', 4098)->nullable();
             $table->string('objetivo', 4098)->nullable();
             $table->decimal('cod_tipo_indicador', 2, 0)->nullable();
