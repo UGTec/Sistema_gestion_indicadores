@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property string $cod_tipo_indicador
- * @property string|null $tipo_indicador
- * @property string|null $descripcion
+ * @property string                          $cod_tipo_indicador
+ * @property string|null                     $tipo_indicador
+ * @property string|null                     $descripcion
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at

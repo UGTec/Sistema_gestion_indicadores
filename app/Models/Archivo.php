@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property int $id
- * @property string $nombre_original
- * @property string $nombre_guardado
- * @property string $ruta
- * @property string $mime_type
- * @property int $tamanho
- * @property string $archivable_type
- * @property int $archivable_id
+ * @property int                             $id
+ * @property string                          $nombre_original
+ * @property string                          $nombre_guardado
+ * @property string                          $ruta
+ * @property string                          $mime_type
+ * @property int                             $tamanho
+ * @property string                          $archivable_type
+ * @property int                             $archivable_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Model|\Eloquent $archivable

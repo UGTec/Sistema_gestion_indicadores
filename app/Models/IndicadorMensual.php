@@ -6,24 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int $cod_indicador
- * @property string|null $numerador
- * @property string|null $denominador
- * @property string $mes
- * @property string $año
- * @property float|null $resultado
- * @property string|null $cod_usuario
+ * @property int                             $cod_indicador
+ * @property string|null                     $numerador
+ * @property string|null                     $denominador
+ * @property string                          $mes
+ * @property string                          $año
+ * @property float|null                      $resultado
+ * @property string|null                     $cod_usuario
  * @property \Illuminate\Support\Carbon|null $fecha_actualizacion
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $estado
- * @property string|null $observaciones
- * @property string|null $enviado_revisor_at
- * @property string|null $enviado_control_at
- * @property string|null $enviado_jefatura_at
- * @property string|null $aprobado_at
- * @property int $id
- * @property string|null $cod_usuario_modificacion
+ * @property string                          $estado
+ * @property string|null                     $observaciones
+ * @property string|null                     $enviado_revisor_at
+ * @property string|null                     $enviado_control_at
+ * @property string|null                     $enviado_jefatura_at
+ * @property string|null                     $aprobado_at
+ * @property int                             $id
+ * @property string|null                     $cod_usuario_modificacion
  * @property-read \App\Models\Indicador $indicador
  * @property-read \App\Models\Usuario|null $usuario
  * @property-read \App\Models\Usuario|null $usuarioModificacion

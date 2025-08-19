@@ -7,20 +7,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int $cod_indicador
- * @property string|null $indicador
- * @property string|null $objetivo
- * @property string|null $cod_tipo_indicador
- * @property string|null $parametro1
- * @property string|null $parametro2
- * @property string|null $cod_usuario
- * @property float|null $meta
- * @property string|null $deleted_at
+ * @property int                             $cod_indicador
+ * @property string|null                     $indicador
+ * @property string|null                     $objetivo
+ * @property string|null                     $cod_tipo_indicador
+ * @property string|null                     $parametro1
+ * @property string|null                     $parametro2
+ * @property string|null                     $cod_usuario
+ * @property float|null                      $meta
+ * @property string|null                     $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property bool $cerrado
+ * @property bool                            $cerrado
  * @property \Illuminate\Support\Carbon|null $fecha_cierre
- * @property string $estado
+ * @property string                          $estado
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Archivo> $archivos
  * @property-read int|null $archivos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\IndicadorMensual> $indicadoresMensuales

@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * @property int $cod_usuario
- * @property string|null $usuario
- * @property string|null $nombre
- * @property string|null $primer_apellido
- * @property string|null $segundo_apellido
- * @property string|null $correo_electronico
- * @property string|null $cod_departamento
- * @property string|null $cod_estado_usuario
- * @property string $password
- * @property string|null $remember_token
+ * @property int                             $cod_usuario
+ * @property string|null                     $usuario
+ * @property string|null                     $nombre
+ * @property string|null                     $primer_apellido
+ * @property string|null                     $segundo_apellido
+ * @property string|null                     $correo_electronico
+ * @property string|null                     $cod_departamento
+ * @property string|null                     $cod_estado_usuario
+ * @property string                          $password
+ * @property string|null                     $remember_token
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at

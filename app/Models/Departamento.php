@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string $cod_departamento
- * @property string|null $departamento
- * @property string|null $cod_division
+ * @property string                          $cod_departamento
+ * @property string|null                     $departamento
+ * @property string|null                     $cod_division
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
