@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Indicador;
-use App\Models\IndicadorMensual;
-use App\Services\FlujoReportes;
 use Illuminate\Http\Request;
+use App\Services\FlujoReportes;
+use App\Models\IndicadorMensual;
 
 class FlujoController extends Controller
 {

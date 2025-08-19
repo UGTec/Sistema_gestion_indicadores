@@ -5,7 +5,6 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use App\Models\IndicadorMensual;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class ReporteEstadoCambiado extends Notification
@@ -35,7 +34,7 @@ class ReporteEstadoCambiado extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Cambio de estado de reporte mensual')
             ->line("Indicador {$this->reporte->cod_indicador} – Mes {$this->reporte->mes}/{$this->reporte->año}")
             ->line("Nuevo estado: {$this->reporte->estado}")

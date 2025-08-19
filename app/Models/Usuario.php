@@ -68,7 +68,7 @@ class Usuario extends Authenticatable
     use Notifiable;
     use HasRoles;
 
-    protected $table = 'usuario';
+    protected $table      = 'usuario';
     protected $primaryKey = 'cod_usuario';
 
     public $timestamps = true;
@@ -95,7 +95,7 @@ class Usuario extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 

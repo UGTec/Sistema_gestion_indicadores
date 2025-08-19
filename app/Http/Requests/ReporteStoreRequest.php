@@ -14,10 +14,10 @@ class ReporteStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'numerador' => 'required|numeric|min:0',
-            'denominador' => 'required|numeric|min:0',
+            'numerador'     => 'required|numeric|min:0',
+            'denominador'   => 'required|numeric|min:0',
             'observaciones' => 'nullable|string',
-            'adjuntos.*' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png,svg,gif',
+            'adjuntos.*'    => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,jpg,jpeg,png,svg,gif',
         ];
     }
 }

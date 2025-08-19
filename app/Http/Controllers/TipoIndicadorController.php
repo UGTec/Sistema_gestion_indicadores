@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoIndicador;
 use Illuminate\Http\Request;
+use App\Models\TipoIndicador;
 
 class TipoIndicadorController extends Controller
 {

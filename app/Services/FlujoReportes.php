@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\IndicadorMensual;
 use App\Models\WorkflowLog;
+use App\Models\IndicadorMensual;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 use App\Notifications\ReporteEstadoCambiado;
+use Illuminate\Support\Facades\Notification;
 
 class FlujoReportes
 {
@@ -60,12 +60,20 @@ class FlujoReportes
 
         return DB::transaction(function () use ($rep, $actual, $siguiente, $mensaje) {
             $rep->estado = $siguiente;
-            $now = now();
+            $now         = now();
 
-            if ($siguiente === 'en_revision_revisor') $rep->enviado_revisor_at = $now;
-            if ($siguiente === 'en_revision_control') $rep->enviado_control_at = $now;
-            if ($siguiente === 'en_revision_jefatura') $rep->enviado_jefatura_at = $now;
-            if ($siguiente === 'aprobado') $rep->aprobado_at = $now;
+            if ($siguiente === 'en_revision_revisor') {
+                $rep->enviado_revisor_at = $now;
+            }
+            if ($siguiente === 'en_revision_control') {
+                $rep->enviado_control_at = $now;
+            }
+            if ($siguiente === 'en_revision_jefatura') {
+                $rep->enviado_jefatura_at = $now;
+            }
+            if ($siguiente === 'aprobado') {
+                $rep->aprobado_at = $now;
+            }
 
             $rep->save();
 

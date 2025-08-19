@@ -26,7 +26,7 @@ class IndicadorAsignadoNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Nuevo Indicador Asignado')
             ->line('Se te ha asignado un nuevo indicador:')
             ->line($this->indicador->indicador)

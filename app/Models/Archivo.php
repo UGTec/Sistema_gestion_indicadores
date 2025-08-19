@@ -5,6 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property int $id
+ * @property string $nombre_original
+ * @property string $nombre_guardado
+ * @property string $ruta
+ * @property string $mime_type
+ * @property int $tamanho
+ * @property string $archivable_type
+ * @property int $archivable_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Model|\Eloquent $archivable
+ * @property-read mixed $tamanho_formateado
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereArchivableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereArchivableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereNombreGuardado($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereNombreOriginal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereRuta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereTamanho($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Archivo whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Archivo extends Model
 {
     protected $fillable = [

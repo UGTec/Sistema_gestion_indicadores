@@ -35,10 +35,10 @@ class Departamento extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'departamento';
+    protected $table      = 'departamento';
     protected $primaryKey = 'cod_departamento';
-    protected $keyType = 'decimal';
-    public $incrementing = false;
+    protected $keyType    = 'decimal';
+    public $incrementing  = false;
 
     protected $fillable = [
         'cod_departamento',

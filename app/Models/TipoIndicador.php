@@ -33,11 +33,11 @@ class TipoIndicador extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'tipo_indicador';
+    protected $table      = 'tipo_indicador';
     protected $primaryKey = 'cod_tipo_indicador';
-    protected $keyType = 'decimal';
-    public $incrementing = false;
-    protected $dates = ['deleted_at'];
+    protected $keyType    = 'decimal';
+    public $incrementing  = false;
+    protected $dates      = ['deleted_at'];
 
     protected $fillable = [
         'cod_tipo_indicador',

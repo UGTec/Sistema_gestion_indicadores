@@ -32,21 +32,21 @@ class PermissionController extends Controller
     {
         $validated = $request->validate(
             [
-            'name' => 'required|string|unique:permisos,name',
-            'permissions' => 'required|array|min:1',
-            'permissions.*' => 'required|string|distinct'
-        ],
-            [
-            'name.required' => 'El nombre del módulo es obligatorio.',
-            'name.unique' => 'El nombre del módulo ya existe.',
-            'permissions.required' => 'Debe ingresar al menos un permiso.',
-            'permissions.array' => 'Los permisos deben ser un arreglo.',
-            'permissions.*.required' => 'Cada permiso es obligatorio.',
-            'permissions.*.distinct' => 'Los permisos deben ser únicos.'
+                'name'          => 'required|string|unique:permisos,name',
+                'permissions'   => 'required|array|min:1',
+                'permissions.*' => 'required|string|distinct'
             ],
             [
-            'name' => 'Módulo',
-            'permissions' => 'Permisos'
+                'name.required'          => 'El nombre del módulo es obligatorio.',
+                'name.unique'            => 'El nombre del módulo ya existe.',
+                'permissions.required'   => 'Debe ingresar al menos un permiso.',
+                'permissions.array'      => 'Los permisos deben ser un arreglo.',
+                'permissions.*.required' => 'Cada permiso es obligatorio.',
+                'permissions.*.distinct' => 'Los permisos deben ser únicos.'
+            ],
+            [
+                'name'        => 'Módulo',
+                'permissions' => 'Permisos'
             ]
         );
 
@@ -54,9 +54,9 @@ class PermissionController extends Controller
             $createdPermissions = [];
 
             foreach ($validated['permissions'] as $permission) {
-                $permissionName = str($validated['name'] . '.' . $permission);
+                $permissionName       = str($validated['name'] . '.' . $permission);
                 $createdPermissions[] = Permission::first(['name' => $permissionName]) ?? Permission::create([
-                    'name' => $permissionName,
+                    'name'       => $permissionName,
                     'guard_name' => 'web'
                 ]);
             }

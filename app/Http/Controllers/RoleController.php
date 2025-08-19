@@ -33,8 +33,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|unique:roles,name',
-            'permissions' => 'nullable|array',
+            'name'          => 'required|string|unique:roles,name',
+            'permissions'   => 'nullable|array',
             'permissions.*' => 'exists:permisos,id'
         ]);
 
@@ -65,8 +65,8 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => 'required|string|unique:roles,name,' . $role->id,
-            'permissions' => 'nullable|array',
+            'name'          => 'required|string|unique:roles,name,' . $role->id,
+            'permissions'   => 'nullable|array',
             'permissions.*' => 'exists:permisos,id'
         ]);
 

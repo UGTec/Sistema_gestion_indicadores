@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Indicador;
-use App\Models\IndicadorMensual;
 use Illuminate\Http\Request;
+use App\Models\IndicadorMensual;
 
 class IndicadorMensualController extends Controller
 {
@@ -20,15 +20,15 @@ class IndicadorMensualController extends Controller
         $this->authorize('create', [IndicadorMensual::class, $indicador]);
 
         $data = $request->validate([
-            'mes' => 'required|numeric|between:1,12',
-            'año' => 'required|numeric|min:2000|max:' . (date('Y') + 1),
-            'numerador' => 'required|numeric',
+            'mes'         => 'required|numeric|between:1,12',
+            'año'         => 'required|numeric|min:2000|max:' . (date('Y') + 1),
+            'numerador'   => 'required|numeric',
             'denominador' => 'required|numeric',
             'comentarios' => 'nullable|string|max:500',
         ]);
 
-        $data['resultado'] = $data['numerador'] / $data['denominador'];
-        $data['cod_usuario'] = auth()->id();
+        $data['resultado']           = $data['numerador'] / $data['denominador'];
+        $data['cod_usuario']         = auth()->id();
         $data['fecha_actualizacion'] = now();
 
         $indicador->indicadoresMensuales()->create($data);
@@ -49,14 +49,14 @@ class IndicadorMensualController extends Controller
         $this->authorize('update', $mensual);
 
         $data = $request->validate([
-            'numerador' => 'required|numeric',
+            'numerador'   => 'required|numeric',
             'denominador' => 'required|numeric',
             'comentarios' => 'nullable|string|max:500',
         ]);
 
-        $data['resultado'] = $data['numerador'] / $data['denominador'];
+        $data['resultado']                = $data['numerador'] / $data['denominador'];
         $data['cod_usuario_modificacion'] = auth()->id();
-        $data['fecha_actualizacion'] = now();
+        $data['fecha_actualizacion']      = now();
 
         $mensual->update($data);
 

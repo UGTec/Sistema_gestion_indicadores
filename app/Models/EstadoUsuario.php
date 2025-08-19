@@ -31,10 +31,10 @@ class EstadoUsuario extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'estado_usuario';
+    protected $table      = 'estado_usuario';
     protected $primaryKey = 'cod_estado_usuario';
-    protected $keyType = 'decimal';
-    public $incrementing = false;
+    protected $keyType    = 'decimal';
+    public $incrementing  = false;
 
     protected $fillable = [
         'cod_estado_usuario',

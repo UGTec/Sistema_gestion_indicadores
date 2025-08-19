@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archivo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArchivoController extends Controller

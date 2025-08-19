@@ -30,11 +30,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'use_ico_only'     => false,
-=======
-    'use_ico_only' => false,
->>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
+    'use_icon_only'    => false,
     'use_full_favicon' => true,
 
     /*
@@ -374,10 +370,6 @@ return [
             'url'    => 'iframes',
             'icon'   => 'fas fa-fw fa-list-alt',
             'active' => ['iframes*'],
-<<<<<<< HEAD
-            'can'    => 'iframe.ver',
-=======
->>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
         ],
         // [
         //     'text'   => 'Formatos de Archivos',
@@ -394,7 +386,7 @@ return [
             'text'    => 'Gestión de Indicadores',
             'url'     => '#',
             'icon'    => 'fas fa-fw fa-calendar-alt',
-            'can'    => 'indicadores.ver',
+            'can'     => 'indicadores.ver',
             'submenu' => [
                 // [
                 //     'text'   => 'Tipos de Indicadores',

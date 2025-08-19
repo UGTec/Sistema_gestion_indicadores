@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Models\Indicador;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\IndicadorAsignadoNotification;
 use App\Traits\ManejaArchivos;
+use App\Notifications\IndicadorAsignadoNotification;
 
 class IndicadorController extends Controller
 {
@@ -48,7 +47,7 @@ class IndicadorController extends Controller
 
     public function create()
     {
-        $usuarios = Usuario::where('cod_estado_usuario', 1)->get();
+        $usuarios       = Usuario::where('cod_estado_usuario', 1)->get();
         $tiposIndicador = \App\Models\TipoIndicador::all();
 
         return view('indicadores.create', compact('usuarios', 'tiposIndicador'));
@@ -113,7 +112,7 @@ class IndicadorController extends Controller
 
     public function edit(Indicador $indicador)
     {
-        $usuarios = Usuario::where('cod_estado_usuario', 1)->get();
+        $usuarios       = Usuario::where('cod_estado_usuario', 1)->get();
         $tiposIndicador = \App\Models\TipoIndicador::all();
 
         return view('indicadores.edit', compact('indicador', 'usuarios', 'tiposIndicador'));

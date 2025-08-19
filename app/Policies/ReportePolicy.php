@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\IndicadorMensual;
 use App\Models\Usuario;
-use Illuminate\Auth\Access\Response;
+use App\Models\IndicadorMensual;
 
 class ReportePolicy
 {

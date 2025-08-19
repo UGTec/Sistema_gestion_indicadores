@@ -31,10 +31,10 @@ class Division extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'division';
+    protected $table      = 'division';
     protected $primaryKey = 'cod_division';
-    protected $keyType = 'decimal';
-    public $incrementing = false;
+    protected $keyType    = 'decimal';
+    public $incrementing  = false;
 
     protected $fillable = [
         'cod_division',

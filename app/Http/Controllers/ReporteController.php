@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Indicador;
-use App\Models\IndicadorMensual;
 use App\Models\ReporteAdjunto;
+use App\Models\IndicadorMensual;
 use App\Http\Requests\ReporteStoreRequest;
-use Illuminate\Support\Facades\Storage;
 
 class ReporteController extends Controller
 {
@@ -16,11 +14,11 @@ class ReporteController extends Controller
         $reporte = IndicadorMensual::firstOrNew(
             [
                 'cod_indicador' => $indicador->cod_indicador,
-                'año' => $año,
-                'mes' => $mes,
+                'año'           => $año,
+                'mes'           => $mes,
             ],
             [
-                'estado' => 'por_informar',
+                'estado'      => 'por_informar',
                 'cod_usuario' => 1
             ]
         );
@@ -29,17 +27,17 @@ class ReporteController extends Controller
 
     public function store(ReporteStoreRequest $request, Indicador $indicador, int $año, int $mes)
     {
-        $data = $request->validated();
+        $data    = $request->validated();
         $reporte = IndicadorMensual::updateOrCreate(
             ['cod_indicador' => $indicador->cod_indicador, 'año' => $año, 'mes' => $mes],
             [
-                'numerador' => $data['numerador'],
-                'denominador' => $data['denominador'],
-                'resultado' => ($data['denominador'] ?? 0) ? ($data['numerador'] / $data['denominador'] * 100) : null,
-                'cod_usuario' => auth()->id(),
+                'numerador'           => $data['numerador'],
+                'denominador'         => $data['denominador'],
+                'resultado'           => ($data['denominador'] ?? 0) ? ($data['numerador'] / $data['denominador'] * 100) : null,
+                'cod_usuario'         => auth()->id(),
                 'fecha_actualizacion' => now(),
-                'observaciones' => $data['observaciones'] ?? null,
-                'estado' => 'por_informar',
+                'observaciones'       => $data['observaciones'] ?? null,
+                'estado'              => 'por_informar',
             ]
         );
 
@@ -47,12 +45,12 @@ class ReporteController extends Controller
             foreach ($request->file('adjuntos') as $file) {
                 $path = $file->store('adjuntos', 'public');
                 ReporteAdjunto::create([
-                    'cod_indicador' => $indicador->cod_indicador,
-                    'año' => $año,
-                    'mes' => $mes,
+                    'cod_indicador'   => $indicador->cod_indicador,
+                    'año'             => $año,
+                    'mes'             => $mes,
                     'nombre_original' => $file->getClientOriginalName(),
-                    'path' => $path,
-                    'cod_usuario' => auth()->id(),
+                    'path'            => $path,
+                    'cod_usuario'     => auth()->id(),
                 ]);
             }
         }
