@@ -2,9 +2,9 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Welcome')
-@section('content_header_title', 'Home')
-@section('content_header_subtitle', '')
+@section('subtitle', 'Dashboard')
+@section('content_header_title', 'Dashboard')
+@section('content_header_subtitle', 'Bienvenido al Sistema de Gestión de Indicadores' )
 
 {{-- Extend the browser title --}}
 
@@ -23,8 +23,20 @@
         </x-adminlte-profile-widget>
     </x-adminlte-card>
 
-    <x-adminlte-card class="shadow" theme="secondary">
+    <x-adminlte-card class="shadow" theme="secondary" collapsible maximizable>
         <div class="row">
+            @if (isset($iframe) && $iframe->is_active)
+                <div class="col">
+                    <div class="d-flex justify-content-center">
+                        <iframe style="border: 0;"
+                            src="{{ $iframe->url }}"
+                            width="{{ $iframe->width }}"
+                            height="{{ $iframe->height }}"
+                            title="">
+                        </iframe>
+                    </div>
+                </div>
+            @else
             <div class="col">
                 <div class="md-4">
                     <x-adminlte-info-box title="Título" text="algún texto" icon="far fa-lg fa-star"/>
@@ -47,6 +59,7 @@
                     <x-adminlte-info-box title="Reputación" text="0/1000" icon="fas fa-lg fa-medal text-dark" theme="danger" id="ibUpdatable" progress=0 progress-theme="teal" description="0% reputación completada para alcanzar el siguiente nivel"/>
                 </div>
             </div>
+            @endif
         </div>
     </x-adminlte-card>
 @stop
@@ -54,8 +67,7 @@
 {{-- Push extra CSS --}}
 
 @push('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+
 @endpush
 
 {{-- Push extra scripts --}}

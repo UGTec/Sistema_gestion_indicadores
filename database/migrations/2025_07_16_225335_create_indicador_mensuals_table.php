@@ -11,7 +11,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('indicador_mensual', function (Blueprint $table) {
-            $table->decimal('cod_indicador', 4, 0);
+            //$table->decimal('cod_indicador', 4, 0);
+            $table->integer('cod_indicador');
             $table->decimal('numerador', 10, 0)->nullable();
             $table->decimal('denominador', 10, 0)->nullable();
             $table->decimal('mes', 2, 0);
@@ -24,7 +25,6 @@ return new class () extends Migration {
             $table->foreign('cod_indicador')->references('cod_indicador')->on('indicador');
             $table->foreign('cod_usuario')->references('cod_usuario')->on('usuario');
 
-            $table->softDeletes();
             $table->timestamps();
         });
     }

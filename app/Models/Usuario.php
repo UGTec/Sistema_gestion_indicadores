@@ -123,4 +123,10 @@ class Usuario extends Authenticatable
     {
         return $this->hasMany(IndicadorMensual::class, 'cod_usuario', 'cod_usuario');
     }
+
+    // Email para notificaciones
+    public function routeNotificationForMail()
+    {
+        return $this->correo_electronico;
+    }
 }

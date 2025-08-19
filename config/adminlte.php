@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'SCG',
-    'title_prefix' => '',
+    'title'         => 'SCG',
+    'title_prefix'  => '',
     'title_postfix' => '',
 
     /*
@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only'     => false,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => 'SCG',
-    'logo_img' => 'img/logo.svg',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
+    'logo'              => 'SGI',
+    'logo_img'          => 'img/SGI-Fondo_Negro.png',
+    'logo_img_class'    => 'brand-image elevation-3',
+    'logo_img_xl'       => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Logo_Subsecretaría_Educación_Parvularia_de_Chile',
+    'logo_img_alt'      => 'Logo_Subsecretaría_Educación_Parvularia_de_Chile',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,12 +85,12 @@ return [
 
     'auth_logo' => [
         'enabled' => true,
-        'img' => [
-            'path' => 'img/logo.svg',
-            'alt' => 'Auth Logo',
-            'class' => '',
-            'width' => 100,
-            'height' => 100,
+        'img'     => [
+            'path'   => 'img/SGI-Fondo_Negro.png',
+            'alt'    => 'Auth Logo',
+            'class'  => '',
+            'width'  => 200,
+            'height' => 150,
         ],
     ],
 
@@ -111,13 +111,14 @@ return [
 
     'preloader' => [
         'enabled' => true,
-        'mode' => 'cwrapper',
-        'img' => [
-            'path' => 'img/logo.svg',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 100,
-            'height' => 100,
+        'mode'    => 'cwrapper',
+        'img'     => [
+            'path'   => 'img/SGI-Fondo-Negro.png',
+            'alt'    => 'SGI Preloader Image',
+            'effect' => 'animation__wobble',
+            'class'  => null,
+            'width'  => 200,
+            'height' => 'auto',
         ],
     ],
 
@@ -133,12 +134,12 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_enabled'      => true,
+    'usermenu_header'       => false,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_image'        => false,
+    'usermenu_desc'         => false,
+    'usermenu_profile_url'  => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -152,12 +153,12 @@ return [
     |
     */
 
-    'layout_topnav' => null,
-    'layout_boxed' => null,
+    'layout_topnav'        => null,
+    'layout_boxed'         => null,
     'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_fixed_navbar'  => null,
+    'layout_fixed_footer'  => null,
+    'layout_dark_mode'     => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -171,12 +172,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-primary',
+    'classes_auth_card'   => 'card-outline card-primary',
     'classes_auth_header' => '',
-    'classes_auth_body' => '',
+    'classes_auth_body'   => '',
     'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_icon'   => '',
+    'classes_auth_btn'    => 'btn-flat btn-primary',
 
     /*
     |--------------------------------------------------------------------------
@@ -190,16 +191,16 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
-    'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
-    'classes_topnav_nav' => 'navbar-expand',
+    'classes_body'             => '',
+    'classes_brand'            => '',
+    'classes_brand_text'       => '',
+    'classes_content_wrapper'  => '',
+    'classes_content_header'   => '',
+    'classes_content'          => '',
+    'classes_sidebar'          => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar_nav'      => '',
+    'classes_topnav'           => 'navbar-white navbar-light',
+    'classes_topnav_nav'       => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
     /*
@@ -214,15 +215,15 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
-    'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_mini'                            => 'lg',
+    'sidebar_collapse'                        => false,
+    'sidebar_collapse_auto_size'              => false,
+    'sidebar_collapse_remember'               => false,
     'sidebar_collapse_remember_no_transition' => true,
-    'sidebar_scrollbar_theme' => 'os-theme-light',
-    'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 300,
+    'sidebar_scrollbar_theme'                 => 'os-theme-light',
+    'sidebar_scrollbar_auto_hide'             => 'l',
+    'sidebar_nav_accordion'                   => true,
+    'sidebar_nav_animation_speed'             => 300,
 
     /*
     |--------------------------------------------------------------------------
@@ -236,12 +237,12 @@ return [
     |
     */
 
-    'right_sidebar' => false,
-    'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
-    'right_sidebar_slide' => true,
-    'right_sidebar_push' => true,
-    'right_sidebar_scrollbar_theme' => 'os-theme-light',
+    'right_sidebar'                     => false,
+    'right_sidebar_icon'                => 'fas fa-cogs',
+    'right_sidebar_theme'               => 'dark',
+    'right_sidebar_slide'               => true,
+    'right_sidebar_push'                => true,
+    'right_sidebar_scrollbar_theme'     => 'os-theme-light',
     'right_sidebar_scrollbar_auto_hide' => 'l',
 
     /*
@@ -256,14 +257,14 @@ return [
     |
     */
 
-    'use_route_url' => false,
-    'dashboard_url' => 'home',
-    'logout_url' => 'logout',
-    'login_url' => 'login',
-    'register_url' => '#',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'use_route_url'           => false,
+    'dashboard_url'           => 'home',
+    'logout_url'              => 'logout',
+    'login_url'               => 'login',
+    'register_url'            => '#',
+    'password_reset_url'      => 'password/reset',
+    'password_email_url'      => 'password/email',
+    'profile_url'             => false,
     'disable_darkmode_routes' => false,
 
     /*
@@ -283,8 +284,8 @@ return [
     */
 
     'laravel_asset_bundling' => false,
-    'laravel_css_path' => 'resources/sass/app.scss',
-    'laravel_js_path' => 'resources/js/app.js',
+    'laravel_css_path'       => 'resources/sass/app.scss',
+    'laravel_js_path'        => 'resources/js/app.js',
 
     /*
     |--------------------------------------------------------------------------
@@ -300,11 +301,11 @@ return [
 
     'menu' => [
         [
-            'type' => 'fullscreen-widget',
+            'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
         [
-            'type' => 'darkmode-widget',
+            'type'         => 'darkmode-widget',
             'topnav_right' => true,
         ],
         // Sidebar items:
@@ -314,57 +315,107 @@ return [
         ],
         [
             'text' => 'dashboard',
-            'url' => 'home',
+            'url'  => 'home',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
-            'text' => 'Usuarios',
-            'url' => 'usuarios',
-            'icon' => 'fas fa-fw fa-users',
-            'active' => ['usuarios*'],
-            'can' => 'usuarios.ver',
+            'header' => 'ADMINISTRACIÓN',
+            'can'    => 'usuarios.crear',
         ],
         [
-            'text' => 'Perfiles y Permisos',
-            'url' => '#',
-            'icon' => 'fas fa-fw fa-user-tag',
-            'active' => ['perfiles*'],
+            'text'   => 'Usuarios',
+            'url'    => 'usuarios',
+            'icon'   => 'fas fa-fw fa-users',
+            'active' => ['usuarios*'],
+            'can'    => 'usuarios.ver',
+        ],
+        [
+            'text'    => 'Perfiles y Permisos',
+            'url'     => '#',
+            'icon'    => 'fas fa-fw fa-user-tag',
+            'active'  => ['perfiles*'],
             'submenu' => [
                 [
-                    'text' => 'Perfiles',
-                    'url' => 'roles',
-                    'icon' => 'fas fa-fw fa-user-shield',
+                    'text'   => 'Perfiles',
+                    'url'    => 'roles',
+                    'icon'   => 'fas fa-fw fa-user-shield',
                     'active' => ['roles*'],
-                    'can' => 'roles.ver',
+                    'can'    => 'roles.ver',
                 ],
                 [
-                    'text' => 'Permisos',
-                    'url' => 'permisos',
-                    'icon' => 'fas fa-fw fa-lock',
+                    'text'   => 'Permisos',
+                    'url'    => 'permisos',
+                    'icon'   => 'fas fa-fw fa-lock',
                     'active' => ['permisos*'],
-                    'can' => 'permisos.ver',
+                    'can'    => 'permisos.ver',
                 ],
             ],
         ],
         [
-            'text' => 'departamentos',
-            'url' => 'departamentos',
-            'icon' => 'fas fa-fw fa-building',
+            'text'   => 'departamentos',
+            'url'    => 'departamentos',
+            'icon'   => 'fas fa-fw fa-building',
             'active' => ['departamentos*'],
-            'can' => 'departamentos.ver',
+            'can'    => 'departamentos.ver',
         ],
         [
-            'text' => 'Estados',
-            'url' => 'estados',
-            'icon' => 'fas fa-fw fa-exclamation-triangle',
+            'text'   => 'Estados',
+            'url'    => 'estados',
+            'icon'   => 'fas fa-fw fa-exclamation-triangle',
             'active' => ['estados*'],
-            'can' => 'estados.ver',
+            'can'    => 'estados.ver',
         ],
         [
-            'text' => 'Reportes',
-            'url' => '#',
-            'icon' => 'fas fa-fw fa-chart-bar',
+            'text'   => 'Iframes',
+            'url'    => 'iframes',
+            'icon'   => 'fas fa-fw fa-list-alt',
+            'active' => ['iframes*'],
+            'can'    => 'iframe.ver',
         ],
+        // [
+        //     'text'   => 'Formatos de Archivos',
+        //     'url'    => 'formatos-archivo',
+        //     'icon'   => 'fas fa-file',
+        //     'active' => ['formatos-archivo.*'],
+        //     'can'    => 'formatos.ver',
+        // ],
+        [
+            'header' => 'INDICADORES',
+            'can'    => 'indicadores.ver',
+        ],
+        [
+            'text'    => 'Gestión de Indicadores',
+            'url'     => '#',
+            'icon'    => 'fas fa-fw fa-calendar-alt',
+            'can'    => 'indicadores.ver',
+            'submenu' => [
+                // [
+                //     'text'   => 'Tipos de Indicadores',
+                //     'url'    => 'tipos_indicador',
+                //     'icon'   => 'fas fa-fw fa-list-alt',
+                //     'active' => ['tipos_indicador*'],
+                // ],
+                [
+                    'text'   => 'Indicadores',
+                    'url'    => 'indicadores',
+                    'icon'   => 'fas fa-fw fa-chart-line',
+                    'active' => ['indicadores*'],
+                    'can'    => 'indicadores.ver',
+                ],
+                // [
+                //     'text' => 'Indicador Mensual',
+                //     'url'  => '#;',
+                //     'icon' => 'fas fa-fw fa-chart-line',
+                // ],
+            ],
+        ],
+        // [
+        //     'text' => 'Indicadores',
+        //     'url' => 'indicadores',
+        //     'icon' => 'fas fa-fw fa-chart-bar',
+        //     'active' => ['indicadores*'],
+        //     'can' => 'indicadores.ver',
+        // ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
@@ -431,192 +482,202 @@ return [
     'plugins' => [
         'Datatables' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/datatables/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
         'DatatablesPlugins' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/buttons/js/buttons.print.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/jszip/jszip.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/responsive/js/dataTables.responsive.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/responsive/js/responsive.bootstrap4.min.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/responsive/css/responsive.bootstrap4.min.css',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/fixedheader/js/fixedHeader.bootstrap4.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/fixedheader/js/dataTables.fixedHeader.min.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/datatables-plugins/fixedheader/css/fixedHeader.bootstrap4.min.css',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => false,
+                    'type'     => 'js',
+                    'asset'    => false,
                     'location' => '//cdn.datatables.net/plug-ins/1.10.9/sorting/datetime-moment.js',
                 ],
             ],
         ],
         'Select2' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/select2/js/select2.full.min.js',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/select2/js/i18n/es.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/select2/css/select2.min.css',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
                 ],
             ],
         ],
         'Sweetalert2' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/sweetalert2/sweetalert2.all.min.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
                 ],
             ],
         ],
         'Pace' => [
-            'active' => false,
-            'files' => [
+            'active' => true,
+            'files'  => [
                 [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css', //phpcs:ignore
+                    'type'     => 'css',
+                    'asset'    => true,
+                    'location' => 'vendor/pace-progress/themes/blue/pace-theme-minimal.css',
                 ],
                 [
-                    'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'type'     => 'js',
+                    'asset'    => true,
+                    'location' => 'vendor/pace-progress/pace.min.js',
                 ],
             ],
         ],
         'BsCustomFileInput' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
                 ],
             ],
         ],
         'Toastr' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
+                    'type'     => 'js',
+                    'asset'    => true,
                     'location' => 'vendor/toastr/toastr.min.js',
                 ],
                 [
-                    'type' => 'css',
-                    'asset' => true,
+                    'type'     => 'css',
+                    'asset'    => true,
                     'location' => 'vendor/toastr/toastr.min.css',
                 ],
             ],
         ],
-        'inputmask' => [
+        'SummerNote' => [
             'active' => false,
-            'files' => [
+            'files'  => [
                 [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/inputmask/jquery.inputmask.min.js',
+                    'type'     => 'js',
+                    'asset'    => true,
+                    'location' => 'vendor/summernote/summernote-bs4.min.js',
                 ],
+                [
+                    'type'     => 'css',
+                    'asset'    => true,
+                    'location' => 'vendor/summernote/summernote-bs4.min.css',
+                ],
+                [
+                    'type'     => 'js',
+                    'asset'    => true,
+                    'location' => 'vendor/summernote/lang/summernote-es-ES.min.js',
+                ]
             ],
         ],
     ],
@@ -637,21 +698,21 @@ return [
 
     'iframe' => [
         'default_tab' => [
-            'url' => null,
+            'url'   => null,
             'title' => null,
         ],
         'buttons' => [
-            'close' => true,
-            'close_all' => true,
+            'close'           => true,
+            'close_all'       => true,
             'close_all_other' => true,
-            'scroll_left' => true,
-            'scroll_right' => true,
-            'fullscreen' => true,
+            'scroll_left'     => true,
+            'scroll_right'    => true,
+            'fullscreen'      => true,
         ],
         'options' => [
-            'loading_screen' => 1000,
+            'loading_screen'    => 1000,
             'auto_show_new_tab' => true,
-            'use_navbar_items' => true,
+            'use_navbar_items'  => true,
         ],
     ],
 

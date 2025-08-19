@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Usuario;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Models\Usuario;
 
 class PermissionSeeder extends Seeder
 {
@@ -20,7 +20,9 @@ class PermissionSeeder extends Seeder
             'indicadores.crear',
             'indicadores.editar',
             'indicadores.eliminar',
-            'indicadores.reportes',
+            'indicadores.cerrar',
+            'indicadores.completar',
+            'indicadores.reabrir',
         ];
 
         // Permisos para Usuarios
@@ -62,6 +64,13 @@ class PermissionSeeder extends Seeder
             'permisos.eliminar',
         ];
 
+        $iframePermissions = [
+            'iframe.ver',
+            'iframe.crear',
+            'iframe.editar',
+            'iframe.eliminar',
+        ];
+
         // Combinar todos los permisos
         $allPermissions = array_merge(
             $indicadorPermissions,
@@ -69,7 +78,8 @@ class PermissionSeeder extends Seeder
             $departamentoPermissions,
             $estadoUsuarioPermissions,
             $rolePermissions,
-            $permissionPermissions
+            $permissionPermissions,
+            $iframePermissions,
         );
 
         // Crear permisos en la base de datos
@@ -87,9 +97,8 @@ class PermissionSeeder extends Seeder
         $roleJefatura = Role::create(['name' => 'Jefatura de División', 'guard_name' => 'web']);
         $roleJefatura->givePermissionTo([
             'indicadores.ver',
-            'indicadores.reportes',
             'departamentos.ver',
-            'usuarios.ver'
+            'usuarios.ver',
         ]);
 
         // 3. Informante
@@ -97,20 +106,22 @@ class PermissionSeeder extends Seeder
         $roleInformante->givePermissionTo([
             'indicadores.ver',
             'indicadores.crear',
-            'indicadores.editar'
+            'indicadores.editar',
+            'indicadores.completar',
         ]);
 
         // 4. Revisor
         $roleRevisor = Role::create(['name' => 'Revisor', 'guard_name' => 'web']);
         $roleRevisor->givePermissionTo([
             'indicadores.ver',
-            'indicadores.editar'
+            'indicadores.editar',
+            'indicadores.completar',
         ]);
 
-        // 5. Observador
+        // 5. Observador / Auditor
         $roleObservador = Role::create(['name' => 'Observador', 'guard_name' => 'web']);
         $roleObservador->givePermissionTo([
-            'indicadores.ver'
+            'indicadores.ver',
         ]);
 
         // Asignar rol de Control de Gestión al usuario con ID 1 (admin principal)
@@ -118,18 +129,5 @@ class PermissionSeeder extends Seeder
         if ($admin) {
             $admin->assignRole('Control de Gestión');
         }
-
-        // Asignar rol de Jefatura de División al usuario con ID 21 (Victoria Parra según tus datos)
-        // $jefatura = Usuario::find(21);
-        // if ($jefatura) {
-        //     $jefatura->assignRole('Jefatura de División');
-        // }
-
-        // Asignar rol de Informante a los usuarios con perfil 3 (según tus datos)
-        //$informantes = Usuario::where('cod_perfil', 3)->get();
-        // $informantes = Usuario::find(2)->get();
-        // foreach ($informantes as $informante) {
-        //     $informante->assignRole('Informante');
-        // }
     }
 }

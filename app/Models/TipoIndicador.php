@@ -37,6 +37,7 @@ class TipoIndicador extends Model
     protected $primaryKey = 'cod_tipo_indicador';
     protected $keyType = 'decimal';
     public $incrementing = false;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'cod_tipo_indicador',

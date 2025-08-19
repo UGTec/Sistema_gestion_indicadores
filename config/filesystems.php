@@ -60,6 +60,13 @@ return [
             'report' => false,
         ],
 
+        'archivos' => [
+            'driver'     => 'local',
+            'root'       => storage_path('app/archivos'),
+            'url'        => env('APP_URL') . '/archivos',
+            'visibility' => 'private',
+        ],
+
     ],
 
     /*
