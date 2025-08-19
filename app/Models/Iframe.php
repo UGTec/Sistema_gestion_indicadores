@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,34 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereWidth($value)
+=======
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * @property        int                                                  $id
+ * @property        string                                               $name
+ * @property        string                                               $url
+ * @property        string|null                                          $description
+ * @property        string                                               $width
+ * @property        string                                               $height
+ * @property        bool                                                 $is_active
+ * @property        \Illuminate\Support\Carbon|null                      $created_at
+ * @property        \Illuminate\Support\Carbon|null                      $updated_at
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe active()
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe query()
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereCreatedAt($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereDescription($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereHeight($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereId($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereIsActive($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereName($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereUpdatedAt($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereUrl($value)
+ * @method   static \Illuminate\Database\Eloquent\Builder<static>|Iframe whereWidth($value)
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
  * @mixin \Eloquent
  */
 class Iframe extends Model

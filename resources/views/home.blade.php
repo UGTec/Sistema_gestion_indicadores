@@ -71,8 +71,6 @@
 @endpush
 
 {{-- Push extra scripts --}}
-
-
 @push('js')
     <script>
         $(document).ready(function() {

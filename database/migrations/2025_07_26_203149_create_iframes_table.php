@@ -1,11 +1,19 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+=======
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class () extends Migration {
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
     /**
      * Run the migrations.
      */

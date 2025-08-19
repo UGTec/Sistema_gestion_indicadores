@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Iframe;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+=======
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
 use Illuminate\Http\RedirectResponse;
 
 class IframeController extends Controller
@@ -32,6 +37,7 @@ class IframeController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'name' => 'required|string|max:255',
             'url' => 'required|url|max:2048',
             'description' => 'nullable|string',
@@ -40,6 +46,16 @@ class IframeController extends Controller
             'is_active' => 'boolean'
         ], [
             'width.regex' => 'El ancho debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit',
+=======
+            'name'        => 'required|string|max:255',
+            'url'         => 'required|url|max:2048',
+            'description' => 'nullable|string',
+            'width'       => ['required', 'string', 'regex:/^(auto|inherit|\d+(%|px|em|rem|vh|vw)|\d+)$/'],
+            'height'      => ['required', 'string', 'regex:/^(auto|inherit|\d+(%|px|em|rem|vh|vw)|\d+)$/'],
+            'is_active'   => 'boolean'
+        ], [
+            'width.regex'  => 'El ancho debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit',
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
             'height.regex' => 'La altura debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit'
         ]);
 
@@ -81,6 +97,7 @@ class IframeController extends Controller
     public function update(Request $request, Iframe $iframe): RedirectResponse
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'name' => 'required|string|max:255',
             'url' => 'required|url|max:2048',
             'description' => 'nullable|string',
@@ -89,6 +106,16 @@ class IframeController extends Controller
             'is_active' => 'boolean'
         ], [
             'width.regex' => 'El ancho debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit',
+=======
+            'name'        => 'required|string|max:255',
+            'url'         => 'required|url|max:2048',
+            'description' => 'nullable|string',
+            'width'       => ['required', 'string', 'regex:/^(auto|inherit|\d+(%|px|em|rem|vh|vw)|\d+)$/'],
+            'height'      => ['required', 'string', 'regex:/^(auto|inherit|\d+(%|px|em|rem|vh|vw)|\d+)$/'],
+            'is_active'   => 'boolean'
+        ], [
+            'width.regex'  => 'El ancho debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit',
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
             'height.regex' => 'La altura debe ser un número con unidad (px, %, em, rem, vh, vw) o auto/inherit'
         ]);
 
@@ -151,11 +178,19 @@ class IframeController extends Controller
         }
 
         return response()->json([
+<<<<<<< HEAD
             'id' => $iframe->id,
             'name' => $iframe->name,
             'url' => $iframe->url,
             'width' => $iframe->width,
             'height' => $iframe->height,
+=======
+            'id'          => $iframe->id,
+            'name'        => $iframe->name,
+            'url'         => $iframe->url,
+            'width'       => $iframe->width,
+            'height'      => $iframe->height,
+>>>>>>> aa75e952fac1efc1436eef8f1edcee7dd9adb13a
             'description' => $iframe->description
         ]);
     }
