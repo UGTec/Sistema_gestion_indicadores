@@ -370,6 +370,7 @@ return [
             'url'    => 'iframes',
             'icon'   => 'fas fa-fw fa-list-alt',
             'active' => ['iframes*'],
+            'can'    => 'iframe.ver',
         ],
         // [
         //     'text'   => 'Formatos de Archivos',
