@@ -28,7 +28,7 @@ class IndicadorMensualController extends Controller
         ]);
 
         $data['resultado']           = $data['numerador'] / $data['denominador'];
-        $data['cod_usuario']         = auth()->id();
+        $data['cod_usuario']         = auth()->user()->cod_usuario;
         $data['fecha_actualizacion'] = now();
 
         $indicador->indicadoresMensuales()->create($data);
@@ -55,7 +55,7 @@ class IndicadorMensualController extends Controller
         ]);
 
         $data['resultado']                = $data['numerador'] / $data['denominador'];
-        $data['cod_usuario_modificacion'] = auth()->id();
+        $data['cod_usuario_modificacion'] = auth()->user()->cod_usuario;
         $data['fecha_actualizacion']      = now();
 
         $mensual->update($data);

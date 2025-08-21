@@ -9,7 +9,9 @@
                     <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-sm btn-secondary float-right">
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>
-                    <h5 class="mb-0">Editar Registro Mensual: {{ DateTime::createFromFormat('!m', $mensual->mes)->format('F') }} {{ $mensual->año }}</h5>
+                    <h5 class="mb-0">Editar Registro Mensual:
+                        {{ ucfirst(\Carbon\Carbon::create(null, $mensual->mes)->locale('es')->monthName) }} {{ $mensual->año }}
+                    </h5>
                 </div>
 
                 <div class="card-body">
@@ -21,7 +23,7 @@
                             <label class="col-md-4 col-form-label text-md-right">Mes/Año</label>
                             <div class="col-md-6">
                                 <p class="form-control-plaintext">
-                                    {{ DateTime::createFromFormat('!m', $mensual->mes)->format('F') }} {{ $mensual->año }}
+                                    {{ ucfirst(\Carbon\Carbon::create(null, $mensual->mes)->locale('es')->monthName) }} {{ $mensual->año }}
                                 </p>
                             </div>
                         </div>

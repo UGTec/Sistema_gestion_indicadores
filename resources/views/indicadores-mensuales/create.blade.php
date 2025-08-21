@@ -21,8 +21,8 @@
                             <div class="col-md-6">
                                 <select id="mes" class="form-control @error('mes') is-invalid @enderror" name="mes" >
                                     @foreach(range(1, 12) as $month)
-                                    <option value="{{ $month }}" {{ old('mes') == $month ? 'selected' : '' }}>
-                                        {{ DateTime::createFromFormat('!m', $month)->format('F') }}
+                                    <option value="{{ $month }}" {{ old('mes', \Carbon\Carbon::now()->month) == $month ? 'selected' : '' }}>
+                                        {{ ucfirst(\Carbon\Carbon::create()->month($month)->locale('es')->monthName) }}
                                     </option>
                                     @endforeach
                                 </select>

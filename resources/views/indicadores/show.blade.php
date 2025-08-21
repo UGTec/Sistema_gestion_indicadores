@@ -190,9 +190,9 @@
                         <td>{{ $mensual->mes }}/{{ $mensual->año }}</td>
                         <td>{{ number_format($mensual->numerador, 2) }}</td>
                         <td>{{ number_format($mensual->denominador, 2) }}</td>
-                        <td>{{ number_format($mensual->resultado, 2) }}</td>
+                        <td>{{ number_format($mensual->resultado, 2) }}%</td>
                         <td>{{ $mensual->usuario->nombre ?? 'N/A' }}</td>
-                        <td>{{ $mensual->fecha_actualizacion }} </td>
+                        <td>{{ optional($mensual->fecha_actualizacion)->format('d-m-y') }} </td>
                         <td>
                             @can('update', $mensual)
                             <a href="{{ route('indicadores-mensuales.edit', [$indicador, $mensual]) }}" class="btn btn-sm btn-warning">
