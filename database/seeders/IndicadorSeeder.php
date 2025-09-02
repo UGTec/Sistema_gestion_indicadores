@@ -14,7 +14,7 @@ class IndicadorSeeder extends Seeder
     {
         $indicadores = [
             [
-                'cod_indicador'      => 1001,
+                //'cod_indicador'      => 1001,
                 'indicador'          => 'Porcentaje de cumplimiento de metas',
                 'objetivo'           => 'Medir el grado de cumplimiento de las metas establecidas',
                 'cod_tipo_indicador' => 1,
@@ -22,7 +22,7 @@ class IndicadorSeeder extends Seeder
                 'meta'               => 90
             ],
             [
-                'cod_indicador'      => 1002,
+                //'cod_indicador'      => 1002,
                 'indicador'          => 'Tasa de retención de estudiantes',
                 'objetivo'           => 'Medir la capacidad de retener estudiantes durante el año académico',
                 'cod_tipo_indicador' => 2,

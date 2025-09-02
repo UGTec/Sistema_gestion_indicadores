@@ -70,8 +70,7 @@ class Usuario extends Authenticatable
 
     protected $table      = 'usuario';
     protected $primaryKey = 'cod_usuario';
-
-    public $timestamps = true;
+    public $timestamps    = true;
 
     protected $fillable = [
         'cod_usuario',
@@ -125,7 +124,7 @@ class Usuario extends Authenticatable
     }
 
     // Email para notificaciones
-    public function routeNotificationForMail()
+    public function routeNotificationForMail(): ?string
     {
         return $this->correo_electronico;
     }

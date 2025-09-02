@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null                     $parametro2
  * @property string|null                     $cod_usuario
  * @property float|null                      $meta
- * @property string|null                     $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property bool                            $cerrado
@@ -25,11 +26,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read int|null $archivos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\IndicadorMensual> $indicadoresMensuales
  * @property-read int|null $indicadores_mensuales_count
+ * @property-read \App\Models\Usuario|null $responsable
  * @property-read \App\Models\TipoIndicador|null $tipoIndicador
  * @property-read \App\Models\Usuario|null $usuario
  * @property-read \App\Models\Usuario|null $usuarioAsignado
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereCerrado($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereCodIndicador($value)
@@ -45,14 +48,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereParametro1($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereParametro2($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Indicador withoutTrashed()
  * @mixin \Eloquent
  */
 class Indicador extends Model
 {
+    use SoftDeletes;
+
     protected $table      = 'indicador';
     protected $primaryKey = 'cod_indicador';
     public $incrementing  = true;
-    protected $keyType    = 'integer';
+    protected $keyType    = 'int';
+    public $timestamps    = true;
 
     protected $fillable = [
         'indicador',
@@ -83,9 +91,14 @@ class Indicador extends Model
         return $this->belongsTo(Usuario::class, 'cod_usuario');
     }
 
+    public function responsable()
+    {
+        return $this->belongsTo(Usuario::class, 'cod_usuario', 'cod_usuario');
+    }
+
     public function usuarioAsignado(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class, 'cod_usuario_asignado');
+        return $this->belongsTo(Usuario::class, 'cod_usuario');
     }
 
     public function indicadoresMensuales(): HasMany

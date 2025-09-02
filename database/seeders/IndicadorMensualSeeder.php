@@ -14,7 +14,7 @@ class IndicadorMensualSeeder extends Seeder
     {
         $registros = [
             [
-                'cod_indicador' => 1001,
+                'cod_indicador' => 1,
                 'numerador'     => 85,
                 'denominador'   => 100,
                 'mes'           => 1,
@@ -23,7 +23,7 @@ class IndicadorMensualSeeder extends Seeder
                 'cod_usuario'   => 1
             ],
             [
-                'cod_indicador' => 1001,
+                'cod_indicador' => 1,
                 'numerador'     => 92,
                 'denominador'   => 100,
                 'mes'           => 2,

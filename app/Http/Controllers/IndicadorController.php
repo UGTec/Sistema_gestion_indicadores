@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use App\Models\Indicador;
 use Illuminate\Http\Request;
 use App\Traits\ManejaArchivos;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\IndicadorAsignadoNotification;
 
 class IndicadorController extends Controller
@@ -55,46 +56,58 @@ class IndicadorController extends Controller
 
     public function store(Request $request)
     {
-        //$this->authorize('create', Indicador::class);
-
         $data = $request->validate([
             'indicador'          => 'required|string|max:4098',
             'objetivo'           => 'required|string|max:4098',
             'cod_tipo_indicador' => 'required|exists:tipo_indicador,cod_tipo_indicador',
             'meta'               => 'required|numeric',
             'cod_usuario'        => 'required|exists:usuario,cod_usuario',
+            'parametro1'         => 'nullable|string|max:1024',
+            'parametro2'         => 'nullable|string|max:1024',
+            'estado'             => 'nullable|string|max:255',
+            'cerrado'            => 'nullable|boolean',
+            'fecha_cierre'       => 'nullable|date',
             'archivos'           => 'nullable|array|max:5',
             'archivos.*'         => 'file|max:10240',
         ]);
 
-        // Validar tamaño total
+        // Tamaño total de adjuntos (<= 10MB)
         $totalSize = 0;
         if ($request->hasFile('archivos')) {
-            $totalSize + array_reduce($request->file('archivos'), function ($sum, $file) {
-                return $sum + $file->getSize();
-            }, 0);
+            $totalSize = array_reduce($request->file('archivos'), fn ($sum, $f) => $sum + $f->getSize(), 0);
+            if ($totalSize > 10 * 1024 * 1024) {
+                return back()->withErrors([
+                    'archivos' => 'El tamaño total no puede exceder 10MB'
+                ])->withInput();
+            }
         }
 
-        if ($totalSize > 10 * 1024 * 1024) {
+        DB::beginTransaction();
+        try {
+            $indicador = Indicador::create($data);
+
+            if ($request->hasFile('archivos')) {
+                $this->guardarArchivos($request->file('archivos'), $indicador);
+            }
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            report($e);
             return back()->withErrors([
-                'archivos' => 'El tamaño total de los archivos no puede exceder los 10MB'
-            ]);
+                'general' => 'Error al crear el indicador'
+            ])->withInput();
         }
 
-        $data['cod_usuario'] = auth()->user()->cod_usuario;
-
-        $indicador = Indicador::create($data);
-
-        // Guardar archivos
-        if ($request->hasFile('archivos')) {
-            $this->guardarArchivos($request->file('archivos'), $indicador);
-        }
-
-        // Enviar notificación al usuario asignado
+        // Notificar al USUARIO ASIGNADO
         $usuarioAsignado = Usuario::find($data['cod_usuario']);
-        $usuarioAsignado->notify(new IndicadorAsignadoNotification($indicador));
+        if ($usuarioAsignado) {
+            // Usa Notifiable o route() directo si prefieres
+            $usuarioAsignado->notify(new IndicadorAsignadoNotification($indicador));
+        }
 
-        return redirect()->route('indicadores.show', $indicador)
+        return redirect()
+            ->route('indicadores.show', ['indicador' => $indicador->cod_indicador])
             ->with('success', 'Indicador creado exitosamente');
     }
 
