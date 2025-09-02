@@ -60,7 +60,7 @@
             @foreach ($usuarios as $usuario)
                 <tr>
                     <td>{{ $usuario->cod_usuario }}</td>
-                    <td>{{ $usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido }}</td>
+                    <td>{{ $usuario->nombreCompleto() }}</td>
                     <td>{{ $usuario->correo_electronico }}</td>
                     <td>{{ $usuario->departamento->departamento }}</td>
                     <td>

@@ -86,7 +86,7 @@
                                     @foreach($usuarios as $usuario)
                                     <option value="{{ $usuario->cod_usuario }}"
                                         {{ old('cod_usuario', $indicador->cod_usuario) == $usuario->cod_usuario ? 'selected' : '' }}>
-                                        {{ $usuario->nombre }} ({{ $usuario->departamento->departamento ?? 'N/A' }})
+                                        {{ $usuario->nombreCompleto() }} ({{ $usuario->departamento->departamento ?? 'N/A' }})
                                     </option>
                                     @endforeach
                                 </select>

@@ -14,7 +14,7 @@
     <x-adminlte-card class="shadow mb-20" theme="primary">
         Bienvenido
         <x-adminlte-profile-widget
-            name="{{ $usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido }}"
+            name="{{ $usuario->nombreCompleto() }}"
             desc="{{ $usuario->roles->pluck('name')->implode(', ') }}"
             theme="primary"
             img="{{ Avatar::create($usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segundo_apellido)

@@ -67,7 +67,7 @@
                 <tr>
                     <td>{{ Str::limit($indicador->indicador, 50) }}</td>
                     <td>{{ $indicador->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
-                    <td>{{ $indicador->usuario->nombre ?? 'No asignado' }}</td>
+                    <td>{{ $indicador->usuario->nombreCompleto() ?? 'No asignado' }}</td>
                     <td>{{ number_format($indicador->meta, 2) }}</td>
                     <td>
                         <span class="badge badge-{{ $indicador->estado == 'completado' ? 'success' : ($indicador->estado == 'cerrado' ? 'secondary' : 'primary') }}">
@@ -116,81 +116,4 @@
             @endforeach
         </x-adminlte-datatable>
     </x-adminlte-card>
-
-
-
-    {{-- <div class="table-responsive">
-        <table class="table table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Tipo</th>
-                    <th>Asignado a</th>
-                    <th>Meta</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($indicadores as $indicador)
-                <tr>
-                    <td>{{ Str::limit($indicador->indicador, 50) }}</td>
-                    <td>{{ $indicador->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
-                    <td>{{ $indicador->usuario->nombre ?? 'No asignado' }}</td>
-                    <td>{{ number_format($indicador->meta, 2) }}</td>
-                    <td>
-                        <span class="badge badge-{{ $indicador->estado == 'completado' ? 'success' : ($indicador->estado == 'cerrado' ? 'secondary' : 'primary') }}">
-                            {{ ucfirst($indicador->estado) }}
-                        </span>
-                    </td>
-                    <td class="text-nowrap">
-                        <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-sm btn-info" title="Ver">
-                            <i class="fas fa-eye"></i>
-                        </a>
-
-                        @can('update', $indicador)
-                        <a href="{{ route('indicadores.edit', $indicador) }}" class="btn btn-sm btn-warning" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        @endcan
-
-                        @if(!$indicador->cerrado)
-                            @can('cerrar', $indicador)
-                            <form action="{{ route('indicadores.cerrar', $indicador) }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-secondary" title="Cerrar">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                            </form>
-                            @endcan
-
-                            @can('completar', $indicador)
-                            <form action="{{ route('indicadores.completar', $indicador) }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-success" title="Completar">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                            </form>
-                            @endcan
-                        @else
-                            @can('reabrir', $indicador)
-                            <form action="{{ route('indicadores.reabrir', $indicador) }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-primary" title="Reabrir">
-                                    <i class="fas fa-lock-open"></i>
-                                </button>
-                            </form>
-                            @endcan
-                        @endif
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center">No se encontraron indicadores</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div> --}}
-
 @endsection

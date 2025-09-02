@@ -33,7 +33,7 @@
                     <ul class="list-group">
                         @foreach($departamento->usuarios as $usuario)
                         <li class="list-group-item">
-                            {{ $usuario->nombre }} {{ $usuario->primer_apellido }}
+                            {{ $usuario->nombreCompleto() }}
                             <span class="badge badge-{{ $usuario->cod_estado_usuario == 1 ? 'success' : 'danger' }} float-right">
                                 {{ $usuario->estado->estado_usuario }}
                             </span>

@@ -27,7 +27,7 @@
                     </li>
                     <li class="list-group-item">
                         <strong>Nombre Completo:</strong>
-                        {{ $usuario->nombre }} {{ $usuario->primer_apellido }} {{ $usuario->segundo_apellido }}
+                        {{ $usuario->nombreCompleto() }}
                     </li>
                     <li class="list-group-item">
                         <strong>Email:</strong> {{ $usuario->correo_electronico }}

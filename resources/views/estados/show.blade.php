@@ -43,7 +43,7 @@
                                 @foreach($estado->usuarios as $usuario)
                                 <tr>
                                     <td>{{ $usuario->usuario }}</td>
-                                    <td>{{ $usuario->nombre }} {{ $usuario->primer_apellido }}</td>
+                                    <td>{{ $usuario->nombreCompleto() }}</td>
                                     <td>{{ $usuario->departamento->departamento ?? 'N/A' }}</td>
                                 </tr>
                                 @endforeach

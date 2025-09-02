@@ -105,7 +105,7 @@
                     <label class="col-md-4 col-form-label">Asignado a:</label>
                     <div class="col-md-8">
                         <p class="">
-                            {{ $indicador->usuario->nombre }} ({{ $indicador->usuarioAsignado->departamento->departamento ?? 'N/A' }})
+                            {{ $indicador->usuario->nombreCompleto() }} ({{ $indicador->usuarioAsignado->departamento->departamento ?? 'N/A' }})
                         </p>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                         <td>{{ number_format($mensual->numerador, 2) }}</td>
                         <td>{{ number_format($mensual->denominador, 2) }}</td>
                         <td>{{ number_format($mensual->resultado, 2) }}%</td>
-                        <td>{{ $mensual->usuario->nombre ?? 'N/A' }}</td>
+                        <td>{{ $mensual->usuario->nombreCompleto() ?? 'N/A' }}</td>
                         <td>{{ optional($mensual->fecha_actualizacion)->format('d-m-y') }} </td>
                         <td>
                             @can('update', $mensual)
