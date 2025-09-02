@@ -128,4 +128,9 @@ class Usuario extends Authenticatable
     {
         return $this->correo_electronico;
     }
+
+    public function nombreCompleto(): string
+    {
+        return trim("{$this->nombre} {$this->primer_apellido} {$this->segundo_apellido}");
+    }
 }
