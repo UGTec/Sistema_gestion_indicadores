@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title'         => 'SCG',
+    'title'         => 'SGI',
     'title_prefix'  => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo'              => 'SGI',
+    'logo'              => '',
     'logo_img'          => 'img/SGI-Fondo_Negro.png',
     'logo_img_class'    => 'brand-image elevation-3',
     'logo_img_xl'       => null,
@@ -261,8 +261,8 @@ return [
     'dashboard_url'           => 'home',
     'logout_url'              => 'logout',
     'login_url'               => 'login',
-    'register_url'            => '#',
-    'password_reset_url'      => 'password/reset',
+    'register_url'            => false,
+    'password_reset_url'      => false,
     'password_email_url'      => 'password/email',
     'profile_url'             => false,
     'disable_darkmode_routes' => false,
@@ -314,12 +314,12 @@ return [
             'text' => 'buscar',
         ],
         [
-            'text' => 'dashboard',
+            'text' => 'Dashboard',
             'url'  => 'home',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
-            'header' => 'ADMINISTRACIÓN',
+            'header' => 'Administración',
             'can'    => 'usuarios.crear',
         ],
         [
@@ -352,7 +352,7 @@ return [
             ],
         ],
         [
-            'text'   => 'departamentos',
+            'text'   => 'Departamentos',
             'url'    => 'departamentos',
             'icon'   => 'fas fa-fw fa-building',
             'active' => ['departamentos*'],
@@ -380,7 +380,7 @@ return [
         //     'can'    => 'formatos.ver',
         // ],
         [
-            'header' => 'INDICADORES',
+            'header' => 'Indicadores',
             'can'    => 'indicadores.ver',
         ],
         [
