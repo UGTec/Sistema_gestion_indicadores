@@ -103,3 +103,11 @@
         </p>
     @endif
 @stop
+
+@section('css')
+<style>
+.login-page{
+    background-color : #fff;
+}
+</style>
+@stop
