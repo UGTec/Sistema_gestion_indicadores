@@ -15,7 +15,7 @@ class IframeSeeder extends Seeder
         DB::table('iframes')->insert([
             [
                 'name'        => 'Ejemplo de iframe',
-                'url'         => 'https://app.powerbi.com/view?r=eyJrIjoiNThjZTk0YjItMjYwZS00OWI1LThhMzMtODg1MTM4OGFkOWFhIiwidCI6IjJmODQ4YjNiLTRiMTItNDkxNy1hZDQ3LTU5Y2I4N2JiZDdmYyJ9',
+                'url'         => 'https://app.powerbi.com/view?r=eyJrIjoiMjlmN2IyNmEtNWEyZC00YTgzLWE3ZDItNTg4OTdiNDk4OTBmIiwidCI6IjJlNGNmZTUwLTA1ODAtNDE0MC05Mzg3LTRlY2RlMzlkZWY2MCIsImMiOjR9&disablecdnExpiration=1757107242',
                 'description' => 'Este es un ejemplo de iframe para fines de demostración.',
                 'width'       => '800px',
                 'height'      => '600px',
