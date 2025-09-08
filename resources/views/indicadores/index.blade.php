@@ -84,6 +84,16 @@
                         </a>
                         @endcan
                         @if(!$indicador->cerrado)
+                            @can('delete', $indicador)
+                        <form action="{{ route('indicadores.destroy', $indicador) }}" method="POST" class="d-inline"
+                              onsubmit="return confirm('¿Está seguro de que desea eliminar este indicador?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-xs btn-danger" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                        @endcan
                             @can('cerrar', $indicador)
                             <form action="{{ route('indicadores.cerrar', $indicador) }}" method="POST" class="d-inline">
                                 @csrf
@@ -92,7 +102,6 @@
                                 </button>
                             </form>
                             @endcan
-
                             @can('completar', $indicador)
                             <form action="{{ route('indicadores.completar', $indicador) }}" method="POST" class="d-inline">
                                 @csrf
