@@ -137,4 +137,15 @@ class Indicador extends Model
     {
         return $this->morphMany(Archivo::class, 'archivable');
     }
+
+    public function proyecciones()
+    {
+        return $this->hasMany(\App\Models\IndicadorProyeccionMensual::class, 'cod_indicador', 'cod_indicador');
+    }
+
+    // Útiles:
+    public function proyeccionesDelAnio(int $anio)
+    {
+        return $this->proyecciones()->where('anio', $anio);
+    }
 }

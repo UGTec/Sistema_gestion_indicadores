@@ -57,19 +57,46 @@ class IndicadorController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'indicador'          => 'required|string|max:4098',
-            'objetivo'           => 'required|string|max:4098',
-            'cod_tipo_indicador' => 'required|exists:tipo_indicador,cod_tipo_indicador',
-            'meta'               => 'required|numeric',
-            'cod_usuario'        => 'required|exists:usuario,cod_usuario',
-            'parametro1'         => 'nullable|string|max:1024',
-            'parametro2'         => 'nullable|string|max:1024',
-            'estado'             => 'nullable|string|max:255',
-            'cerrado'            => 'nullable|boolean',
-            'fecha_cierre'       => 'nullable|date',
-            'archivos'           => 'nullable|array|max:5',
-            'archivos.*'         => 'file|max:10240',
+            'indicador'           => 'required|string|max:4098',
+            'objetivo'            => 'required|string|max:4098',
+            'cod_tipo_indicador'  => 'required|exists:tipo_indicador,cod_tipo_indicador',
+            'meta'                => 'required|numeric',
+            'cod_usuario'         => 'required|exists:usuario,cod_usuario',
+            'parametro1'          => 'nullable|string|max:1024',
+            'parametro2'          => 'nullable|string|max:1024',
+            'estado'              => 'nullable|string|max:255',
+            'cerrado'             => 'nullable|boolean',
+            'fecha_cierre'        => 'nullable|date',
+            'archivos'            => 'nullable|array|max:5',
+            'archivos.*'          => 'file|max:10240',
+            'projections'         => 'required|array|min:1',
+            'projections.*.year'  => 'required|integer|min:' . now()->year,
+            'projections.*.month' => 'required|integer|between:1,12',
+            'projections.*.value' => 'required|numeric|min:1',
+        ], [
+            'cod_usuario.required'        => 'Debe seleccionar un usuario',
+            'cod_usuario.exists'          => 'El usuario asignado no es válido',
+            'cod_tipo_indicador.required' => 'Debe seleccionar un tipo de indicador',
+            'cod_tipo_indicador.exists'   => 'El tipo de indicador no es válido',
+            'projections.required'        => 'Debe agregar al menos una proyección mensual',
+            'projections.*.year.min'      => 'El año de la proyección no puede ser menor al año actual',
+            'projections.*.month.between' => 'El mes de la proyección debe estar entre 1 y 12',
+            'projections.*.value.min'     => 'El valor de la proyección debe ser mayor o igual a 1',
         ]);
+
+        // Meses pasados en año actual
+        foreach ($request->projections as $p) {
+            if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
+                return back()->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])->withInput();
+            }
+        }
+
+        // Duplicados
+        $keys = collect($request->projections)
+            ->map(fn($p) => $p['year'] . '-' . str_pad($p['month'], 2, '0', STR_PAD_LEFT));
+        if ($keys->duplicates()->isNotEmpty()) {
+            return back()->withErrors(['projections' => 'Hay meses duplicados en la proyección.'])->withInput();
+        }
 
         // Tamaño total de adjuntos (<= 10MB)
         $totalSize = 0;
