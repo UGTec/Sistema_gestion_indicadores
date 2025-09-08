@@ -58,6 +58,16 @@
 
 @push('css')
 <style type="text/css">
+.brand-link
+.brand-image {
+    float: none;
+    line-height: .8;
+    margin-left: .8rem;
+    margin-right: .5rem;
+    margin-top: -3px;
+    max-height: 33px;
+    width: auto;
+}
 /* ========================================
    BOOTSTRAP 4.6 - PALETA DE COLORES PERSONALIZADA
    ======================================== */
