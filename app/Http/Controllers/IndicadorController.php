@@ -7,6 +7,7 @@ use App\Models\Indicador;
 use Illuminate\Http\Request;
 use App\Traits\ManejaArchivos;
 use Illuminate\Support\Facades\DB;
+use App\Models\IndicadorProyeccionMensual;
 use App\Notifications\IndicadorAsignadoNotification;
 
 class IndicadorController extends Controller
@@ -28,8 +29,14 @@ class IndicadorController extends Controller
     public function index(Request $request)
     {
         $estado = $request->input('estado', 'abierto');
+        $anio   = (int) $request->input('anio', now()->year);
 
-        $query = Indicador::query();
+        $query = Indicador::query()
+            ->with(['tipoIndicador', 'usuario'])
+            ->withSum(
+                ['proyecciones as total_proyeccion'=> fn ($q) => $q->where('anio', $anio)],
+                'valor'
+            );
 
         // Filtro por estado
         if (in_array($estado, ['abierto', 'cerrado', 'completado'])) {
@@ -43,7 +50,7 @@ class IndicadorController extends Controller
 
         $indicadores = $query->get();
 
-        return view('indicadores.index', compact('indicadores', 'estado'));
+        return view('indicadores.index', compact('indicadores', 'estado', 'anio'));
     }
 
     public function create()
@@ -93,7 +100,7 @@ class IndicadorController extends Controller
 
         // Duplicados
         $keys = collect($request->projections)
-            ->map(fn($p) => $p['year'] . '-' . str_pad($p['month'], 2, '0', STR_PAD_LEFT));
+            ->map(fn ($p) => $p['year'] . '-' . str_pad($p['month'], 2, '0', STR_PAD_LEFT));
         if ($keys->duplicates()->isNotEmpty()) {
             return back()->withErrors(['projections' => 'Hay meses duplicados en la proyección.'])->withInput();
         }
@@ -117,6 +124,23 @@ class IndicadorController extends Controller
                 $this->guardarArchivos($request->file('archivos'), $indicador);
             }
 
+            $rows   = [];
+            $userId = auth()->check() ? auth()->user()->cod_usuario ?? null : null;
+
+            foreach ($request->projections as $p) {
+                $rows [] = [
+                    'cod_indicador' => $indicador->cod_indicador,
+                    'anio'          => (int) $p['year'],
+                    'mes'           => (int) $p['month'],
+                    'valor'         => (float) $p['value'],
+                    'cod_usuario'   => $userId,
+                    'created_at'    => now(),
+                    'updated_at'    => now(),
+                ];
+            }
+
+            IndicadorProyeccionMensual::insert($rows);
+
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -138,36 +162,60 @@ class IndicadorController extends Controller
             ->with('success', 'Indicador creado exitosamente');
     }
 
-    public function show(Indicador $indicador)
+    public function show(Request $request, Indicador $indicador)
     {
+        $anio = (int) $request->input('anio', now()->year);
+
+        // cargar realciones + sumas : proyeccion y real (si tiene registrosMensuales)
         $indicador->load([
             'tipoIndicador',
             'usuarioAsignado.departamento',
             'archivos',
             'indicadoresMensuales.usuario',
+            'proyecciones'       => fn ($q) => $q->where('anio', $anio)->orderBy('mes'),
+            'registrosMensuales' => fn ($q) => $q->where('año', $anio)->orderBy('mes'),
         ]);
 
-        return view('indicadores.show', compact('indicador'));
+        $indicador->loadSum(['proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)], 'valor');
+        $indicador->loadSum(['registrosMensuales as total_real' => fn ($q) => $q->where('año', $anio)], 'resultado');
+
+        return view('indicadores.show', compact('indicador', 'anio'));
     }
 
-    public function edit(Indicador $indicador)
+    public function edit(Request $request, Indicador $indicador)
     {
+        $anio = (int) $request->input('anio', now()->year);
+
+        $indicador->load([
+            'tipoIndicador',
+            'usuario',
+            'proyecciones' => fn ($q) => $q->where('anio', $anio)->orderBy('mes'),
+        ]);
+
+        $indicador->loadSum([
+            'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
+        ], 'valor');
+
         $usuarios       = Usuario::where('cod_estado_usuario', 1)->get();
         $tiposIndicador = \App\Models\TipoIndicador::all();
 
-        return view('indicadores.edit', compact('indicador', 'usuarios', 'tiposIndicador'));
+        return view('indicadores.edit', compact('indicador', 'usuarios', 'tiposIndicador', 'anio'));
     }
 
     public function update(Request $request, Indicador $indicador)
     {
         $data = $request->validate([
-            'indicador'          => 'required|string|max:4098',
-            'objetivo'           => 'required|string|max:4098',
-            'cod_tipo_indicador' => 'required|exists:tipo_indicador,cod_tipo_indicador',
-            'meta'               => 'required|numeric',
-            'cod_usuario'        => 'required|exists:usuario,cod_usuario',
-            'archivos'           => 'nullable|array|max:5',
-            'archivos.*'         => 'file|max:10240',
+            'indicador'           => 'required|string|max:4098',
+            'objetivo'            => 'required|string|max:4098',
+            'cod_tipo_indicador'  => 'required|exists:tipo_indicador,cod_tipo_indicador',
+            'meta'                => 'required|numeric',
+            'cod_usuario'         => 'required|exists:usuario,cod_usuario',
+            'archivos'            => 'nullable|array|max:5',
+            'archivos.*'          => 'file|max:10240',
+            'projections'         => 'required|array|min:1',
+            'projections.*.year'  => 'required|integer|min:' . now()->year,
+            'projections.*.month' => 'required|integer|between:1,12',
+            'projections.*.value' => 'required|numeric|min:0',
         ]);
 
         // Validar tamaño total
@@ -181,12 +229,66 @@ class IndicadorController extends Controller
             }
         }
 
-        $indicador->update($data);
-
-        // Guardar archivos nuevos
-        if ($request->hasFile('archivos')) {
-            $this->guardarArchivos($request->file('archivos'), $indicador);
+        foreach ($request->projections as $p) {
+            if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
+                return back()
+                    ->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])
+                    ->withInput();
+            }
         }
+
+        $dupes = collect($request->projections)
+            ->map(fn ($p) => $p['year'] . '-' . str_pad($p['month'], 2, '0', STR_PAD_LEFT))
+            ->duplicates();
+        if ($dupes->isNotEmpty()) {
+            return back()
+                ->withErrors(['projections' => 'Hay meses duplicados en la proyección.'])
+                ->withInput();
+        }
+
+        DB::transaction(function () use ($request, $indicador, $data) {
+            $indicador->update([
+                'indicador'          => $data['indicador'],
+                'objetivo'           => $data['objetivo'],
+                'cod_tipo_indicador' => $data['cod_tipo_indicador'],
+                'meta'               => $data['meta'],
+                'cod_usuario'        => $data['cod_usuario'],
+            ]);
+
+            $userId = auth()->check() ? auth()->user()->cod_usuario ?? null : null;
+
+            $payload = collect($request->projections)->map(function ($p) use ($indicador, $userId) {
+                return [
+                    'cod_indicador' => $indicador->cod_indicador,
+                    'anio'          => (int) $p['year'],
+                    'mes'           => (int) $p['month'],
+                    'valor'         => (float) $p['value'],
+                    'cod_usuario'   => $userId,
+                    'created_at'    => now(),
+                    'updated_at'    => now(),
+                ];
+            })->all();
+
+            // upsert por clave compuesta
+            IndicadorProyeccionMensual::upsert(
+                $payload,
+                ['cod_indicador', 'anio', 'mes'],
+                ['valor', 'cod_usuario', 'updated_at']
+            );
+
+            // (Opcional) eliminar lo que ya no venga en el request
+            $keepKeys = collect($payload)->map(fn ($r) => $r['anio'] . '-' . $r['mes'])->all();
+            $indicador->proyecciones()
+                ->whereNotIn(DB::raw("CONCAT(anio,'-',mes)"), $keepKeys)
+                ->delete();
+
+            // Guardar archivos nuevos
+            if ($request->hasFile('archivos')) {
+                $this->guardarArchivos($request->file('archivos'), $indicador);
+            }
+        });
+
+        //$indicador->update($data);
 
         return redirect()->route('indicadores.show', $indicador)
             ->with('success', 'Indicador actualizado exitosamente');

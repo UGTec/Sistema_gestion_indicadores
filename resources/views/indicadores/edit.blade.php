@@ -3,9 +3,43 @@
 @section('title', 'Editar Indicador')
 @section('subtitle', 'Formulario para editar el indicador')
 @section('content_header_title', 'Editar Indicador')
-@section('content_header_subtitle', 'Formulario para editar el indicador')
+@section('content_header_subtitle', 'Actualiza datos y proyección mensual')
 
 @section('content_body')
+
+    {{-- Éxito / Errores --}}
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+            </ul>
+        </div>
+    @endif
+
+    @php
+        $totalProy = (float) ($indicador->total_proyeccion ?? 0);
+        $totalReal = (float) ($indicador->total_real ?? 0);
+        $gap       = $totalProy - $totalReal;
+    @endphp
+
+    {{-- Filtro de año para editar la proyección del año seleccionado (server-side) --}}
+    <form method="GET" action="{{ route('indicadores.edit', $indicador) }}" class="form-inline mb-3">
+        <label class="mr-2">Año</label>
+        <select name="anio" class="form-control mr-2">
+            @for($y = now()->year; $y <= now()->year + 1; $y++)
+                <option value="{{ $y }}" {{ (int)request('anio', $anio) === $y ? 'selected' : '' }}>{{ $y }}</option>
+            @endfor
+        </select>
+        <button class="btn btn-outline-secondary btn-sm">Cambiar año</button>
+    </form>
+
+     {{-- Resumen del total proyectado del año seleccionado --}}
+    <div class="alert alert-info">
+        <strong>Total proyectado {{ $anio }}:</strong> {{ number_format($indicador->total_proyeccion ?? 0, 2) }}
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -142,6 +176,104 @@
                             </div>
                         </div>
 
+                        {{-- =========================
+                        PROYECCIÓN DE AVANCE
+                        ========================== --}}
+                        @php
+                            use Carbon\Carbon;
+                            $currentYear  = Carbon::now()->year;
+                            $currentMonth = Carbon::now()->month;
+                            $monthNames = [
+                                1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
+                                5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
+                                9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'
+                            ];
+                            // Para el selector de año inicial:
+                            $selectedYear  = (int) old('projections.0.year', $anio);
+                            $startMonth    = $selectedYear === $currentYear ? $currentMonth : 1;
+                            $selectedMonth = (int) old('projections.0.month', $startMonth);
+                            $selectedValue = old('projections.0.value', 0);
+
+                            // Dataset para precargar filas existentes del año seleccionado
+                            $existingProjections = $indicador->proyecciones
+                                ->map(fn($p)=>['year'=>$p->anio,'month'=>$p->mes,'value'=>$p->valor])
+                                ->values();
+                        @endphp
+                        <div class="form-group">
+                            <div class="d-flex align-items-center mb-2">
+                                <h5 class="mb-0">Proyección de Avance ({{ $anio }})</h5>
+                                <span class="badge badge-info ml-2">Editar</span>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="proj-year">Año</label>
+                                            <select id="proj-year" class="form-control">
+                                                <option value="{{ $currentYear }}" {{ $selectedYear === $currentYear ? 'selected' : '' }}>
+                                                    {{ $currentYear }}
+                                                </option>
+                                                <option value="{{ $currentYear + 1 }}" {{ $selectedYear === $currentYear + 1 ? 'selected' : '' }}>
+                                                    {{ $currentYear + 1 }}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-5">
+                                            <label for="proj-month">Mes</label>
+                                            <select id="proj-month" class="form-control" data-current-year="{{ $currentYear }}" data-current-month="{{ $currentMonth }}">
+                                                @foreach(range($startMonth, 12) as $m)
+                                                <option value="{{ $m }}" {{ $selectedMonth === $m ? 'selected' : '' }}>
+                                                    {{ $monthNames[$m] }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            <small class="form-text text-muted">
+                                                Si eliges {{ $currentYear }}, no se permiten meses anteriores a {{ $monthNames[$currentMonth] }}.
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="proj-value">Proyección del Mes</label>
+                                            <input id="proj-value" type="number" step="0.01" min="0" class="form-control" placeholder="0.00" value="{{ $selectedValue }}">
+                                        </div>
+
+                                        <div class="form-group col-md-1 d-flex align-items-end">
+                                            <button type="button" id="btn-add-projection" class="btn btn-outline-primary btn-block">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered mb-2" id="projections-table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th style="width: 20%">Año</th>
+                                                    <th style="width: 35%">Mes</th>
+                                                    <th style="width: 30%">Proyección</th>
+                                                    <th style="width: 15%">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- Filas se precargarán con las proyecciones existentes y podrás agregar nuevas --}}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="2" class="text-right">Total Proyectado:</th>
+                                                    <th><span id="proj-total">0.00</span></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    @error('projections')<div class="text-danger mt-2">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
+                        </div>
+                        {{-- ========================= --}}
+
                         <div class="form-group row mb-0">
                             <div class="col-md-9 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
@@ -152,12 +284,22 @@
                                 </a>
                             </div>
                         </div>
+                        {{-- Mantener el año al enviar --}}
+                        <input type="hidden" name="anio" value="{{ $anio }}">
                     </form>
                 </div>
             </div>
+            {{-- Meses en español para JS sin duplicar strings --}}
+            <script type="application/json" id="month-names-json">
+                {!! json_encode(array_values($monthNames), JSON_UNESCAPED_UNICODE) !!}
+            </script>
+
+            {{-- Proyecciones existentes del año seleccionado para precarga --}}
+            <script type="application/json" id="existing-projections-json">
+                {!! $existingProjections->toJson(JSON_UNESCAPED_UNICODE) !!}
+            </script>
         </div>
     </div>
-
 
     <form id="delete-file-form" method="POST" style="display: none;">
         @csrf
@@ -165,7 +307,7 @@
     </form>
 @stop
 
-@section('js')
+@push('js')
     <script>
         function confirmarEliminarArchivo(archivoId) {
             if (confirm('¿Está seguro que desea eliminar este archivo?')) {
@@ -175,24 +317,135 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Validación de tamaño máximo de archivos (10MB)
-            const fileInput = document.getElementById('archivos');
-            const maxSize = 10 * 1024 * 1024; // 10MB en bytes
-            //
-            fileInput.addEventListener('change', function() {
-                const files = this.files;
-                let totalSize = 0;
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Referencias UI ---
+            const projYear   = document.getElementById('proj-year');
+            const projMonth  = document.getElementById('proj-month');
+            const projValue  = document.getElementById('proj-value');
+            const tableBody  = document.querySelector('#projections-table tbody');
+            const totalSpan  = document.getElementById('proj-total');
 
-                for (let i = 0; i < files.length; i++) {
-                    totalSize += files[i].size;
+            // --- Datos desde Blade ---
+            const monthNames = JSON.parse(document.getElementById('month-names-json').textContent);
+            const existing   = JSON.parse(document.getElementById('existing-projections-json').textContent || '[]');
+            const currentYear  = parseInt(projMonth.dataset.currentYear, 10);
+            const currentMonth = parseInt(projMonth.dataset.currentMonth, 10);
+
+            // Estado para evitar duplicados (YYYY-MM)
+            const chosen = new Set();
+
+            function pad2(n){ return String(n).padStart(2, '0'); }
+            function keyOf(y, m){ return `${y}-${pad2(m)}`; }
+
+            function rebuildMonthOptionsForYear(targetYear) {
+                while (projMonth.firstChild) projMonth.removeChild(projMonth.firstChild);
+                const start = (parseInt(targetYear,10) === currentYear) ? currentMonth : 1;
+                for (let m = start; m <= 12; m++) {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = monthNames[m-1];
+                    projMonth.appendChild(opt);
                 }
+            }
 
-                if (totalSize > maxSize) {
-                    alert('El tamaño total de los archivos no puede exceder los 10MB');
-                    this.value = ''; // Limpiar la selección
+            function recalcTotal() {
+                let sum = 0;
+                tableBody.querySelectorAll('input[name$="[value]"]').forEach(inp => {
+                    const v = parseFloat(inp.value);
+                    if (!isNaN(v)) sum += v;
+                });
+                totalSpan.textContent = sum.toFixed(2);
+            }
+
+            function reindexRows() {
+                Array.from(tableBody.querySelectorAll('tr')).forEach((row, i) => {
+                    row.querySelectorAll('input[name]').forEach(inp => {
+                        inp.name = inp.name.replace(/projections\[\d+\]/, `projections[${i}]`);
+                    });
+                });
+            }
+
+            function addProjectionRow(y, m, v) {
+                const key = keyOf(y, m);
+                if (chosen.has(key)) {
+                    alert(`Ya agregaste ${monthNames[m-1]} de ${y}.`);
+                    return;
+                }
+                const idx = tableBody.querySelectorAll('tr').length;
+                const tr  = document.createElement('tr');
+                tr.dataset.key = key;
+                tr.innerHTML = `
+                    <td class="align-middle">
+                        <input type="hidden" name="projections[${idx}][year]" value="${y}">
+                        ${y}
+                    </td>
+                    <td class="align-middle">
+                        <input type="hidden" name="projections[${idx}][month]" value="${m}">
+                        ${monthNames[m-1]}
+                    </td>
+                    <td>
+                        <input type="number" step="0.01" min="0" name="projections[${idx}][value]"
+                        value="${(parseFloat(v)||0).toFixed(2)}" class="form-control form-control-sm proj-value">
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-outline-danger btn-remove">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+                chosen.add(key);
+                recalcTotal();
+            }
+
+            // Eventos
+            projYear.addEventListener('change', function () {
+                rebuildMonthOptionsForYear(this.value);
+            });
+
+            document.getElementById('btn-add-projection').addEventListener('click', function () {
+                const y = parseInt(projYear.value, 10);
+                const m = parseInt(projMonth.value, 10);
+                const val = parseFloat(projValue.value);
+
+                if (isNaN(val) || val < 0) {
+                    alert('Ingresa un valor de proyección válido (número ≥ 0).');
+                    return;
+                }
+                if (y === currentYear && m < currentMonth) {
+                    alert('No se permiten meses anteriores al mes en curso.');
+                    return;
+                }
+                addProjectionRow(y, m, val);
+                projValue.value = '';
+            });
+
+            tableBody.addEventListener('input', function (e) {
+                if (e.target.classList.contains('proj-value')) recalcTotal();
+            });
+
+            tableBody.addEventListener('click', function (e) {
+                if (e.target.closest('.btn-remove')) {
+                    const tr = e.target.closest('tr');
+                    chosen.delete(tr.dataset.key);
+                    tr.remove();
+                    reindexRows();
+                    recalcTotal();
                 }
             });
+
+            // Inicialización
+            rebuildMonthOptionsForYear(projYear.value);
+
+            // Precargar filas existentes del año seleccionado (si hay)
+            if (Array.isArray(existing) && existing.length) {
+                tableBody.innerHTML = '';
+                chosen.clear();
+                existing.forEach(p => addProjectionRow(parseInt(p.year,10), parseInt(p.month,10), parseFloat(p.value)));
+            } else {
+                // Si no hay registros, agrega una fila inicial con el mes seleccionado
+                addProjectionRow(parseInt(projYear.value,10), parseInt(projMonth.value,10), parseFloat('0'));
+            }
         });
     </script>
-@endsection
+@endpush

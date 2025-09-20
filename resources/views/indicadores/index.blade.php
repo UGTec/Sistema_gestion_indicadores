@@ -54,6 +54,7 @@
                 'Asignado a',
                 'Meta',
                 'Estado',
+                'Total proyectado del año',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
             ];
 
@@ -74,6 +75,7 @@
                             {{ ucfirst($indicador->estado) }}
                         </span>
                     </td>
+                    <td>{{ number_format($indicador->total_proyeccion ?? 0, 2) }}</td>
                     <td class="text-nowrap">
                         <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-xs btn-info" title="Ver">
                             <i class="fas fa-eye"></i>

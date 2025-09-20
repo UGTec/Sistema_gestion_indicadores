@@ -128,6 +128,93 @@
 
         <div class="row">
             <div class="col-12">
+                <h5>Proyección y Realidad</h5>
+                <hr>
+                @php
+                    $totalProy = (float) ($indicador->total_proyeccion ?? 0);
+                    $totalReal = (float) ($indicador->total_real ?? 0);
+                    $gap       = $totalProy - $totalReal;
+                @endphp
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="p-2 border rounded">
+                            <div class="small text-muted">Total Proyectado {{ $anio }}</div>
+                            <div class="h4 mb-0">{{ number_format($totalProy, 2) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-2 mt-md-0">
+                        <div class="p-2 border rounded">
+                            <div class="small text-muted">Total Real {{ $anio }}</div>
+                            <div class="h4 mb-0">{{ number_format($totalReal, 2) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-2 mt-md-0">
+                        <div class="p-2 border rounded">
+                            <div class="small text-muted">Brecha (Proy - Real)</div>
+                            <div class="h4 mb-0 {{ $gap < 0 ? 'text-danger' : 'text-success' }}">
+                                {{ number_format($gap, 2) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Tabla de proyecciones del año seleccionado --}}
+                <div class="card mt-4">
+                    <div class="card-header">Proyección {{ $anio }}</div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%">Mes</th>
+                                        <th style="width: 20%">Valor</th>
+                                        <th>Última actualización</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $monthNames = [
+                                            1 => 'Enero',
+                                            'Febrero',
+                                            'Marzo',
+                                            'Abril',
+                                            'Mayo',
+                                            'Junio',
+                                            'Julio',
+                                            'Agosto',
+                                            'Septiembre',
+                                            'Octubre',
+                                            'Noviembre',
+                                            'Diciembre'
+                                        ];
+                                    @endphp
+                                    @forelse($indicador->proyecciones as $p)
+                                    <tr>
+                                        <td>{{ $monthNames[$p->mes] ?? $p->mes }}</td>
+                                        <td>{{ number_format($p->valor, 2) }}</td>
+                                        <td>{{ optional($p->updated_at)->format('d-m-Y H:i') }}</td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">Sin proyecciones para {{ $anio }}</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th>{{ number_format($totalProy, 2) }}</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
                 <h5>Archivos Adjuntos</h5>
                 <hr>
                 @if($indicador->relationLoaded('archivos') && $indicador->archivos->count() > 0)

@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read int|null $archivos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\IndicadorMensual> $indicadoresMensuales
  * @property-read int|null $indicadores_mensuales_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\IndicadorProyeccionMensual> $proyecciones
+ * @property-read int|null $proyecciones_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\IndicadorMensual> $registrosMensuales
+ * @property-read int|null $registros_mensuales_count
  * @property-read \App\Models\Usuario|null $responsable
  * @property-read \App\Models\TipoIndicador|null $tipoIndicador
  * @property-read \App\Models\Usuario|null $usuario
@@ -143,9 +147,13 @@ class Indicador extends Model
         return $this->hasMany(\App\Models\IndicadorProyeccionMensual::class, 'cod_indicador', 'cod_indicador');
     }
 
-    // Útiles:
     public function proyeccionesDelAnio(int $anio)
     {
         return $this->proyecciones()->where('anio', $anio);
+    }
+
+    public function registrosMensuales()
+    {
+        return $this->hasMany(\App\Models\IndicadorMensual::class, 'cod_indicador', 'cod_indicador');
     }
 }
