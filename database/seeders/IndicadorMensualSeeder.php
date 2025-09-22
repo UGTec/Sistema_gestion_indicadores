@@ -18,7 +18,7 @@ class IndicadorMensualSeeder extends Seeder
                 'numerador'     => 85,
                 'denominador'   => 100,
                 'mes'           => 1,
-                'año'           => 2023,
+                'año'           => 2025,
                 'resultado'     => 85,
                 'cod_usuario'   => 1
             ],
@@ -27,7 +27,7 @@ class IndicadorMensualSeeder extends Seeder
                 'numerador'     => 92,
                 'denominador'   => 100,
                 'mes'           => 2,
-                'año'           => 2023,
+                'año'           => 2025,
                 'resultado'     => 92,
                 'cod_usuario'   => 1
             ]

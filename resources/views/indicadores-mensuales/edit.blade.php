@@ -55,11 +55,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="comentarios" class="col-md-4 col-form-label text-md-right">Comentarios</label>
+                            <label for="observaciones" class="col-md-4 col-form-label text-md-right">Observaciones</label>
                             <div class="col-md-6">
-                                <textarea id="comentarios" class="form-control @error('comentarios') is-invalid @enderror"
-                                    name="comentarios" rows="3">{{ old('comentarios', $mensual->comentarios) }}</textarea>
-                                @error('comentarios')
+                                <textarea id="observaciones" class="form-control @error('observaciones') is-invalid @enderror"
+                                    name="observaciones" rows="3">{{ old('observaciones', $mensual->observaciones) }}</textarea>
+                                @error('observaciones')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -14,7 +14,7 @@ class IndicadorMensualPolicy
     public function create(Usuario $user)
     {
         // Solo usuarios asignados al indicador pueden crear registros mensuales
-        return $user->hasPermissionTo('indicadores.crear') ||
+        return $user->hasPermissionTo('indicadores_mensuales.crear') ||
             $user->hasRole('Control de Gestión');
     }
 

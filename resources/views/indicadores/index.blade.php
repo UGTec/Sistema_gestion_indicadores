@@ -47,6 +47,19 @@
             </a>
             @endcan
         </div>
+        @if($puedeVerEliminados)
+            <div class="mb-3 d-flex justify-content-between align-items-center">
+                <div>
+                    <button class="btn btn-outline-warning btn-sm" type="button" data-toggle="collapse" data-target="#papeleraIndicadores" aria-expanded="false" aria-controls="papeleraIndicadores">
+                        <i class="fas fa-trash"></i> Papelera
+                        @if($countEliminados > 0)
+                            <span class="badge badge-warning">{{ $countEliminados }}</span>
+                        @endif
+                    </button>
+                </div>
+            </div>
+        @endif
+
         @php
             $heads = [
                 'Nombre',
@@ -54,7 +67,7 @@
                 'Asignado a',
                 'Meta',
                 'Estado',
-                'Total proyectado del año',
+                'Proyección',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
             ];
 
@@ -69,30 +82,30 @@
                     <td>{{ Str::limit($indicador->indicador, 50) }}</td>
                     <td>{{ $indicador->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
                     <td>{{ $indicador->usuario->nombreCompleto() ?? 'No asignado' }}</td>
-                    <td>{{ number_format($indicador->meta, 2) }}</td>
+                    <td>{{ number_format($indicador->meta, 2,',','.') }}%</td>
                     <td>
                         <span class="badge badge-{{ $indicador->estado == 'completado' ? 'success' : ($indicador->estado == 'cerrado' ? 'secondary' : 'primary') }}">
                             {{ ucfirst($indicador->estado) }}
                         </span>
                     </td>
-                    <td>{{ number_format($indicador->total_proyeccion ?? 0, 2) }}</td>
+                    <td>{{ number_format($indicador->total_proyeccion ?? 0, 2,',','.') }}%</td>
                     <td class="text-nowrap">
-                        <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-xs btn-info" title="Ver">
-                            <i class="fas fa-eye"></i>
+                        <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-xs btn-info" title="Ver | Agregar Avance al indicador">
+                            <i class="fas fa-eye"></i> Registro Mensual
                         </a>
                         @can('update', $indicador)
-                        <a href="{{ route('indicadores.edit', $indicador) }}" class="btn btn-xs btn-warning" title="Editar">
-                            <i class="fas fa-edit"></i>
+                        <a href="{{ route('indicadores.edit', $indicador) }}" class="btn btn-xs btn-warning" title="Editar Indicador y Proyección">
+                            <i class="fas fa-edit"></i> editar
                         </a>
                         @endcan
                         @if(!$indicador->cerrado)
                             @can('delete', $indicador)
                         <form action="{{ route('indicadores.destroy', $indicador) }}" method="POST" class="d-inline"
-                              onsubmit="return confirm('¿Está seguro de que desea eliminar este indicador?');">
+                              onsubmit="return confirm('¿Está seguro de que desea eliminar este indicador?\nEsta acción no podrá revertirla');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-xs btn-danger" title="Eliminar">
-                                <i class="fas fa-trash"></i>
+                            <button type="submit" class="btn btn-xs btn-danger" title="Eliminar Indicador">
+                                <i class="fas fa-trash"></i> Eliminar
                             </button>
                         </form>
                         @endcan
@@ -127,4 +140,49 @@
             @endforeach
         </x-adminlte-datatable>
     </x-adminlte-card>
+    @if($puedeVerEliminados)
+    <div class="collapse" id="papeleraIndicadores">
+        <x-adminlte-card class="shadow" title="Indicadores eliminados (SoftDeletes)" theme="warning" icon="fas fa-trash" collapsible maximizable>
+            @php
+                $headsDel = [
+                    'Nombre',
+                    'Tipo',
+                    'Asignado a',
+                    'Meta',
+                    ['label' => 'Eliminado el', 'width' => 20],
+                    ['label' => 'Acciones', 'no-export' => true, 'width' => 15],
+                ];
+                $configDel['language']  = ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es-cl.json'];
+                $configDel['order']     = [[4, 'desc']];
+                $configDel['responsive']= true;
+            @endphp
+
+            <x-adminlte-datatable id="indicadoresEliminados" :heads="$headsDel" :config="$configDel" bordered hoverable striped with-buttons>
+                @forelse ($indicadoresEliminados as $el)
+                    <tr>
+                        <td>{{ Str::limit($el->indicador, 60) }}</td>
+                        <td>{{ $el->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
+                        <td>{{ optional($el->usuario)->nombreCompleto() ?? 'No asignado' }}</td>
+                        <td>{{ number_format($el->meta, 2) }}</td>
+                        <td>{{ optional($el->deleted_at)->format('d-m-Y H:i') }}</td>
+                        <td class="text-nowrap">
+                            <form action="{{ route('indicadores.restaurar', $el->cod_indicador) }}" method="POST"
+                                class="d-inline" onsubmit="return confirm('¿Restaurar este indicador?');">
+                                @csrf
+                                <button type="submit" class="btn btn-xs btn-success" title="Restaurar">
+                                    <i class="fas fa-undo"></i> Restaurar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No hay indicadores eliminados.</td>
+                    </tr>
+                @endforelse
+            </x-adminlte-datatable>
+        </x-adminlte-card>
+    </div>
+    @endif
+
 @endsection

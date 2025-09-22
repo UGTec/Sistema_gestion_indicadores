@@ -71,4 +71,19 @@ class IndicadorPolicy
         return $indicador->cerrado &&
             $user->hasRole('Control de Gestión');
     }
+
+    public function viewTrashed(Usuario $user)
+    {
+        return $user->hasRole('Control de Gestión') || $user->can('indicadores.restaurar');
+    }
+
+    public function restore(Usuario $user, Indicador $indicador)
+    {
+        return $user->hasRole('Control de Gestión') || $user->can('indicadores.restaurar');
+    }
+
+    public function forceDelete(Usuario $user, Indicador $indicador)
+    {
+        return $user->can('indicadores.eliminar_definitivo');
+    }
 }

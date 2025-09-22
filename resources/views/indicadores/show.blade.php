@@ -52,14 +52,14 @@
                     </form>
                     @endcan
                 @else
-                    {{-- @can('reabrir', $indicador) --}}
+                    @can('indicadores.reabrir', $indicador)
                     <form action="{{ route('indicadores.reabrir', $indicador) }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-primary">
                             <i class="fas fa-lock-open"></i> Reabrir
                         </button>
                     </form>
-                    {{-- @endcan --}}
+                    @endcan
                 @endif
             </div>
         </x-slot>
@@ -97,7 +97,7 @@
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label">Meta:</label>
                     <div class="col-md-8">
-                        <p class="">{{ number_format($indicador->meta, 2) }}%</p>
+                        <p class="">{{ number_format($indicador->meta, 2,',','.') }}%</p>
                     </div>
                 </div>
 
@@ -139,20 +139,20 @@
                     <div class="col-md-4">
                         <div class="p-2 border rounded">
                             <div class="small text-muted">Total Proyectado {{ $anio }}</div>
-                            <div class="h4 mb-0">{{ number_format($totalProy, 2) }}</div>
+                            <div class="h4 mb-0">{{ number_format($totalProy, 2,',','.') }}</div>
                         </div>
                     </div>
                     <div class="col-md-4 mt-2 mt-md-0">
                         <div class="p-2 border rounded">
                             <div class="small text-muted">Total Real {{ $anio }}</div>
-                            <div class="h4 mb-0">{{ number_format($totalReal, 2) }}</div>
+                            <div class="h4 mb-0">{{ number_format($totalReal, 2,',','.') }}</div>
                         </div>
                     </div>
                     <div class="col-md-4 mt-2 mt-md-0">
                         <div class="p-2 border rounded">
                             <div class="small text-muted">Brecha (Proy - Real)</div>
                             <div class="h4 mb-0 {{ $gap < 0 ? 'text-danger' : 'text-success' }}">
-                                {{ number_format($gap, 2) }}
+                                {{ number_format($gap, 2,',','.') }}
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                                     @forelse($indicador->proyecciones as $p)
                                     <tr>
                                         <td>{{ $monthNames[$p->mes] ?? $p->mes }}</td>
-                                        <td>{{ number_format($p->valor, 2) }}</td>
+                                        <td>{{ number_format($p->valor, 2,',','.') }}</td>
                                         <td>{{ optional($p->updated_at)->format('d-m-Y H:i') }}</td>
                                     </tr>
                                     @empty
@@ -202,7 +202,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Total</th>
-                                        <th>{{ number_format($totalProy, 2) }}</th>
+                                        <th>{{ number_format($totalProy, 2,',','.') }}</th>
                                         <th></th>
                                     </tr>
                                 </tfoot>
@@ -221,11 +221,11 @@
                 <div class="list-group">
                     @foreach($indicador->archivos as $archivo)
                     <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{{ route('archivos.download', $archivo) }}" target="_blank" class="flex-grow-1">
+                        <a href="{{ route('archivos.download', $archivo) }}" target="_blank" class="flex-grow-1" title="Descargar">
                             <i class="fas fa-file mr-2"></i>{{ $archivo->nombre_original }}
                             <small class="text-muted ml-2">({{ $archivo->tamanho_formateado }})</small>
                         </a>
-                        {{-- @can('delete', $archivo) --}}
+                        @can('archivos.eliminar')
                         <form action="{{ route('archivos.destroy', $archivo) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -234,7 +234,7 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>
-                        {{-- @endcan --}}
+                        @endcan
                     </div>
                     @endforeach
                 </div>
@@ -247,7 +247,7 @@
         <div class="row mt-4">
             <div class="col-12">
                 <h5>Registro Mensual</h5>
-                @can('create', [App\Models\IndicadorMensual::class, $indicador])
+                @can('indicadores_mensuales.crear', [App\Models\IndicadorMensual::class, $indicador])
                 <a href="{{ route('indicadores-mensuales.create', $indicador) }}" class="btn btn-success">
                     <i class="fas fa-plus"></i> Agregar Registro Mensual
                 </a>
@@ -275,17 +275,29 @@
                     @foreach($indicador->indicadoresMensuales->sortByDesc('año')->sortByDesc('mes') as $mensual)
                     <tr>
                         <td>{{ $mensual->mes }}/{{ $mensual->año }}</td>
-                        <td>{{ number_format($mensual->numerador, 2) }}</td>
-                        <td>{{ number_format($mensual->denominador, 2) }}</td>
-                        <td>{{ number_format($mensual->resultado, 2) }}%</td>
+                        <td>{{ number_format($mensual->numerador, 2,',','.') }}</td>
+                        <td>{{ number_format($mensual->denominador, 2,',','.') }}</td>
+                        <td>{{ number_format($mensual->resultado, 2,',','.') }}%</td>
                         <td>{{ $mensual->usuario->nombreCompleto() ?? 'N/A' }}</td>
                         <td>{{ optional($mensual->fecha_actualizacion)->format('d-m-y') }} </td>
                         <td>
+                            @if(!$indicador->cerrado)
                             @can('update', $mensual)
                             <a href="{{ route('indicadores-mensuales.edit', [$indicador, $mensual]) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
                             @endcan
+                            @can('delete', $mensual)
+                            <form action="{{ route('indicadores-mensuales.destroy', [$indicador, $mensual]) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('¿Está seguro que desea eliminar este registro mensual?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach

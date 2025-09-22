@@ -55,6 +55,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('indicadores/{indicador}/reabrir', [IndicadorController::class, 'reabrir'])
         ->name('indicadores.reabrir');
+    Route::post('indicadores/{indicador}/restaurar', [IndicadorController::class, 'restaurar'])
+        ->name('indicadores.restaurar')
+        ->whereNumber('indicador');
     // Rutas para Indicadores Mensuales
     Route::prefix('indicadores/{indicador}/mensuales')->name('indicadores-mensuales.')->group(function () {
         Route::get('/create', [IndicadorMensualController::class, 'create'])

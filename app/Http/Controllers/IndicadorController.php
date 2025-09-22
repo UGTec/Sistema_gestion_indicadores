@@ -24,6 +24,7 @@ class IndicadorController extends Controller
         $this->middleware('can:indicadores.cerrar', ['only' => ['cerrar']]);
         $this->middleware('can:indicadores.completar', ['only' => ['completar']]);
         $this->middleware('can:indicadores.reabrir', ['only' => ['reabrir']]);
+        $this->middleware('can:indicadores.restaurar', ['only' => ['restaurar']]);
     }
 
     public function index(Request $request)
@@ -34,7 +35,9 @@ class IndicadorController extends Controller
         $query = Indicador::query()
             ->with(['tipoIndicador', 'usuario'])
             ->withSum(
-                ['proyecciones as total_proyeccion'=> fn ($q) => $q->where('anio', $anio)],
+                [
+                    'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
+                ],
                 'valor'
             );
 
@@ -50,7 +53,27 @@ class IndicadorController extends Controller
 
         $indicadores = $query->get();
 
-        return view('indicadores.index', compact('indicadores', 'estado', 'anio'));
+        //cargar eliminados
+        $puedeVerEliminados    = auth()->user()->hasRole('Control de Gestión') || auth()->user()->can('indicadores.restaurar');
+        $indicadoresEliminados = collect();
+        $countEliminados       = 0;
+
+        if ($puedeVerEliminados) {
+            $indicadoresEliminados = Indicador::onlyTrashed()
+                ->with(['tipoIndicador', 'usuario'])
+                ->orderByDesc('deleted_at')
+                ->get();
+            $countEliminados = $indicadoresEliminados->count();
+        }
+
+        return view('indicadores.index', compact(
+            'indicadores',
+            'estado',
+            'anio',
+            'puedeVerEliminados',
+            'indicadoresEliminados',
+            'countEliminados'
+        ));
     }
 
     public function create()
@@ -204,19 +227,24 @@ class IndicadorController extends Controller
 
     public function update(Request $request, Indicador $indicador)
     {
-        $data = $request->validate([
-            'indicador'           => 'required|string|max:4098',
-            'objetivo'            => 'required|string|max:4098',
-            'cod_tipo_indicador'  => 'required|exists:tipo_indicador,cod_tipo_indicador',
-            'meta'                => 'required|numeric',
-            'cod_usuario'         => 'required|exists:usuario,cod_usuario',
-            'archivos'            => 'nullable|array|max:5',
-            'archivos.*'          => 'file|max:10240',
-            'projections'         => 'required|array|min:1',
-            'projections.*.year'  => 'required|integer|min:' . now()->year,
-            'projections.*.month' => 'required|integer|between:1,12',
-            'projections.*.value' => 'required|numeric|min:0',
-        ]);
+        $data = $request->validate(
+            [
+                'indicador'           => 'required|string|max:4098',
+                'objetivo'            => 'required|string|max:4098',
+                'cod_tipo_indicador'  => 'required|exists:tipo_indicador,cod_tipo_indicador',
+                'meta'                => 'required|numeric',
+                'cod_usuario'         => 'required|exists:usuario,cod_usuario',
+                'archivos'            => 'nullable|array|max:5',
+                'archivos.*'          => 'file|max:10240',
+                'projections'         => 'required|array|min:1',
+                'projections.*.year'  => 'required|integer|min:' . now()->year,
+                'projections.*.month' => 'required|integer|between:1,12',
+                'projections.*.value' => 'required|numeric|min:0',
+            ],
+            [
+                'projections.required' => 'Debe agregar al menos una proyección mensual'
+            ]
+        );
 
         // Validar tamaño total
         if ($request->hasFile('archivos')) {
@@ -325,5 +353,30 @@ class IndicadorController extends Controller
 
         $indicador->reabrir();
         return back()->with('success', 'Indicador reabierto exitosamente');
+    }
+
+    public function restaurar($indicador)
+    {
+
+        if (!auth()->user()->hasRole('Control de Gestión') && !auth()->user()->can('indicadores.restaurar')) {
+            abort(403);
+        }
+
+        $model = Indicador::onlyTrashed()->findOrFail($indicador);
+        $model->restore();
+
+        return redirect()
+            ->route('indicadores.index')
+            ->with('success', 'Indicador restaurado correctamente.');
+    }
+
+    // (Opcional) eliminación definitiva:
+    public function forceDelete(Indicador $indicador)
+    {
+        $this->authorize('forceDelete', Indicador::class); // o usa middleware de permiso
+        $indicador = Indicador::onlyTrashed()->findOrFail($indicador);
+        $indicador->forceDelete();
+
+        return back()->with('success', 'Indicador eliminado definitivamente.');
     }
 }

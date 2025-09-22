@@ -23,6 +23,16 @@ class PermissionSeeder extends Seeder
             'indicadores.cerrar',
             'indicadores.completar',
             'indicadores.reabrir',
+            'indicadores.restaurar',
+            'indicadores.eliminar_definitivo',
+        ];
+
+        // Permisos para Indicadores Mensuales
+        $indicadorMensualPermissions = [
+            'indicadores_mensuales.ver',
+            'indicadores_mensuales.crear',
+            'indicadores_mensuales.editar',
+            'indicadores_mensuales.eliminar',
         ];
 
         // Permisos para Usuarios
@@ -71,15 +81,24 @@ class PermissionSeeder extends Seeder
             'iframe.eliminar',
         ];
 
+        $archivoPermissions = [
+            'archivos.ver',
+            'archivos.crear',
+            'archivos.editar',
+            'archivos.eliminar',
+        ];
+
         // Combinar todos los permisos
         $allPermissions = array_merge(
             $indicadorPermissions,
+            $indicadorMensualPermissions,
             $usuarioPermissions,
             $departamentoPermissions,
             $estadoUsuarioPermissions,
             $rolePermissions,
             $permissionPermissions,
             $iframePermissions,
+            $archivoPermissions,
         );
 
         // Crear permisos en la base de datos
@@ -97,17 +116,22 @@ class PermissionSeeder extends Seeder
         $roleJefatura = Role::create(['name' => 'Jefatura de División', 'guard_name' => 'web']);
         $roleJefatura->givePermissionTo([
             'indicadores.ver',
-            'departamentos.ver',
-            'usuarios.ver',
+            'archivos.ver',
+            //'departamentos.ver',
+            //'usuarios.ver',
         ]);
 
         // 3. Informante
         $roleInformante = Role::create(['name' => 'Informante', 'guard_name' => 'web']);
         $roleInformante->givePermissionTo([
             'indicadores.ver',
-            'indicadores.crear',
+            //'indicadores.crear',
             'indicadores.editar',
             'indicadores.completar',
+            'indicadores_mensuales.ver',
+            'indicadores_mensuales.crear',
+            'indicadores_mensuales.editar',
+            'indicadores_mensuales.eliminar',
         ]);
 
         // 4. Revisor

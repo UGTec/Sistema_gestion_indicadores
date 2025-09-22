@@ -63,7 +63,9 @@ class IndicadorMensual extends Model
         'resultado',
         'cod_usuario',
         'cod_usuario_modificacion',
-        'fecha_actualizacion'
+        'fecha_actualizacion',
+        'estado',
+        'observaciones',
     ];
 
     protected $casts = [
