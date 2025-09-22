@@ -372,13 +372,6 @@ return [
             'active' => ['iframes*'],
             'can'    => 'iframe.ver',
         ],
-        // [
-        //     'text'   => 'Formatos de Archivos',
-        //     'url'    => 'formatos-archivo',
-        //     'icon'   => 'fas fa-file',
-        //     'active' => ['formatos-archivo.*'],
-        //     'can'    => 'formatos.ver',
-        // ],
         [
             'header' => 'Indicadores',
             'can'    => 'indicadores.ver',
@@ -389,12 +382,6 @@ return [
             'icon'    => 'fas fa-fw fa-calendar-alt',
             'can'     => 'indicadores.ver',
             'submenu' => [
-                // [
-                //     'text'   => 'Tipos de Indicadores',
-                //     'url'    => 'tipos_indicador',
-                //     'icon'   => 'fas fa-fw fa-list-alt',
-                //     'active' => ['tipos_indicador*'],
-                // ],
                 [
                     'text'   => 'Indicadores',
                     'url'    => 'indicadores',
@@ -402,47 +389,8 @@ return [
                     'active' => ['indicadores*'],
                     'can'    => 'indicadores.ver',
                 ],
-                // [
-                //     'text' => 'Indicador Mensual',
-                //     'url'  => '#;',
-                //     'icon' => 'fas fa-fw fa-chart-line',
-                // ],
             ],
         ],
-        // [
-        //     'text' => 'Indicadores',
-        //     'url' => 'indicadores',
-        //     'icon' => 'fas fa-fw fa-chart-bar',
-        //     'active' => ['indicadores*'],
-        //     'can' => 'indicadores.ver',
-        // ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url' => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url' => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text' => 'important',
-        //     'icon_color' => 'red',
-        //     'url' => '#',
-        // ],
-        // [
-        //     'text' => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url' => '#',
-        // ],
-        // [
-        //     'text' => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url' => '#',
-        // ],
     ],
 
     /*
