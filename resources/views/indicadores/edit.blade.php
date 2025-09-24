@@ -182,7 +182,7 @@
                         @php
                             use Carbon\Carbon;
                             $currentYear  = Carbon::now()->year;
-                            $currentMonth = Carbon::now()->month;
+                            $currentMonth = 1; //Carbon::now()->month;
                             $monthNames = [
                                 1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
                                 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
