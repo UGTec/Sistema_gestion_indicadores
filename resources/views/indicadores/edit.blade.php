@@ -142,10 +142,12 @@
                                         <a href="{{ route('archivos.download', $archivo) }}" target="_blank">
                                             <i class="fas fa-file mr-2"></i>{{ $archivo->nombre_original }}
                                         </a>
+                                        @can('archivos.eliminar')
                                         <button type="button" class="btn btn-sm btn-danger"
                                             onclick="confirmarEliminarArchivo({{ $archivo->id }})">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
                                     @endforeach
                                 </div>
