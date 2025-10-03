@@ -310,12 +310,16 @@ return [
         ],
         // Sidebar items:
         [
-            'text' => 'Panel',
+            'type' => 'sidebar-menu-search',
+            'text' => 'buscar',
+        ],
+        [
+            'text' => 'Dashboard',
             'url'  => 'home',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
-            'header' => 'ADMINISTRACIÓN',
+            'header' => 'Administración',
             'can'    => 'usuarios.crear',
         ],
         [
@@ -369,7 +373,7 @@ return [
             'can'    => 'iframe.ver',
         ],
         [
-            'header' => 'INDICADORES',
+            'header' => 'Indicadores',
             'can'    => 'indicadores.ver',
         ],
         [

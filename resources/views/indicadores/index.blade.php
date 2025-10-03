@@ -67,19 +67,18 @@
                 'Asignado a',
                 'Meta',
                 'Estado',
-                'Proyección',
                 ['label' => 'Acciones', 'no-export' => true, 'width' => 5],
             ];
 
             $config['language'] = ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es-cl.json'];
-            $config['order'] = [[0, 'desc']];
+            $config['order'] = [[0, 'asc']];
             $config['responsive'] = true;
             $config['fixHeader'] = true;
         @endphp
         <x-adminlte-datatable id="indicadores" :heads="$heads" :config="$config" bordered hoverable striped beatify with-buttons>
             @foreach ($indicadores as $indicador)
                 <tr>
-                    <td>{{ Str::limit($indicador->indicador, 50) }}</td>
+                    <td>{{ Str::limit($indicador->indicador, 60) }}</td>
                     <td>{{ $indicador->tipoIndicador->tipo_indicador ?? 'N/A' }}</td>
                     <td>{{ $indicador->usuario->nombreCompleto() ?? 'No asignado' }}</td>
                     <td>{{ number_format($indicador->meta, 2,',','.') }}%</td>
@@ -88,7 +87,6 @@
                             {{ ucfirst($indicador->estado) }}
                         </span>
                     </td>
-                    <td>{{ number_format($indicador->total_proyeccion ?? 0, 2,',','.') }}%</td>
                     <td class="text-nowrap">
                         <a href="{{ route('indicadores.show', $indicador) }}" class="btn btn-xs btn-info" title="Ver | Agregar Avance al indicador">
                             <i class="fas fa-eye"></i> Registro Mensual

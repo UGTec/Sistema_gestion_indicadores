@@ -166,7 +166,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 20%">Mes</th>
-                                        <th style="width: 20%">Valor</th>
+                                        <th style="width: 20%">Valor (%)</th>
                                         <th>Última actualización</th>
                                     </tr>
                                 </thead>
@@ -266,7 +266,7 @@
                     ];
                     $config = [
                         'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es-cl.json'],
-                        'order' => [[0, 'desc']],
+                        'order' => [[0, 'asc']],
                         'responsive' => true,
                         'fixHeader' => true,
                     ];

@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="numerador" class="col-md-4 col-form-label text-md-right">Numerador</label>
+                <label for="numerador" class="col-md-4 col-form-label text-md-right">{{ $indicador->parametro1 }}</label>
                 <div class="col-md-6">
                     <input id="numerador" type="number" step="0.01" class="form-control @error('numerador') is-invalid @enderror"
                         name="numerador" value="{{ old('numerador') }}" >
@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="denominador" class="col-md-4 col-form-label text-md-right">Denominador</label>
+                <label for="denominador" class="col-md-4 col-form-label text-md-right">{{ $indicador->parametro2 }}</label>
                 <div class="col-md-6">
                     <input id="denominador" type="number" step="0.01" class="form-control @error('denominador') is-invalid @enderror"
                         name="denominador" value="{{ old('denominador') }}" >

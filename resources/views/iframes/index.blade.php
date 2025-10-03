@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Iframes')
-@section('subtitle', 'Lista de Iframes')
-@section('content_header_title', 'Iframes')
-@section('content_header_subtitle', 'Aquí puedes gestionar los iframes de tu aplicación.')
+@section('title', 'Gestión de Paneles')
+@section('subtitle', 'Lista de Paneles')
+@section('content_header_title', 'Paneles')
+@section('content_header_subtitle', 'Aquí puedes gestionar el acceso al panel Power BI en el sistema.')
 
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
@@ -26,7 +26,7 @@
     @if($activeIframe)
         <div class="alert alert-info">
             <i class="fas fa-info-circle"></i>
-            <strong>Iframe Activo:</strong> {{ $activeIframe->name }}
+            <strong>Panel Activo:</strong> {{ $activeIframe->name }}
             <a href="{{ route('iframe.display', $activeIframe->id) }}" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
                 <i class="fas fa-external-link-alt"></i> Ver
             </a>
@@ -49,10 +49,10 @@
     @endif
 
     {{-- Card for managing iframes --}}
-    <x-adminlte-card class="shadow" title="Gestión de Iframes" theme="primary" icon="fas fa-lg fa-iframe" collapsible maximizable>
+    <x-adminlte-card class="shadow" title="Gestión de Paneles" theme="primary" icon="fas fa-lg fa-iframe" collapsible maximizable>
         <x-slot name="toolsSlot">
-            <a href="{{ route('iframes.create') }}" class="btn btn-success btn-xs" title="Crear Iframe">
-                <i class="fas fa-plus"></i> Crear Iframe
+            <a href="{{ route('iframes.create') }}" class="btn btn-success btn-xs" title="Crear Acceso">
+                <i class="fas fa-plus"></i> Crear Acceso
             </a>
         </x-slot>
         @php

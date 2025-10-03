@@ -99,7 +99,33 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="meta" class="col-md-3 col-form-label text-md-right">Meta</label>
+                            <label for="parametro1" class="col-md-3 col-form-label text-md-right">Numerador</label>
+                            <div class="col-md-9">
+                                <textarea id="parametro1" class="form-control @error('parametro1') is-invalid @enderror"
+                                    name="parametro1" required rows="1">{{ old('parametro1', $indicador->parametro1) }}</textarea>
+                                @error('parametro1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="parametro2" class="col-md-3 col-form-label text-md-right">Denominador</label>
+                            <div class="col-md-9">
+                                <textarea id="parametro2" class="form-control @error('parametro2') is-invalid @enderror"
+                                    name="parametro2" required rows="1">{{ old('parametro2', $indicador->parametro2) }}</textarea>
+                                @error('parametro2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="meta" class="col-md-3 col-form-label text-md-right">Meta (%)</label>
                             <div class="col-md-9">
                                 <input id="meta" type="number" step="0.01" class="form-control @error('meta') is-invalid @enderror"
                                     name="meta" value="{{ old('meta', $indicador->meta) }}" required>
@@ -184,7 +210,8 @@
                         @php
                             use Carbon\Carbon;
                             $currentYear  = Carbon::now()->year;
-                            $currentMonth = 1; //Carbon::now()->month;
+                            // $currentMonth = Carbon::now()->month;
+                            $currentMonth = 1;
                             $monthNames = [
                                 1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
                                 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
@@ -263,8 +290,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="2" class="text-right">Total Proyectado:</th>
-                                                    <th><span id="proj-total">0.00</span></th>
+                                                    <th colspan="2" class="text-right"></th>
+                                                    <th><span id="proj-total" hidden>0.00</span></th>
                                                     <th></th>
                                                 </tr>
                                             </tfoot>

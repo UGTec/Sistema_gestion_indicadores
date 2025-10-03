@@ -2,9 +2,9 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Dashboard')
-@section('content_header_title', 'Dashboard')
-@section('content_header_subtitle', 'Bienvenido al Sistema de Gestión de Indicadores' )
+@section('subtitle', 'Panel')
+@section('content_header_title', 'Panel')
+@section('content_header_subtitle', 'Sistema de Gestión de Indicadores' )
 
 {{-- Extend the browser title --}}
 

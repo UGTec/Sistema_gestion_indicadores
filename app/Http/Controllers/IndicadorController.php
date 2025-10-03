@@ -234,6 +234,8 @@ class IndicadorController extends Controller
                 'cod_tipo_indicador'  => 'required|exists:tipo_indicador,cod_tipo_indicador',
                 'meta'                => 'required|numeric',
                 'cod_usuario'         => 'required|exists:usuario,cod_usuario',
+                'parametro1'          => 'required|string|max:1024',
+                'parametro2'          => 'required|string|max:1024',
                 'archivos'            => 'nullable|array|max:5',
                 'archivos.*'          => 'file|max:10240',
                 'projections'         => 'required|array|min:1',
@@ -281,6 +283,8 @@ class IndicadorController extends Controller
                 'cod_tipo_indicador' => $data['cod_tipo_indicador'],
                 'meta'               => $data['meta'],
                 'cod_usuario'        => $data['cod_usuario'],
+                'parametro1'         => $data['parametro1'],
+                'parametro2'         => $data['parametro2'],
             ]);
 
             $userId = auth()->check() ? auth()->user()->cod_usuario ?? null : null;
