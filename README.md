@@ -1,1 +1,0 @@
-# Sistema_gestion_indicadores
