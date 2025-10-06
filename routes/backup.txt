@@ -1,0 +1,2389 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict C02ldMlTb9vm82wHmv9Muk2HDW0Xix4fb3Im4DpFxKjQL5eFAYVQI5VGIpL5RXI
+
+-- Dumped from database version 15.14 (Debian 15.14-0+deb12u1)
+-- Dumped by pg_dump version 15.14 (Debian 15.14-0+deb12u1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: archivos; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.archivos (
+    id bigint NOT NULL,
+    nombre_original character varying(255) NOT NULL,
+    nombre_guardado character varying(255) NOT NULL,
+    ruta character varying(255) NOT NULL,
+    mime_type character varying(255) NOT NULL,
+    tamanho integer NOT NULL,
+    archivable_type character varying(255) NOT NULL,
+    archivable_id bigint NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.archivos OWNER TO scg;
+
+--
+-- Name: archivos_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.archivos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.archivos_id_seq OWNER TO scg;
+
+--
+-- Name: archivos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.archivos_id_seq OWNED BY public.archivos.id;
+
+
+--
+-- Name: cache; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.cache (
+    key character varying(255) NOT NULL,
+    value text NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache OWNER TO scg;
+
+--
+-- Name: cache_locks; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.cache_locks (
+    key character varying(255) NOT NULL,
+    owner character varying(255) NOT NULL,
+    expiration integer NOT NULL
+);
+
+
+ALTER TABLE public.cache_locks OWNER TO scg;
+
+--
+-- Name: condicional; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.condicional (
+    cod_condicional numeric,
+    condicional character varying
+);
+
+
+ALTER TABLE public.condicional OWNER TO scg;
+
+--
+-- Name: departamento; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.departamento (
+    cod_departamento numeric(2,0) NOT NULL,
+    departamento character varying(75),
+    cod_division numeric(2,0),
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.departamento OWNER TO scg;
+
+--
+-- Name: division; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.division (
+    cod_division numeric(2,0) NOT NULL,
+    division character varying(50) NOT NULL,
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.division OWNER TO scg;
+
+--
+-- Name: estado_usuario; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.estado_usuario (
+    cod_estado_usuario numeric(1,0) NOT NULL,
+    estado_usuario character varying(20),
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.estado_usuario OWNER TO scg;
+
+--
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection text NOT NULL,
+    queue text NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO scg;
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.failed_jobs_id_seq OWNER TO scg;
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
+
+
+--
+-- Name: iframes; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.iframes (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    url character varying(255) NOT NULL,
+    description text,
+    width character varying(255) DEFAULT '800px'::character varying NOT NULL,
+    height character varying(255) DEFAULT '600px'::character varying NOT NULL,
+    is_active boolean DEFAULT true NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.iframes OWNER TO scg;
+
+--
+-- Name: iframes_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.iframes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.iframes_id_seq OWNER TO scg;
+
+--
+-- Name: iframes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.iframes_id_seq OWNED BY public.iframes.id;
+
+
+--
+-- Name: indicador; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.indicador (
+    cod_indicador integer NOT NULL,
+    indicador character varying(4098),
+    objetivo character varying(4098),
+    cod_tipo_indicador numeric(2,0),
+    parametro1 character varying(1024),
+    parametro2 character varying(1024),
+    cod_usuario numeric(2,0),
+    meta numeric(10,0),
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    cerrado boolean DEFAULT false NOT NULL,
+    fecha_cierre timestamp(0) without time zone,
+    estado character varying(255) DEFAULT 'abierto'::character varying NOT NULL
+);
+
+
+ALTER TABLE public.indicador OWNER TO scg;
+
+--
+-- Name: indicador_cod_indicador_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.indicador_cod_indicador_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.indicador_cod_indicador_seq OWNER TO scg;
+
+--
+-- Name: indicador_cod_indicador_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.indicador_cod_indicador_seq OWNED BY public.indicador.cod_indicador;
+
+
+--
+-- Name: indicador_mensual; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.indicador_mensual (
+    cod_indicador integer NOT NULL,
+    numerador numeric(10,0),
+    denominador numeric(10,0),
+    mes numeric(2,0) NOT NULL,
+    "año" numeric(4,0) NOT NULL,
+    resultado numeric(12,2),
+    cod_usuario numeric(2,0),
+    fecha_actualizacion date,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    estado character varying(40) DEFAULT 'por_informar'::character varying NOT NULL,
+    observaciones text,
+    enviado_revisor_at timestamp(0) without time zone,
+    enviado_control_at timestamp(0) without time zone,
+    enviado_jefatura_at timestamp(0) without time zone,
+    aprobado_at timestamp(0) without time zone,
+    id bigint NOT NULL,
+    cod_usuario_modificacion numeric(2,0),
+    condicional_oportunidad numeric,
+    condicional_completitud numeric,
+    condicional_progreso numeric,
+    condicional_riesgo numeric,
+    descripcion_oportunidad character varying,
+    descripcion_completitud character varying,
+    descripcion_progreso character varying,
+    descripcion_riesgo character varying,
+    gestiones character varying
+);
+
+
+ALTER TABLE public.indicador_mensual OWNER TO scg;
+
+--
+-- Name: indicador_mensual_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.indicador_mensual_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.indicador_mensual_id_seq OWNER TO scg;
+
+--
+-- Name: indicador_mensual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.indicador_mensual_id_seq OWNED BY public.indicador_mensual.id;
+
+
+--
+-- Name: indicador_proyeccion_mensual; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.indicador_proyeccion_mensual (
+    id bigint NOT NULL,
+    cod_indicador integer NOT NULL,
+    anio smallint NOT NULL,
+    mes smallint NOT NULL,
+    valor numeric(14,2) DEFAULT '0'::numeric NOT NULL,
+    cod_usuario integer,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.indicador_proyeccion_mensual OWNER TO scg;
+
+--
+-- Name: indicador_proyeccion_mensual_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.indicador_proyeccion_mensual_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.indicador_proyeccion_mensual_id_seq OWNER TO scg;
+
+--
+-- Name: indicador_proyeccion_mensual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.indicador_proyeccion_mensual_id_seq OWNED BY public.indicador_proyeccion_mensual.id;
+
+
+--
+-- Name: job_batches; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.job_batches (
+    id character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    total_jobs integer NOT NULL,
+    pending_jobs integer NOT NULL,
+    failed_jobs integer NOT NULL,
+    failed_job_ids text NOT NULL,
+    options text,
+    cancelled_at integer,
+    created_at integer NOT NULL,
+    finished_at integer
+);
+
+
+ALTER TABLE public.job_batches OWNER TO scg;
+
+--
+-- Name: jobs; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.jobs (
+    id bigint NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    attempts smallint NOT NULL,
+    reserved_at integer,
+    available_at integer NOT NULL,
+    created_at integer NOT NULL
+);
+
+
+ALTER TABLE public.jobs OWNER TO scg;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.jobs_id_seq OWNER TO scg;
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
+
+
+--
+-- Name: migrations; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO scg;
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.migrations_id_seq OWNER TO scg;
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- Name: model_has_permissions; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.model_has_permissions (
+    permission_id bigint NOT NULL,
+    model_type character varying(255) NOT NULL,
+    model_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.model_has_permissions OWNER TO scg;
+
+--
+-- Name: model_has_roles; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.model_has_roles (
+    role_id bigint NOT NULL,
+    model_type character varying(255) NOT NULL,
+    model_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.model_has_roles OWNER TO scg;
+
+--
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.password_reset_tokens (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.password_reset_tokens OWNER TO scg;
+
+--
+-- Name: permisos; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.permisos (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    guard_name character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.permisos OWNER TO scg;
+
+--
+-- Name: permisos_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.permisos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.permisos_id_seq OWNER TO scg;
+
+--
+-- Name: permisos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.permisos_id_seq OWNED BY public.permisos.id;
+
+
+--
+-- Name: reporte_adjunto; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.reporte_adjunto (
+    id bigint NOT NULL,
+    cod_indicador integer NOT NULL,
+    mes smallint NOT NULL,
+    "año" smallint NOT NULL,
+    nombre_original character varying(255) NOT NULL,
+    path character varying(255) NOT NULL,
+    cod_usuario integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.reporte_adjunto OWNER TO scg;
+
+--
+-- Name: reporte_adjunto_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.reporte_adjunto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reporte_adjunto_id_seq OWNER TO scg;
+
+--
+-- Name: reporte_adjunto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.reporte_adjunto_id_seq OWNED BY public.reporte_adjunto.id;
+
+
+--
+-- Name: role_has_permissions; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.role_has_permissions (
+    permission_id bigint NOT NULL,
+    role_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.role_has_permissions OWNER TO scg;
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.roles (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    guard_name character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.roles OWNER TO scg;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO scg;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
+
+
+--
+-- Name: sessions; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.sessions (
+    id character varying(255) NOT NULL,
+    user_id character varying(255),
+    ip_address character varying(45),
+    user_agent text,
+    payload text NOT NULL,
+    last_activity integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO scg;
+
+--
+-- Name: tipo_indicador; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.tipo_indicador (
+    cod_tipo_indicador numeric(2,0) NOT NULL,
+    tipo_indicador character varying(10),
+    descripcion character varying(75),
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.tipo_indicador OWNER TO scg;
+
+--
+-- Name: usuario; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.usuario (
+    cod_usuario numeric(2,0) NOT NULL,
+    usuario character varying(40),
+    nombre character varying(40),
+    primer_apellido character varying(40),
+    segundo_apellido character varying(40),
+    correo_electronico character varying(70),
+    cod_departamento numeric(2,0),
+    cod_estado_usuario numeric(1,0),
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    email_verified_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.usuario OWNER TO scg;
+
+--
+-- Name: workflow_log; Type: TABLE; Schema: public; Owner: scg
+--
+
+CREATE TABLE public.workflow_log (
+    id bigint NOT NULL,
+    cod_indicador integer NOT NULL,
+    mes smallint NOT NULL,
+    "año" smallint NOT NULL,
+    accion character varying(60) NOT NULL,
+    de_estado character varying(40),
+    a_estado character varying(40),
+    cod_usuario integer NOT NULL,
+    mensaje text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.workflow_log OWNER TO scg;
+
+--
+-- Name: workflow_log_id_seq; Type: SEQUENCE; Schema: public; Owner: scg
+--
+
+CREATE SEQUENCE public.workflow_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.workflow_log_id_seq OWNER TO scg;
+
+--
+-- Name: workflow_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: scg
+--
+
+ALTER SEQUENCE public.workflow_log_id_seq OWNED BY public.workflow_log.id;
+
+
+--
+-- Name: archivos id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.archivos ALTER COLUMN id SET DEFAULT nextval('public.archivos_id_seq'::regclass);
+
+
+--
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: iframes id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.iframes ALTER COLUMN id SET DEFAULT nextval('public.iframes_id_seq'::regclass);
+
+
+--
+-- Name: indicador cod_indicador; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador ALTER COLUMN cod_indicador SET DEFAULT nextval('public.indicador_cod_indicador_seq'::regclass);
+
+
+--
+-- Name: indicador_mensual id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_mensual ALTER COLUMN id SET DEFAULT nextval('public.indicador_mensual_id_seq'::regclass);
+
+
+--
+-- Name: indicador_proyeccion_mensual id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_proyeccion_mensual ALTER COLUMN id SET DEFAULT nextval('public.indicador_proyeccion_mensual_id_seq'::regclass);
+
+
+--
+-- Name: jobs id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
+
+
+--
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- Name: permisos id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.permisos ALTER COLUMN id SET DEFAULT nextval('public.permisos_id_seq'::regclass);
+
+
+--
+-- Name: reporte_adjunto id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.reporte_adjunto ALTER COLUMN id SET DEFAULT nextval('public.reporte_adjunto_id_seq'::regclass);
+
+
+--
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
+
+
+--
+-- Name: workflow_log id; Type: DEFAULT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.workflow_log ALTER COLUMN id SET DEFAULT nextval('public.workflow_log_id_seq'::regclass);
+
+
+--
+-- Data for Name: archivos; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.archivos (id, nombre_original, nombre_guardado, ruta, mime_type, tamanho, archivable_type, archivable_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.cache (key, value, expiration) FROM stdin;
+laravel_cache_ioo|10.214.218.96:timer	i:1758712438;	1758712438
+laravel_cache_ioo|10.214.218.96	i:1;	1758712438
+laravel_cache_spatie.permission.cache	a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:41:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:15:"indicadores.ver";s:1:"c";s:3:"web";s:1:"r";a:5:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:4;i:4;i:5;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:17:"indicadores.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:18:"indicadores.editar";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:3;i:2;i:4;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:20:"indicadores.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:18:"indicadores.cerrar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:5;a:4:{s:1:"a";i:6;s:1:"b";s:21:"indicadores.completar";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:3;i:2;i:4;}}i:6;a:4:{s:1:"a";i:7;s:1:"b";s:19:"indicadores.reabrir";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:7;a:4:{s:1:"a";i:8;s:1:"b";s:21:"indicadores.restaurar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:8;a:4:{s:1:"a";i:9;s:1:"b";s:31:"indicadores.eliminar_definitivo";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:9;a:4:{s:1:"a";i:10;s:1:"b";s:25:"indicadores_mensuales.ver";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:3;}}i:10;a:4:{s:1:"a";i:11;s:1:"b";s:27:"indicadores_mensuales.crear";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:3;}}i:11;a:4:{s:1:"a";i:12;s:1:"b";s:28:"indicadores_mensuales.editar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:3;}}i:12;a:4:{s:1:"a";i:13;s:1:"b";s:30:"indicadores_mensuales.eliminar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:3;}}i:13;a:4:{s:1:"a";i:14;s:1:"b";s:12:"usuarios.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:14;a:4:{s:1:"a";i:15;s:1:"b";s:14:"usuarios.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:15;a:4:{s:1:"a";i:16;s:1:"b";s:15:"usuarios.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:16;a:4:{s:1:"a";i:17;s:1:"b";s:17:"usuarios.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:17;a:4:{s:1:"a";i:18;s:1:"b";s:17:"departamentos.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:18;a:4:{s:1:"a";i:19;s:1:"b";s:19:"departamentos.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:19;a:4:{s:1:"a";i:20;s:1:"b";s:20:"departamentos.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:20;a:4:{s:1:"a";i:21;s:1:"b";s:22:"departamentos.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:21;a:4:{s:1:"a";i:22;s:1:"b";s:11:"estados.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:22;a:4:{s:1:"a";i:23;s:1:"b";s:13:"estados.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:23;a:4:{s:1:"a";i:24;s:1:"b";s:14:"estados.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:24;a:4:{s:1:"a";i:25;s:1:"b";s:16:"estados.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:25;a:4:{s:1:"a";i:26;s:1:"b";s:9:"roles.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:26;a:4:{s:1:"a";i:27;s:1:"b";s:11:"roles.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:27;a:4:{s:1:"a";i:28;s:1:"b";s:12:"roles.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:28;a:4:{s:1:"a";i:29;s:1:"b";s:14:"roles.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:29;a:4:{s:1:"a";i:30;s:1:"b";s:12:"permisos.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:30;a:4:{s:1:"a";i:31;s:1:"b";s:14:"permisos.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:31;a:4:{s:1:"a";i:32;s:1:"b";s:15:"permisos.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:32;a:4:{s:1:"a";i:33;s:1:"b";s:17:"permisos.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:33;a:4:{s:1:"a";i:34;s:1:"b";s:10:"iframe.ver";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:34;a:4:{s:1:"a";i:35;s:1:"b";s:12:"iframe.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:35;a:4:{s:1:"a";i:36;s:1:"b";s:13:"iframe.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:36;a:4:{s:1:"a";i:37;s:1:"b";s:15:"iframe.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:37;a:4:{s:1:"a";i:38;s:1:"b";s:12:"archivos.ver";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:38;a:4:{s:1:"a";i:39;s:1:"b";s:14:"archivos.crear";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:39;a:4:{s:1:"a";i:40;s:1:"b";s:15:"archivos.editar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:40;a:4:{s:1:"a";i:41;s:1:"b";s:17:"archivos.eliminar";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:5:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:19:"Control de Gestión";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:21:"Jefatura de División";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:10:"Informante";s:1:"c";s:3:"web";}i:3;a:3:{s:1:"a";i:4;s:1:"b";s:7:"Revisor";s:1:"c";s:3:"web";}i:4;a:3:{s:1:"a";i:5;s:1:"b";s:10:"Observador";s:1:"c";s:3:"web";}}}	1759834879
+laravel_cache_avatar_d709aef094c7cb77238537683b176ec1	s:3522:"data:image/png;base64,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";	1759849008
+laravel_cache_avatar_f3d3bcf6db62f8264057829be11b9218	s:3274:"data:image/png;base64,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";	1758743429
+\.
+
+
+--
+-- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.cache_locks (key, owner, expiration) FROM stdin;
+\.
+
+
+--
+-- Data for Name: condicional; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.condicional (cod_condicional, condicional) FROM stdin;
+1	Bueno
+2	Regular
+3	Malo
+\.
+
+
+--
+-- Data for Name: departamento; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.departamento (cod_departamento, departamento, cod_division, deleted_at, created_at, updated_at) FROM stdin;
+5	Departamento de Supervisión	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+2	Departamento de Presupuesto y Gestión Financiera	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+3	Departamento de Gestión y Desarrollo de Personas	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+4	Unidad de Administración Interna	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+6	Unidad de Planificación Estratégica y Control de Gestión	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+7	Departamento de Gestión Curricular	2	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+8	Departamento de Educación Integral	2	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+9	Departamento de Estudios y Estadística	2	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+10	Unidad de Gestión Territorial	2	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+11	Unidad de Auditoría Interna	4	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+12	Unidad de Comunicaciones	4	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+13	Gabinete	4	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+14	Departamento de Procedimientos Jurídicos	1	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+15	Departamento Normativo	1	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+16	Departamento de Cobertura y Certificaciones	1	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+17	Unidad de transparencia, lobby y solicitudes de Presidencia	1	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+1	Unidad de Gestión Tecnológica	3	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+18	Unidad de Género	4	\N	2025-10-02 11:18:01	2025-10-02 11:18:01
+\.
+
+
+--
+-- Data for Name: division; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.division (cod_division, division, deleted_at, created_at, updated_at) FROM stdin;
+1	DIVISIÓN JURÍDICA	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+2	DIVISIÓN DE POLÍTICAS EDUCATIVAS	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+3	DIVISIÓN DE ADMINISTRACIÓN Y FINANZAS	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+4	GABINETE	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+\.
+
+
+--
+-- Data for Name: estado_usuario; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.estado_usuario (cod_estado_usuario, estado_usuario, deleted_at, created_at, updated_at) FROM stdin;
+1	Activo	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+2	Inactivo	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+\.
+
+
+--
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: iframes; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.iframes (id, name, url, description, width, height, is_active, created_at, updated_at) FROM stdin;
+1	Dashboard SGI	https://app.powerbi.com/reportEmbed?reportId=0c9ae77b-94d9-45ac-8eff-9f4c1850d63c&autoAuth=true&ctid=2e4cfe50-0580-4140-9387-4ecde39def60&navContentPaneEnabled=false&filterPaneEnabled=false	Este es un ejemplo de iframe para fines de demostración.	1920px	1032px	t	2025-09-22 13:25:07	2025-09-22 14:27:19
+\.
+
+
+--
+-- Data for Name: indicador; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.indicador (cod_indicador, indicador, objetivo, cod_tipo_indicador, parametro1, parametro2, cod_usuario, meta, deleted_at, created_at, updated_at, cerrado, fecha_cierre, estado) FROM stdin;
+8	Porcentaje de iniciativas del Plan de Trabajo de la Línea de Gestión de Aula realizadas en el año t.	Generar instancias de profundización y apropiación de los sentidos y fundamentos de los referentes curriculares del nivel, como una estrategia relevante para su implementación, lo que incide directamente en la calidad educativa. 	2	N° de iniciativas  del plan de trabajo de la línea de gestión de aula  realizadas en el año t	N° de iniciativas  del plan de trabajo de la línea de gestión planificadas para el año t	7	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+2	Porcentaje de acciones del Plan de Mejoramiento de Gestión Presupuestaria y Financiera realizadas en el año t	Fortalecer la gestión presupuestaria y financiera del Servicio para asegurar una ejecución del presupuesto efectiva.	2	N° de acciones  del Plan de Mejoramiento de Gestión Presupuestaria y Financiera realizadas en el año t	N° de acciones del Plan de Mejoramiento de Gestión planificadas en el año t	3	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+7	Porcentaje de acciones realizadas del Plan de  instalación del proceso de planificación interna del servicio para el t.	Realizar acciones en el marco del proceso de planificación interna del servicio para fortalecer el monitoreo de los procesos institucionales y la toma de decisiones a las jefaturas del servicio	2	N° de acciones del Plan de  instalación del proceso de planificación interna realizadas en el año t	N° total de acciones del Plan de  instalación del proceso de planificación interna planificadas en el año t	6	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+10	Porcentaje de iniciativas del Plan "Sistema de Aseguramiento de la Calidad (SAC) en Educación Parvularia realizadas en el año t.	Fortalecer la implementación del Sistema de Aseguramiento de la Calidad (SAC), resguardando la pertinencia del nivel de Educación Parvularia.	2	N° de iniciativas del Plan SAC  en Educación Parvularia realizadas en el año t 	N° de iniciativas planificadas del Plan SAC en Educación Parvularia planificadas en el año t) 	9	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+28	Estado Verde	Implementar progresivamente una gestión sustentable en los procesos administrativos y en los productos estratégicos de las instituciones, con el fin de disminuir los impactos ambientales y contribuir a los compromisos asumidos por el Estado de Chile en materia de cambio climático.\nEtapa 1\nObjetivo 1: Poner en funcionamiento un marco de gobernanza para la implementación gradual del Sistema Estado Verde, mediante la creación y/o puesta en marcha del Comité\nEstado Verde, la concientización y capacitación de sus colaboradores y la revisión de la política ambiental del Servicio.\nObjetivo 2: Diagnosticar la situación de la gestión ambiental mediante el levantamiento de información y de la existencia de procesos de monitoreo que determinen el desempeño ambiental del Servicio y sus impactos.\nEtapa 2\nObjetivo 1: Diseñar y formalizar la política de gestión ambiental y la capacitación requerida.\nObjetivo 2: Elaborar un plan de gestión ambiental a partir de los resultados del diagnóstico, que permita abordar las brechas ambientales detectadas.\nEtapa 3\nObjetivo 1: Difundir y socializar la política de gestión ambiental y dar continuidad a las acciones de capacitación.\nObjetivo 2: Implementar el plan de gestión ambiental Institucional.	1	Requisitos técnicos implementados	Requisitos técnicos comprometidos	24	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+31	Porcentaje de actores claves que, tras participar en procesos formativos sobre políticas, programas y/o lineamientos de la SdEP, implementan al menos una de las estrategias recomendadas en el aula durante los primeros tres meses posteriores a la formación.	Objetivo Estratégico Institucional N°1:\nDesarrollar políticas, programas y/o lineamientos educativos, dirigidos a los diferentes actores de Educación Parvularia, para promover desde una mirada inclusiva y con enfoque de género, los aprendizajes y bienestar integral de niños y niñas de 0 a 6 años. 	3	N° de actores claves que implementan al menos una estrategia en el año t	N° total de actores claves que participaron en la formación en el año t	25	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+14	Porcentaje de revisiones de solicitudes de actos administrativos en materia de compras publicas y convenios realizadas oportunamente	Velar por la celeridad en la revisión de las solicitudes de los actos administrativos en materia de compras públicas y convenios derivados a la División Jurídica.	2	N°  de revisiones de solicitudes en materias de compras publicas o convenios, realizadas oportunamente en el año t	N° de revisiones de solicitudes en materias de compras publicas o convenios, recibidas  en el año t	13	94	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+27	Riesgos Psicosociales 	Generar entornos de trabajo psicológicamente saludables en las instituciones públicas,\na través de una gestión efectiva de los riesgos psicosociales en el trabajo\nEtapa 1\nObjetivo 1: La institución pone en funcionamiento un marco de gobernanza para la implementación gradual del Sistema.\nObjetivo 2: El Servicio genera y difunde un diagnóstico institucional de los riesgos psicosociales laborales, mediante la aplicación del cuestionario CEALSM/SUSESO, de manera participativa.\nEtapa 2\nObjetivo 1: El Servicio define una política de gestión de riesgos psicosociales laborales o su actualización si corresponde y elabora un plan plurianual de mejoramiento de los entornos de trabajo, de manera participativa.\nEtapa 3\nObjetivo 1: El Servicio implementa y difunde el plan plurianual de mejoramiento de los entornos de trabajo.	1	Requisitos técnicos implementados	Requisitos técnicos comprometidos	27	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+22	Porcentaje de acciones del Plan de fortalecimiento de la comunicación efectiva realizadas en el año t	Consolidar una estrategia de comunicación efectiva y coherente para fortalecer la relación de la SdEP con las comunidades educativas y mejorar la articulación del sector. 	2	N° acciones del plan de fortalecimiento de la comunicación efectiva realizadas en el año t	N° acciones del plan de fortalecimiento de la comunicación efectiva planificados en el año t	20	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+23	Porcentaje de recursos del Plan de difusión de recursos técnico-pedagógicos difundidos en el año t.	Resguardar la realización de publicaciones de recursos técnicos-pedagógicos en forma oportuna y en coordinación con la División de Políticas Educativas.	2	N° recursos del Plan de difusión de recursos técnico-pedagógicos difundidos en el año t	N° de recursos del Plan de difusión de recursos técnico-pedagógicos planificados en el año t	20	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+19	Porcentaje de capacitaciones realizadas del Plan de  Capacitación para los SLEP en el año t	Transferir conocimiento sobre los procesos de certificación a los Servicios Locales de Educación pública, con el fin de propiciar el ingreso de expedientes de los establecimientos que estén bajo su administración	2	N° de capacitaciones del Plan de  Capacitación para los SLEP realizadas en el año t	N° de capacitaciones del Plan de  Capacitación para los SLEP planificadas en el año t	17	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+29	Concentración del Gasto 	Mejorar la planificación y eficiencia en el gasto público, no concentrando los gastos de operación que se indican en los últimos meses del año.	1	Gastos ejecutados de subtítulos 22 y 29 en el segundo semestre del año t + gastos ejecutados de\nsubtítulos 22 y 29 en el cuarto trimestre del año t + gasto ejecutado de subtítulos 22 y 29 en el mes de\ndiciembre del año t	Total de gastos ejecutadas de subtítulos 22 y 29 en el año t	28	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+21	Porcentaje de reuniones de acompañamiento realizadas con los centros de responsabilidad del Servicio.	Contribuir a la superación de debilidades detectadas en los procesos a cargo de los diversos centros de responsabilidad de la Subsecretaría, mediante el acompañamiento en el proceso de implementación de medidas correctivas. 	2	N° de reuniones de acompañamiento realizadas  en el año t	N° de reuniones de acompañamiento programadas en el año t	19	83	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+11	Porcentaje de iniciativas del Plan de trabajo en la línea de Inclusión realizadas en el año t.	Fortalecer la educación parvularia inclusiva a través de la realización de iniciativas relacionadas a la elaboración de recursos.	2	N° de las iniciativas del plan de trabajo en la línea de inclusión realizadas en el año t	N° de iniciativas del plan de trabajo en la línea de inclusión planificadas en el año t) 	10	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+16	Porcentaje de acciones realizadas del Plan de exposiciones sobre la normativa educacional 	Velar por el entendimiento y correcta interpretación de la normativa educacional vigente en regiones.	2	N° de acciones del Plan de exposiciones sobre la normativa educacional realizadas en el año t	N° total de acciones del Plan de exposiciones sobre la normativa educacional planificadas en el año t	15	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+9	Porcentaje de iniciativas del Plan de Trabajo para FIEP realizadas en el año t.	Asegurar la eficiencia en los procesos de implementación, seguimiento y monitoreo del Fondo de Innovación Educativa para Educación Parvularia FIEP.  	2	N° de iniciativas del Plan de Trabajo para FIEP realizadas en el año t	N° de iniciativas del Plan de Trabajo para FIEP planificadas para el año t	8	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+1	Porcentaje de actividades del Plan de informes de gestión del convenio Fundación Integra realizadas en el año t	Proveer de información relevante sobre la gestión del convenio de transferencia entre el Servicio y Fundación Integra, a través de informes de gestión que se traduzcan en  insumos útiles para los procesos de análisis y toma de decisión.  	2	N° de  actividades del Plan de informes de gestión del convenio Fundación Integra realizados en el año t 	N° de actividades del Plan de informes de gestión del convenio Fundación Integra planificados en el año t 	2	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+5	Porcentaje de acciones del Plan de trabajo en materia de revisión y acreditación de gastos del convenio Fundación Integra realizadas en el año t.	Fortalecer los procedimientos asociados a la gestión del convenio integra y reconocer datos relevantes para la valorización de la gestión del Departamento.	2	N° de acciones del Plan de trabajo en materia de revisión y acreditación de gastos del convenio Fundación Integra realizadas en el año t	N° de acciones del Plan de trabajo en materia de revisión y acreditación de gastos del convenio Fundación Integra planificados en el año t	2	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+4	Porcentaje de acciones del Plan de Mejoramiento de la Ejecución del Plan Anual de Compras realizadas en el año t.	Fortalecer el proceso de adquisiciones, a través de acciones que permitan la oportuna ejecución del plan anual de compras del Servicio	2	N° de acciones  del Plan de Mejoramiento de la Ejecución del Plan Anual de Compras realizadas en el año t	N° de acciones del Plan de Mejoramiento de la Ejecución del Plan Anual de Compras planificadas en el año t	32	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+25	Porcentaje de Informes de gestión enviados en el año t.	Resguardar la comunicación directa y permanente entre la Autoridad y la Unidad de Auditoría Interna, respecto de todas las actividades desarrolladas, proporcionando a la autoridad, aseguramiento, consultoría y análisis en base a riesgos.	2	Número de informes de gestión de auditoría enviados en el año t 	Número de informes de gestión de auditoría programados en el año t	19	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+17	Porcentaje de actos administrativos que aprueban o rechazan solicitudes de aumento de plazos oportunamente en el año t	Asegurar los tiempos máximos de tramitación de los actos administrativos que aprueban o rechazan solicitudes de aumento de plazo en relación a procesos de certificación de establecimientos.	2	N° de actos administrativos que aprueban o rechazan solicitudes de aumento de plazos tramitados oportunamente en el año t 	N° de actos administrativos que aprueban o rechazan solicitudes de aumento de plazos, tramitados en el año t	15	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+15	Porcentaje de informes jurídicos elaborados oportunamente en el año t	Fortalecer el rol asesor del departamento, asegurando la oportuna emisión de informes jurídicos	2	N° de informes jurídicos elaborados oportunamente en el año t 	N° de informes jurídicos elaborados en el año t	14	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+20	Porcentaje de solicitudes de acceso a la información pública derivadas oportunamente en el año t	Optimizar los plazos disponibles para entregar respuestas oportunas a solicitudes de acceso a la información pública	2	N° de solicitudes de acceso a la información pública derivadas oportunamente en el año t 	N° de solicitudes de acceso a la información pública derivadas en el año t	18	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+12	Porcentaje de productos del Plan anual de fortalecimiento de la gestión de datos realizadas en el año t	Fortalecer la gestión de datos del Servicio a través de la creación y aplicación de productos asociados, de manera de robustecer la gobernanza y estandarización de los datos en el nivel.	2	N° de productos del Plan anual de fortalecimiento de la gestión de datos realizados en el año t	N° de productos del Plan anual de fortalecimiento de la gestión de datos planificados para el año t	33	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+30	Transformación Digital	Instalar progresivamente los principios y estándares de gobiernos digital en la gestión de\nlas instituciones, para mejorar la calidad de los servicios entregados a las personas (naturales y\njurídicas) por el Estado.\nEtapa 1\nObjetivo 1: Poner en funcionamiento una estructura de gobernanza para la implementación del Sistema de Transformación Digital.\nObjetivo 2: Efectuar un diagnóstico institucional de brechas en dimensiones estratégicas de transformación digital.\nEtapa 2\nObjetivo 1: Elaborar y difundir el plan de transformación digital institucional.	1	Requisitos técnicos implementados	Requisitos técnicos comprometidos	5	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+32	Porcentaje de aumento de establecimientos certificados del nivel de Educación Parvularia en el año t.	Objetivo Estratégico Institucional N°3:\nDesarrollar lineamientos y/o medidas que permitan avanzar en los estándares de calidad del nivel en materia de infraestructura, coeficientes técnicos y material de enseñanza, dirigidos a los distintos actores y sostenedores con el objeto de aumentar los establecimientos certificados del nivel.	3	N° total de establecimientos certificados en el año  t - N° total de establecimiento certificados en el año t-1	N° total de establecimiento certificados en el años t-1	35	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+26	Equidad de Género	Contribuir a disminuir las inequidades, brechas y/o barreras de género implementando acciones estratégicas orientadas a mejorar el ejercicio de derechos, los niveles de igualdad y equidad de género en la provisión de bienes y servicios públicos, y a fortalecer la capacidad de los Servicios para desarrollar políticas públicas de igualdad de género.	1	Número de medidas para la igualdad de género implementadas en el año t	Número total de medidas para la  igualdad de género establecidas en el programa marco del año t 	31	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+33	Porcentaje de disminución  brechas del coeficiente técnico del Estamento técnico de establecimientos VTF al año t.  	Objetivo Estratégico Institucional N°4:\nDisminuir las brechas en materia de asignación de recursos y programáticas, mediante el desarrollo de medidas y/o acciones articuladas con los actores claves, desde una perspectiva sistémica de mediano plazo y de equidad para los niños y niñas que asisten a Educación Parvularia.	3	Brecha coeficiente técnico año t-1 de establecimientos VTF - Brecha coeficiente técnico año t de establecimientos VTF	Brecha coeficiente técnico año t-1 de establecimientos VTF	34	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+6	Porcentaje de acciones del Plan de Transferencia de Conocimientos en Tecnología realizadas en el año t	Actualizar los procesos tecnológicos del servicio a través de acciones y/o medidas en materia de soporte, desarrollo tecnológico y mantenimiento para asegurar una oportuna gestión tecnológica.  	2	N° de acciones del Plan de Transferencia de Conocimientos en tecnología realizadas en el año t	N° de acciones del Plan de transferencia de conocimientos en tecnología planificadas en el año t	5	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+3	Porcentaje de procedimientos actualizados sobre gestión y desarrollo de personas realizados en el año t 	Asegurar la correcta ejecución de procedimientos relacionados con la gestión y el desarrollo de personas en el Servicio.	2	N° de procedimientos del Plan de Actualizaciones de Procedimientos realizados en el año t 	N° total de procedimientos del Plan de Actualizaciones de Procedimientos planificados en el año t	30	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+18	Porcentaje de clínicas realizadas del Plan de clínicas  regionales en el año t	 Incentivar la certificación de los establecimientos particulares pagados de educación parvularia, orientando respecto del cumplimiento normativo a las entidades sostenedoras.	2	N° de clínicas del Plan de clínicas regionales realizadas en el año t	N° de clínicas del Plan de clínicas regionales planificadas en el año t	16	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+24	Porcentaje de acciones del Plan de transversalización de genero realizadas en el año t	Desarrollar acciones para la transversalización de la perspectiva de género en la Subsecretaría	2	N° de acciones del plan de transversalización de genero realizadas en el año t	N° de acciones del plan de transversalización de genero planificadas en el año t	31	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+13	Porcentaje de iniciativas del Plan de Gestión Territorial de la División de Políticas Educativas realizadas en el año t	Promover el fortalecimiento de la Educación Parvularia en todas las regiones del país	2	N° de iniciativas del Plan de Gestión Territorial DPE realizadas en el año t	N° de iniciativas del Plan de gestión territorial de la DPE planificadas para el año t	12	100	\N	2025-10-01 18:24:07	2025-10-01 18:24:07	f	\N	abierto
+\.
+
+
+--
+-- Data for Name: indicador_mensual; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.indicador_mensual (cod_indicador, numerador, denominador, mes, "año", resultado, cod_usuario, fecha_actualizacion, created_at, updated_at, estado, observaciones, enviado_revisor_at, enviado_control_at, enviado_jefatura_at, aprobado_at, id, cod_usuario_modificacion, condicional_oportunidad, condicional_completitud, condicional_progreso, condicional_riesgo, descripcion_oportunidad, descripcion_completitud, descripcion_progreso, descripcion_riesgo, gestiones) FROM stdin;
+1	0	7	1	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	1	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+2	0	6	1	2025	0.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	2	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+3	0	5	1	2025	0.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	3	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+4	0	3	1	2025	0.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	4	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+5	0	6	1	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	5	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+6	0	7	1	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	6	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+7	0	7	1	2025	0.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	7	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+8	0	7	1	2025	0.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	8	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+11	0	9	1	2025	0.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	11	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+12	0	13	1	2025	0.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	12	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+13	0	22	1	2025	0.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	13	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+16	0	3	1	2025	0.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	16	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+18	0	6	1	2025	0.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	18	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+19	0	6	1	2025	0.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	19	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+20	15	16	1	2025	94.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	20	\N	1	1	1	1	\N	\N	\N	\N	
+21	0	6	1	2025	0.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	21	\N	1	1	1	1	\N	\N	\N	\N	
+22	0	10	1	2025	0.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	22	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+23	0	10	1	2025	0.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	23	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+24	0	6	1	2025	0.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	24	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+25	0	10	1	2025	0.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	25	\N	1	1	1	1	\N	\N	\N	\N	
+1	0	7	2	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	34	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+2	2	6	2	2025	33.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	35	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+3	0	5	2	2025	0.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	36	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+4	0	3	2	2025	0.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	37	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+5	0	6	2	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	38	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+6	0	7	2	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	39	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+7	1	7	2	2025	14.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	40	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+8	0	7	2	2025	0.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	41	\N	1	1	1	1	\N	\N	\N	\N	
+9	0	7	2	2025	0.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	42	\N	1	1	1	1	\N	\N	\N	\N	
+10	0	7	2	2025	0.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	43	\N	1	1	1	1	\N	\N	\N	\N	
+11	0	9	2	2025	0.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	44	\N	1	1	1	1	\N	\N	\N	\N	
+12	0	13	2	2025	0.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	45	\N	1	1	1	1	\N	\N	\N	\N	
+13	0	22	2	2025	0.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	46	\N	1	1	1	1	\N	\N	\N	\N	
+14	4	4	2	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	47	\N	1	1	1	1	\N	\N	\N	\N	
+16	0	3	2	2025	0.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	49	\N	1	1	1	1	\N	\N	\N	\N	
+17	2	2	2	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	50	\N	1	1	1	1	\N	\N	\N	\N	
+18	0	6	2	2025	0.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	51	\N	1	1	1	1	\N	\N	\N	\N	
+19	0	6	2	2025	0.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	52	\N	1	1	1	1	\N	\N	\N	\N	
+20	27	29	2	2025	93.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	53	\N	1	1	1	1	\N	\N	\N	\N	
+21	0	6	2	2025	0.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	54	\N	1	1	1	1	\N	\N	\N	\N	
+22	0	10	2	2025	0.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	55	\N	1	1	1	1	\N	\N	\N	\N	
+23	0	10	2	2025	0.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	56	\N	1	1	1	1	\N	\N	\N	\N	
+24	0	6	2	2025	0.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	57	\N	1	1	1	1	\N	\N	\N	\N	
+25	0	10	2	2025	0.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	58	\N	1	1	1	1	\N	\N	\N	\N	
+1	3	7	3	2025	43.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	67	\N	2	1	1	1	\N	\N	\N	\N	Se revisa modificación de solicitud de información actividad 3 del plan
+2	3	6	3	2025	50.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	68	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	0	5	3	2025	0.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	69	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+4	1	3	3	2025	33.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	70	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+5	0	6	3	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	71	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+6	0	7	3	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	72	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+7	1	7	3	2025	14.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	73	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+8	1	7	3	2025	14.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	74	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de medio verificador actividad 1 del plan
+9	0	7	3	2025	0.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	75	\N	1	1	1	1	\N	\N	\N	\N	Se revisa eliminación de actividad 2 y ajustes a nuevo plan
+10	1	7	3	2025	14.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	76	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de actividad 2 y 5 del plan
+11	0	9	3	2025	0.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	77	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+12	0	13	3	2025	0.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	78	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de plazo sobre actividad 1 el plan
+13	0	22	3	2025	0.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	79	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de plazo sobre actividad 1 el plan
+14	18	18	3	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	80	\N	1	1	1	1	\N	\N	\N	\N	Se revisan rangos para correcta  contabilización de días
+16	0	3	3	2025	0.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	82	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+17	3	3	3	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	83	\N	1	1	1	1	\N	\N	\N	\N	Se ajustan formulas de medio de verificación
+18	0	6	3	2025	0.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	84	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+19	0	6	3	2025	0.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	85	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+20	42	43	3	2025	98.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	86	\N	1	1	1	1	\N	\N	\N	\N	Se ajusta planilla, se incluyen columnas y comentarios
+21	2	6	3	2025	33.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	87	\N	1	1	1	1	\N	\N	\N	\N	Se acuerda con Unidad de Auditoria Interna reportar al menos 2 reuniones de seguimiento por cuatrimestre
+22	1	10	3	2025	10.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	88	\N	1	1	1	1	\N	\N	\N	\N	Se revisa apertura de actividades en plan
+23	1	10	3	2025	10.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	89	\N	1	1	1	1	\N	\N	\N	\N	Se revisa apertura de actividades en plan
+24	1	6	3	2025	17.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	90	\N	2	1	1	1	\N	\N	\N	\N	Se solicita acta firmadas
+25	1	10	3	2025	10.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	91	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+1	3	7	4	2025	43.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	100	\N	1	1	1	1	\N	\N	\N	\N	Solicita prorroga, el indicador es reportado según prorroga aprobada
+2	3	6	4	2025	50.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	101	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	1	5	4	2025	20.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	102	\N	1	1	1	1	\N	\N	\N	\N	Falta medio de verificación, se solicita a contraparte y es enviado conforme.
+4	1	3	4	2025	33.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	103	\N	1	1	1	1	\N	\N	\N	\N	Solicita prorroga, el indicador es reportado según prorroga aprobada
+5	0	7	4	2025	0.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	104	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+6	1	7	4	2025	14.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	105	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+7	3	9	4	2025	33.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	106	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+8	1	7	4	2025	14.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	107	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+9	2	6	4	2025	33.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	108	\N	1	1	1	1	\N	\N	\N	\N	Se solicitan medios de verificación, contraparte envía conforme lo solicitado
+10	2	7	4	2025	29.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	109	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+11	1	9	4	2025	11.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	110	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+12	4	13	4	2025	31.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	111	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de plazo sobre actividad 1 el plan
+13	4	22	4	2025	18.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	112	\N	1	1	1	1	\N	\N	\N	\N	Se revisa modificación de plazo sobre actividad 1 el plan
+14	31	31	4	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	113	\N	1	1	1	1	\N	\N	\N	\N	Se envían observaciones en fechas y formulas de planilla. Se subsana conforme por contraparte
+15	1	1	4	2025	100.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	114	\N	1	1	1	1	\N	\N	\N	\N	Se envían observaciones en fechas y formulas de planilla. Se subsana conforme por contraparte
+16	0	3	4	2025	0.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	115	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+17	7	7	4	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	116	\N	1	1	1	1	\N	\N	\N	\N	Se envían observaciones en fechas y formulas de planilla. Se subsana conforme por contraparte
+18	0	6	4	2025	0.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	117	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+19	0	6	4	2025	0.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	118	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+20	51	53	4	2025	96.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	119	\N	1	1	1	1	\N	\N	\N	\N	Se ajusta planilla, se incluyen columnas y comentarios. Se subsana conforme por contraparte
+21	2	6	4	2025	33.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	120	\N	1	1	1	1	\N	\N	\N	\N	Se acuerda con Unidad de Auditoria Interna reportar al menos 2 reuniones de seguimiento por cuatrimestre
+22	2	10	4	2025	20.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	121	\N	1	1	1	1	\N	\N	\N	\N	Se revisa apertura de actividades en plan
+23	2	10	4	2025	20.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	122	\N	1	1	1	1	\N	\N	\N	\N	Se revisa apertura de actividades en plan
+24	1	6	4	2025	17.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	123	\N	1	1	1	1	\N	\N	\N	\N	Se solicita acta firmadas
+25	2	10	4	2025	20.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	124	\N	1	1	1	1	\N	\N	\N	\N	Se solicita respaldo de medios de verificación para validar fechas de envío
+1	4	7	5	2025	57.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	133	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+2	3	6	5	2025	50.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	134	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	2	5	5	2025	40.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	135	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+4	1	3	5	2025	33.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	136	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+5	1	7	5	2025	14.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	137	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+6	1	7	5	2025	14.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	138	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+7	3	9	5	2025	33.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	139	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+8	2	7	5	2025	29.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	140	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita respaldo de medios de verificación, reporta fuera de plazo.
+9	3	6	5	2025	50.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	141	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se modifica numerador, reporta fuera de plazo.
+10	2	7	5	2025	29.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	142	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+11	2	9	5	2025	22.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	143	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+12	4	13	5	2025	31.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	144	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+13	14	22	5	2025	64.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	145	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+14	50	50	5	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	146	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se ajusta planilla de reporte y se modifica numerador informado
+15	2	2	5	2025	100.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	147	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se actualizan valores del numerado en planilla de reporte
+16	1	3	5	2025	33.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	148	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita ajustar medio de verificación conforme a plan
+17	6	6	5	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	149	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+18	1	6	5	2025	17.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	150	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se ajusta actas según plan
+19	1	6	5	2025	17.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	151	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se ajustan actas según plan
+20	69	71	5	2025	97.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	152	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se ajusta formula en planilla mas numerador y denominar reportado.
+21	3	6	5	2025	50.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	153	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+22	3	10	5	2025	30.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	154	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+23	3	10	5	2025	30.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	155	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+24	1	6	5	2025	17.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	156	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+25	3	10	5	2025	30.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	157	\N	1	1	1	1	\N	\N	\N	\N	Sin gestiones en el periodo
+1	4	7	6	2025	57.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	166	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+2	4	6	6	2025	67.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	167	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se observa avance del numerador, se rectifica información
+3	3	5	6	2025	60.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	168	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se actualiza plan
+4	1	3	6	2025	33.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	169	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se actualiza plan
+5	1	7	6	2025	14.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	170	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita medios de verificación por correo, se ajustan valores de avance conforme a actividades del plan
+6	1	7	6	2025	14.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	171	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+7	3	9	6	2025	33.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	172	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+8	3	7	6	2025	43.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	173	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+9	4	6	6	2025	67.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	174	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+10	3	7	6	2025	43.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	175	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+11	3	9	6	2025	33.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	176	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita ajustar medio de verificación conforme a plan
+12	6	13	6	2025	46.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	177	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+13	19	22	6	2025	86.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	178	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+14	59	59	6	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	179	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se observan números de expedientes y revisiones eliminadas, se rectifican observaciones.
+15	2	2	6	2025	100.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	180	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+16	1	3	6	2025	33.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	181	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+17	8	8	6	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	182	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+18	2	6	6	2025	33.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	183	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita base de datos para validar establecimientos particulares pagados
+19	2	6	6	2025	33.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	184	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+20	84	86	6	2025	98.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	185	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se ajusta formula de calculo de días en medio de verificación
+21	3	6	6	2025	50.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	186	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, Se solicita respaldo de avances, se rectifica avance informado.
+22	3	8	6	2025	38.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	187	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se valida actualización de plan.
+23	4	10	6	2025	40.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	188	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+24	3	6	6	2025	50.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	189	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+25	4	10	6	2025	40.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	190	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+1	4	7	7	2025	57.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	199	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+2	4	6	7	2025	67.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	200	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	3	5	7	2025	60.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	201	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+4	2	3	7	2025	67.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	202	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicitan medios de verificación para avance informado.
+5	1	7	7	2025	14.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	203	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita medios de verificación por correo, se ajustan valores de avance conforme a actividades del plan
+6	1	7	7	2025	14.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	204	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+7	5	9	7	2025	56.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	205	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+8	4	7	7	2025	57.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	206	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+9	4	6	7	2025	67.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	207	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+10	4	7	7	2025	57.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	208	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+9	0	7	1	2025	0.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	9	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+10	0	7	1	2025	0.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	10	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+26	0	3	1	2025	0.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	26	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	0	16	1	2025	0.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	27	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	0	24	1	2025	0.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	28	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	58702	953121	1	2025	6.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	29	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	0	8	1	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	30	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	0	121	1	2025	0.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	32	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	0	3	2	2025	0.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	59	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	0	16	2	2025	0.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	60	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	0	24	2	2025	0.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	61	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	110271	953121	2	2025	12.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	62	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	0	8	2	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	63	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	11	121	2	2025	9.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	65	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	0	3	3	2025	0.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	92	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	0	16	3	2025	0.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	93	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	0	24	3	2025	0.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	94	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	157714	953121	3	2025	17.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	95	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	0	8	3	2025	0.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	96	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	20	121	3	2025	17.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	98	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	7	15	4	2025	47.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	125	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	7	16	4	2025	44.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	126	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	0	24	4	2025	0.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	127	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	209206	953121	4	2025	22.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	128	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	1	8	4	2025	13.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	129	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	34	121	4	2025	28.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	131	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	9	15	5	2025	60.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	158	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	8	16	5	2025	50.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	159	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	2	24	5	2025	8.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	160	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	267288	953121	5	2025	28.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	161	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	1	8	5	2025	13.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	162	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	42	121	5	2025	35.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	164	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	11	15	6	2025	73.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	191	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	8	16	6	2025	50.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	192	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	2	24	6	2025	8.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	193	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	1086879	933121	6	2025	116.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	194	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	4	6	6	2025	67.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	195	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	59	121	6	2025	49.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	197	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	13	15	7	2025	87.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	224	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	8	16	7	2025	50.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	225	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	2	24	7	2025	8.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	226	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	918104	852945	7	2025	108.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	227	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	4	6	7	2025	67.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	228	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	67	135	7	2025	50.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	230	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	669	7	2025	0.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	231	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	13	15	8	2025	87.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	257	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	8	16	8	2025	50.00	27	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	258	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+28	4	24	8	2025	17.00	24	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	259	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+29	921719	847291	8	2025	109.00	28	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	260	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+30	4	6	8	2025	67.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	261	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+32	73	135	8	2025	54.00	35	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	263	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	669	8	2025	0.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	264	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	1	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	33	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	2	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	66	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	3	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	99	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	4	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	132	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	5	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	165	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+33	0	0	6	2025	10000.00	34	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	198	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+3	0	0	1	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	31	\N	1	1	1	1	\N	\N	\N	\N	Revisión y aprobación de plan
+14	0	0	1	2025	10000.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	14	\N	1	1	1	1	\N	\N	\N	\N	
+15	0	0	1	2025	10000.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	15	\N	1	1	1	1	\N	\N	\N	\N	
+17	0	0	1	2025	10000.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	17	\N	1	1	1	1	\N	\N	\N	\N	
+3	0	0	2	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	64	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+15	0	0	2	2025	10000.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	48	\N	1	1	1	1	\N	\N	\N	\N	
+3	0	0	3	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	97	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+15	0	0	3	2025	10000.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	81	\N	1	1	1	1	\N	\N	\N	\N	Se revisa formato de planilla como medio de verificación
+3	0	0	4	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	130	\N	1	1	1	1	\N	\N	\N	\N	Falta medio de verificación, se solicita a contraparte y es enviado conforme.
+3	0	0	5	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	163	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	0	0	6	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	196	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se actualiza plan
+3	0	0	7	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	229	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+11	5	9	7	2025	56.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	209	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita ajustar medio de verificación y avance conforme a plan 
+12	6	13	7	2025	46.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	210	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+13	19	22	7	2025	86.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	211	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+14	65	65	7	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	212	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+15	3	3	7	2025	100.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	213	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+16	1	3	7	2025	33.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	214	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+17	15	15	7	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	215	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+18	3	6	7	2025	50.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	216	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita respaldo complementario de reuniones
+19	3	6	7	2025	50.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	217	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita respaldo complementario de reuniones
+20	95	97	7	2025	98.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	218	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se modifica en medio de verificación y panilla compartida numerador y denominador reportado
+21	4	6	7	2025	67.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	219	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, 
+22	4	8	7	2025	50.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	220	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, 
+23	5	10	7	2025	50.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	221	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, 
+24	3	6	7	2025	50.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	222	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+25	5	10	7	2025	50.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	223	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+1	5	7	8	2025	71.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	232	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+2	4	6	8	2025	67.00	3	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	233	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	4	5	8	2025	80.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	234	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+3	0	0	8	2025	10000.00	30	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	262	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+4	2	3	8	2025	67.00	32	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	235	\N	2	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita reportar indicador fuera de plazo.
+5	2	7	8	2025	29.00	2	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	236	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+6	3	7	8	2025	43.00	5	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	237	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita envío de medio de verificación completo
+7	5	9	8	2025	56.00	6	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	238	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo.
+8	4	7	8	2025	57.00	7	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	239	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+9	4	6	8	2025	67.00	8	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	240	\N	2	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+10	4	7	8	2025	57.00	9	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	241	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita reportar en planilla compartida
+11	6	9	8	2025	67.00	10	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	242	\N	1	2	2	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita reportar en planilla compartida
+12	7	13	8	2025	54.00	33	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	243	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+13	19	22	8	2025	86.00	12	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	244	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+14	71	71	8	2025	100.00	13	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	245	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita reportar en planilla compartida
+15	5	5	8	2025	100.00	14	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	246	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita reportar en planilla compartida
+16	2	3	8	2025	67.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	247	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+17	15	15	8	2025	100.00	15	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	248	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+18	6	6	8	2025	100.00	16	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	249	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se adelantan 3 actividades, indicador finaliza con 100% de cumplimiento
+19	5	6	8	2025	83.00	17	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	250	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se adelantan 2 actividades, queda 1 pendiente para noviembre
+20	106	108	8	2025	98.00	18	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	251	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita ajustar valores informados, planilla, medios de verificación y reportar en planilla compartida
+21	73	135	8	2025	54.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	252	\N	1	2	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo. Se solicita justar reporte al indicador correspondiente
+22	5	8	8	2025	63.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	253	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, 
+23	6	10	8	2025	60.00	20	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	254	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo, 
+24	4	6	8	2025	67.00	31	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	255	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+25	6	10	8	2025	60.00	19	2025-10-02	2025-10-02 00:00:00	2025-10-02 00:00:00	por_informar	\N	\N	\N	\N	\N	256	\N	1	1	1	1	\N	\N	\N	\N	Revisión de avance y medios de verificación en el periodo
+\.
+
+
+--
+-- Data for Name: indicador_proyeccion_mensual; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.indicador_proyeccion_mensual (id, cod_indicador, anio, mes, valor, cod_usuario, created_at, updated_at) FROM stdin;
+1	14	2025	1	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+2	14	2025	2	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+3	14	2025	3	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+4	14	2025	4	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+5	14	2025	5	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+6	14	2025	6	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+7	14	2025	7	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+8	14	2025	8	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+9	14	2025	9	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+10	14	2025	10	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+11	14	2025	11	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+12	14	2025	12	100.00	13	2025-10-02 00:00:00	2025-10-02 00:00:00
+13	15	2025	1	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+14	15	2025	2	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+15	15	2025	3	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+16	15	2025	4	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+17	15	2025	5	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+18	15	2025	6	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+19	15	2025	7	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+20	15	2025	8	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+21	15	2025	9	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+22	15	2025	10	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+23	15	2025	11	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+24	15	2025	12	100.00	14	2025-10-02 00:00:00	2025-10-02 00:00:00
+25	21	2025	1	0.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+26	21	2025	2	0.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+27	21	2025	3	0.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+28	21	2025	4	33.33	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+29	21	2025	5	33.33	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+30	21	2025	6	50.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+31	21	2025	7	50.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+32	21	2025	8	50.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+33	21	2025	9	66.67	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+34	21	2025	10	66.67	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+35	21	2025	11	83.33	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+36	21	2025	12	100.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+37	23	2025	1	0.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+38	23	2025	2	0.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+39	23	2025	3	10.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+40	23	2025	4	20.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+41	23	2025	5	30.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+42	23	2025	6	40.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+43	23	2025	7	50.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+44	23	2025	8	60.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+45	23	2025	9	70.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+46	23	2025	10	80.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+47	23	2025	11	90.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+48	23	2025	12	100.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+49	8	2025	1	0.00	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+50	8	2025	2	0.00	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+51	8	2025	3	14.29	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+52	8	2025	4	14.29	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+53	8	2025	5	28.57	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+54	8	2025	6	42.86	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+55	8	2025	7	57.14	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+56	8	2025	8	57.14	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+57	8	2025	9	57.14	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+58	8	2025	10	85.71	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+59	8	2025	11	100.00	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+60	8	2025	12	100.00	7	2025-10-02 00:00:00	2025-10-02 00:00:00
+61	1	2025	1	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+62	1	2025	2	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+63	1	2025	3	42.86	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+64	1	2025	4	42.86	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+65	1	2025	5	57.14	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+66	1	2025	6	57.14	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+67	1	2025	7	57.14	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+68	1	2025	8	71.43	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+69	1	2025	9	71.43	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+70	1	2025	10	71.43	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+71	1	2025	11	85.71	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+72	1	2025	12	100.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+73	9	2025	1	0.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+74	9	2025	2	0.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+75	9	2025	3	0.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+76	9	2025	4	33.33	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+77	9	2025	5	50.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+78	9	2025	6	66.67	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+79	9	2025	7	66.67	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+80	9	2025	8	66.67	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+81	9	2025	9	66.67	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+82	9	2025	10	66.67	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+83	9	2025	11	100.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+84	9	2025	12	100.00	8	2025-10-02 00:00:00	2025-10-02 00:00:00
+85	10	2025	1	0.00	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+86	10	2025	2	0.00	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+87	10	2025	3	14.29	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+88	10	2025	4	28.57	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+89	10	2025	5	28.57	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+90	10	2025	6	42.86	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+91	10	2025	7	57.14	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+92	10	2025	8	57.14	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+93	10	2025	9	57.14	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+94	10	2025	10	85.71	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+95	10	2025	11	100.00	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+96	10	2025	12	100.00	9	2025-10-02 00:00:00	2025-10-02 00:00:00
+97	11	2025	1	0.00	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+98	11	2025	2	0.00	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+99	11	2025	3	0.00	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+100	11	2025	4	11.11	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+101	11	2025	5	22.22	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+102	11	2025	6	33.33	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+103	11	2025	7	55.56	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+104	11	2025	8	66.67	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+105	11	2025	9	77.78	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+106	11	2025	10	77.78	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+107	11	2025	11	88.89	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+108	11	2025	12	100.00	10	2025-10-02 00:00:00	2025-10-02 00:00:00
+109	12	2025	1	0.00	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+110	12	2025	2	0.00	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+111	12	2025	3	0.00	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+112	12	2025	4	30.77	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+113	12	2025	5	30.77	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+114	12	2025	6	46.15	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+115	12	2025	7	46.15	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+116	12	2025	8	53.85	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+117	12	2025	9	61.54	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+118	12	2025	10	69.23	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+119	12	2025	11	76.92	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+120	12	2025	12	100.00	33	2025-10-02 00:00:00	2025-10-02 00:00:00
+121	13	2025	1	0.00	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+122	13	2025	2	0.00	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+123	13	2025	3	0.00	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+124	13	2025	4	18.18	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+125	13	2025	5	63.64	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+126	13	2025	6	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+127	13	2025	7	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+128	13	2025	8	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+129	13	2025	9	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+130	13	2025	10	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+131	13	2025	11	86.36	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+132	13	2025	12	100.00	12	2025-10-02 00:00:00	2025-10-02 00:00:00
+133	16	2025	1	0.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+134	16	2025	2	0.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+135	16	2025	3	0.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+136	16	2025	4	0.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+137	16	2025	5	33.33	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+138	16	2025	6	33.33	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+139	16	2025	7	33.33	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+140	16	2025	8	66.67	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+141	16	2025	9	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+142	16	2025	10	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+143	16	2025	11	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+144	16	2025	12	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+145	25	2025	1	0.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+146	25	2025	2	0.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+147	25	2025	3	10.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+148	25	2025	4	20.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+149	25	2025	5	30.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+150	25	2025	6	40.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+151	25	2025	7	50.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+152	25	2025	8	60.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+153	25	2025	9	70.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+154	25	2025	10	80.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+155	25	2025	11	90.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+156	25	2025	12	100.00	19	2025-10-02 00:00:00	2025-10-02 00:00:00
+157	17	2025	1	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+158	17	2025	2	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+159	17	2025	3	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+160	17	2025	4	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+161	17	2025	5	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+162	17	2025	6	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+163	17	2025	7	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+164	17	2025	8	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+165	17	2025	9	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+166	17	2025	10	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+167	17	2025	11	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+168	17	2025	12	100.00	15	2025-10-02 00:00:00	2025-10-02 00:00:00
+169	18	2025	1	0.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+170	18	2025	2	0.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+171	18	2025	3	0.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+172	18	2025	4	0.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+173	18	2025	5	16.67	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+174	18	2025	6	33.33	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+175	18	2025	7	50.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+176	18	2025	8	100.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+177	18	2025	9	50.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+178	18	2025	10	66.67	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+179	18	2025	11	100.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+180	18	2025	12	100.00	16	2025-10-02 00:00:00	2025-10-02 00:00:00
+181	19	2025	1	0.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+182	19	2025	2	0.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+183	19	2025	3	0.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+184	19	2025	4	0.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+185	19	2025	5	16.67	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+186	19	2025	6	33.33	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+187	19	2025	7	50.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+188	19	2025	8	83.33	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+189	19	2025	9	50.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+190	19	2025	10	66.67	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+191	19	2025	11	100.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+192	19	2025	12	100.00	17	2025-10-02 00:00:00	2025-10-02 00:00:00
+193	2	2025	1	0.00	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+194	2	2025	2	33.33	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+195	2	2025	3	50.00	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+196	2	2025	4	50.00	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+197	2	2025	5	50.00	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+198	2	2025	6	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+199	2	2025	7	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+200	2	2025	8	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+201	2	2025	9	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+202	2	2025	10	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+203	2	2025	11	66.67	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+204	2	2025	12	100.00	3	2025-10-02 00:00:00	2025-10-02 00:00:00
+205	20	2025	1	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+206	20	2025	2	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+207	20	2025	3	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+208	20	2025	4	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+209	20	2025	5	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+210	20	2025	6	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+211	20	2025	7	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+212	20	2025	8	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+213	20	2025	9	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+214	20	2025	10	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+215	20	2025	11	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+216	20	2025	12	100.00	18	2025-10-02 00:00:00	2025-10-02 00:00:00
+217	3	2025	1	0.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+218	3	2025	2	0.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+219	3	2025	3	0.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+220	3	2025	4	20.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+221	3	2025	5	40.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+222	3	2025	6	60.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+223	3	2025	7	60.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+224	3	2025	8	80.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+225	3	2025	9	100.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+226	3	2025	10	100.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+227	3	2025	11	100.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+228	3	2025	12	100.00	30	2025-10-02 00:00:00	2025-10-02 00:00:00
+229	24	2025	1	0.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+230	24	2025	2	0.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+231	24	2025	3	16.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+232	24	2025	4	16.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+233	24	2025	5	16.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+234	24	2025	6	50.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+235	24	2025	7	50.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+236	24	2025	8	66.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+237	24	2025	9	66.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+238	24	2025	10	66.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+239	24	2025	11	100.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+240	24	2025	12	100.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+241	4	2025	1	0.00	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+242	4	2025	2	0.00	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+243	4	2025	3	33.33	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+244	4	2025	4	33.33	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+245	4	2025	5	33.33	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+246	4	2025	6	33.33	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+247	4	2025	7	66.67	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+248	4	2025	8	66.67	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+249	4	2025	9	66.67	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+250	4	2025	10	66.67	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+251	4	2025	11	66.67	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+252	4	2025	12	100.00	32	2025-10-02 00:00:00	2025-10-02 00:00:00
+253	5	2025	1	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+254	5	2025	2	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+255	5	2025	3	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+256	5	2025	4	0.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+257	5	2025	5	14.29	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+258	5	2025	6	14.29	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+259	5	2025	7	14.29	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+260	5	2025	8	28.57	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+261	5	2025	9	42.86	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+262	5	2025	10	57.14	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+263	5	2025	11	57.14	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+264	5	2025	12	100.00	2	2025-10-02 00:00:00	2025-10-02 00:00:00
+265	6	2025	1	0.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+266	6	2025	2	0.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+267	6	2025	3	0.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+268	6	2025	4	14.29	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+269	6	2025	5	14.29	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+270	6	2025	6	14.29	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+271	6	2025	7	14.29	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+272	6	2025	8	42.86	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+273	6	2025	9	85.71	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+274	6	2025	10	85.71	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+275	6	2025	11	100.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+276	6	2025	12	100.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+277	7	2025	1	0.00	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+278	7	2025	2	11.11	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+279	7	2025	3	11.11	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+280	7	2025	4	33.33	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+281	7	2025	5	33.33	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+282	7	2025	6	33.33	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+283	7	2025	7	55.56	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+284	7	2025	8	55.56	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+285	7	2025	9	55.56	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+286	7	2025	10	66.67	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+287	7	2025	11	66.67	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+288	7	2025	12	100.00	6	2025-10-02 00:00:00	2025-10-02 00:00:00
+289	22	2025	1	0.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+290	22	2025	2	0.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+291	22	2025	3	12.50	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+292	22	2025	4	25.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+293	22	2025	5	37.50	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+294	22	2025	6	37.50	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+295	22	2025	7	50.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+296	22	2025	8	62.50	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+297	22	2025	9	75.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+298	22	2025	10	87.50	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+299	22	2025	11	100.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+300	22	2025	12	100.00	20	2025-10-02 00:00:00	2025-10-02 00:00:00
+301	30	2025	1	0.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+302	30	2025	2	0.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+303	30	2025	3	16.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+304	30	2025	4	16.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+305	30	2025	5	33.33	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+306	30	2025	6	66.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+307	30	2025	7	66.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+308	30	2025	8	66.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+309	30	2025	9	66.67	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+310	30	2025	10	100.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+311	30	2025	11	100.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+312	30	2025	12	100.00	5	2025-10-02 00:00:00	2025-10-02 00:00:00
+313	27	2025	1	0.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+314	27	2025	2	0.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+315	27	2025	3	0.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+316	27	2025	4	0.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+317	27	2025	5	56.25	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+318	27	2025	6	62.50	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+319	27	2025	7	75.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+320	27	2025	8	87.50	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+321	27	2025	9	87.50	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+322	27	2025	10	87.50	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+323	27	2025	11	93.75	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+324	27	2025	12	100.00	27	2025-10-02 00:00:00	2025-10-02 00:00:00
+325	26	2025	1	0.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+326	26	2025	2	0.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+327	26	2025	3	20.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+328	26	2025	4	46.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+329	26	2025	5	60.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+330	26	2025	6	73.33	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+331	26	2025	7	86.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+332	26	2025	8	86.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+333	26	2025	9	86.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+334	26	2025	10	86.67	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+335	26	2025	11	93.33	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+336	26	2025	12	100.00	31	2025-10-02 00:00:00	2025-10-02 00:00:00
+337	28	2025	1	0.00	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+338	28	2025	2	0.00	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+339	28	2025	3	0.00	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+340	28	2025	4	0.00	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+341	28	2025	5	4.17	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+342	28	2025	6	16.67	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+343	28	2025	7	16.67	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+344	28	2025	8	16.67	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+345	28	2025	9	16.67	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+346	28	2025	10	20.83	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+347	28	2025	11	58.33	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+348	28	2025	12	100.00	24	2025-10-02 00:00:00	2025-10-02 00:00:00
+349	29	2025	1	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+350	29	2025	2	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+351	29	2025	3	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+352	29	2025	4	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+353	29	2025	5	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+354	29	2025	6	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+355	29	2025	7	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+356	29	2025	8	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+357	29	2025	9	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+358	29	2025	10	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+359	29	2025	11	0.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+360	29	2025	12	100.00	28	2025-10-02 00:00:00	2025-10-02 00:00:00
+\.
+
+
+--
+-- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.migrations (id, migration, batch) FROM stdin;
+1	0001_01_01_000000_create_users_table	1
+2	0001_01_01_000001_create_cache_table	1
+3	0001_01_01_000002_create_jobs_table	1
+4	2025_07_16_223406_create_permission_tables	1
+5	2025_07_16_225152_create_divisions_table	1
+6	2025_07_16_225228_create_estado_usuarios_table	1
+7	2025_07_16_225240_create_tipo_indicadors_table	1
+8	2025_07_16_225252_create_departamentos_table	1
+9	2025_07_16_225305_create_usuarios_table	1
+10	2025_07_16_225323_create_indicadors_table	1
+11	2025_07_16_225335_create_indicador_mensuals_table	1
+12	2025_07_16_225336_alter_sessions_table_user_id	1
+13	2025_07_26_203149_create_iframes_table	1
+14	2025_08_18_032332_alter_indicador_mensual_add_workflow	1
+15	2025_08_18_032425_create_reporte_adjunto_table	1
+16	2025_08_18_032434_create_workflow_log_table	1
+17	2025_08_19_030033_modify_indicadores_table	1
+18	2025_08_19_030112_modify_indicadores_mensuales_table	1
+19	2025_08_19_034827_create_archivos_table	1
+20	2025_08_19_071344_change_cod_indicador_to_auto_increment	1
+21	2025_09_08_033831_create_indicador_proyeccion_mensuals_table	1
+\.
+
+
+--
+-- Data for Name: model_has_permissions; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.model_has_permissions (permission_id, model_type, model_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: model_has_roles; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.model_has_roles (role_id, model_type, model_id) FROM stdin;
+1	App\\Models\\Usuario	1
+3	App\\Models\\Usuario	5
+1	App\\Models\\Usuario	23
+1	App\\Models\\Usuario	22
+3	App\\Models\\Usuario	24
+3	App\\Models\\Usuario	25
+3	App\\Models\\Usuario	26
+3	App\\Models\\Usuario	27
+3	App\\Models\\Usuario	28
+3	App\\Models\\Usuario	29
+3	App\\Models\\Usuario	30
+3	App\\Models\\Usuario	31
+3	App\\Models\\Usuario	32
+3	App\\Models\\Usuario	33
+1	App\\Models\\Usuario	34
+3	App\\Models\\Usuario	35
+3	App\\Models\\Usuario	18
+2	App\\Models\\Usuario	21
+5	App\\Models\\Usuario	19
+3	App\\Models\\Usuario	16
+3	App\\Models\\Usuario	12
+3	App\\Models\\Usuario	4
+3	App\\Models\\Usuario	2
+1	App\\Models\\Usuario	6
+3	App\\Models\\Usuario	13
+3	App\\Models\\Usuario	15
+3	App\\Models\\Usuario	14
+3	App\\Models\\Usuario	3
+3	App\\Models\\Usuario	7
+3	App\\Models\\Usuario	9
+\.
+
+
+--
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: permisos; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.permisos (id, name, guard_name, created_at, updated_at) FROM stdin;
+1	indicadores.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+2	indicadores.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+3	indicadores.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+4	indicadores.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+5	indicadores.cerrar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+6	indicadores.completar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+7	indicadores.reabrir	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+8	indicadores.restaurar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+9	indicadores.eliminar_definitivo	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+10	indicadores_mensuales.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+11	indicadores_mensuales.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+12	indicadores_mensuales.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+13	indicadores_mensuales.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+14	usuarios.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+15	usuarios.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+16	usuarios.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+17	usuarios.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+18	departamentos.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+19	departamentos.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+20	departamentos.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+21	departamentos.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+22	estados.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+23	estados.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+24	estados.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+25	estados.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+26	roles.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+27	roles.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+28	roles.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+29	roles.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+30	permisos.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+31	permisos.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+32	permisos.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+33	permisos.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+34	iframe.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+35	iframe.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+36	iframe.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+37	iframe.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+38	archivos.ver	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+39	archivos.crear	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+40	archivos.editar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+41	archivos.eliminar	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+\.
+
+
+--
+-- Data for Name: reporte_adjunto; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.reporte_adjunto (id, cod_indicador, mes, "año", nombre_original, path, cod_usuario, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: role_has_permissions; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.role_has_permissions (permission_id, role_id) FROM stdin;
+1	1
+2	1
+3	1
+4	1
+5	1
+6	1
+7	1
+8	1
+9	1
+10	1
+11	1
+12	1
+13	1
+14	1
+15	1
+16	1
+17	1
+18	1
+19	1
+20	1
+21	1
+22	1
+23	1
+24	1
+25	1
+26	1
+27	1
+28	1
+29	1
+30	1
+31	1
+32	1
+33	1
+34	1
+35	1
+36	1
+37	1
+38	1
+39	1
+40	1
+41	1
+1	2
+38	2
+1	3
+3	3
+6	3
+10	3
+11	3
+12	3
+13	3
+1	4
+3	4
+6	4
+1	5
+\.
+
+
+--
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.roles (id, name, guard_name, created_at, updated_at) FROM stdin;
+1	Control de Gestión	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+2	Jefatura de División	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+3	Informante	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+4	Revisor	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+5	Observador	web	2025-09-22 13:25:07	2025-09-22 13:25:07
+\.
+
+
+--
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
+liQsxdzWR7oQYC8ccrvPgWdDW5Iej8VKZoGexl8n	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoib2RVOXpMMWtxOFRjaTZnaUtWYTJrT2ZnZHk0eXltTHM3QXgwdTI5dyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759759202
+3Ff0usJ58ldIiKJYKHEcugHDJGHlRDTRNH4EFDoW	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiNnJlbFFPdWxDZUN6eEl5N1FPNFhuaEdkZ0xXUE13cGs4UjVwQ1d6YyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759764602
+0E76gqCK8FXlhYRP7yI29xuhLFpzgGqQ92ZOezpj	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiV3ZlYWtvbEJhYzZIdUx1dmJkWXJlVUZpdHVCbDdzZ2NEVFp2bXhtOSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759760102
+oxXMFNMwz14SYk2soifcUOrCJpHIxAkZavsprDM1	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiZ2gzSTkybkd4aG1CcnZlYTlnNmFvQzNsSTA4TXFHdEx4cHcyWllCOSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759765502
+6qlFaOGWbtuKNuMJkyi3398dcL8MkqrQCayKRCUQ	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiTktFZ2tjT1EySFFDc0lmRUZVQzdBMEE5RFo4SDJCVDdienJ1U1QyMyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759761003
+bVG2ACHsz8YkCsKy22hq4ROjcqGRDvOP7arXcfqy	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoieThvbm1qTlQ2OFhsNmZIQkVpN1FjQUNEQ0YzSkFpdmpmbW1YTUVwSCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759755602
+kmFjb3fS9IhKWKQMib5epNFN7nIb0CtC5ooMbbj8	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiRWs1U3JJa3RGMXd6SjBFYTVIc3ZidkU2QXNicW5pTWFJZ1NkQll6ViI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759761902
+0c3oFOpgN2zT7cLSh1rKWene9h69heEKWaK6wzyI	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoicjR5RkFaWUNYNTdSU3NVcGtLVUFUNHR0VXp0dUtwT2JEV045VnJlTiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759756502
+8n81cs2n95OuofwtV0ZLY8KnjiglWL7zlAqyr47O	adolfo.quinteros	10.214.218.96	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZGNYVHpkRnhhbGl6TVpCcUZkbzVXWUo1MDFyT2NRbWwwZ1ZWRXpldyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHBzOi8vMTAuMjE0LjIxOC40MyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtzOjE2OiJhZG9sZm8ucXVpbnRlcm9zIjt9	1759764080
+RPBF1qQO1fGqzq2dcKsnLNfYkeMQ3MpJOrQArucM	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoieWhpSlZJMGdsTko3NVRrT1JGMElveDlpTGRCZ1VvWmlZY3NBeXZrWSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759757402
+6rtcJgeahe3NE0sn862blQaaX57tFopCSlueYxAi	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoicjJYUXY4M0xObWNJT1AyaXVyTjFFU21sWXl5WkdhT3ExWnZyclFTcyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759762802
+gzRkrk8fN3it39mUDSOQNgAKsdD1J7OxBFBd8eRO	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiMzRsRVBOcXNLWFVYQ3g4Q3hNZFZFU3Z0c0cyRGpkNXhhSlJrb3VNcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759758302
+qc0uj1YXGdjqUKMf3ykO69jPJmFMMHFjIEE5vN1k	\N	10.214.218.43	Zabbix 7.0.16	YToyOntzOjY6Il90b2tlbiI7czo0MDoiRDBycDZGTlpvc1BtaTVraEdoQzE1Y3RENVF0VFBQZ2pXUnA3UmZlcCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1759763702
+\.
+
+
+--
+-- Data for Name: tipo_indicador; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.tipo_indicador (cod_tipo_indicador, tipo_indicador, descripcion, deleted_at, created_at, updated_at) FROM stdin;
+1	PMG	Programa de Mejoramiento de la Gestión	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+2	CDC	Convenio de Desempeño Colectivo	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+3	H	Indicadores de Desempeño	\N	2025-09-22 13:25:02	2025-09-22 13:25:02
+\.
+
+
+--
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.usuario (cod_usuario, usuario, nombre, primer_apellido, segundo_apellido, correo_electronico, cod_departamento, cod_estado_usuario, password, remember_token, email_verified_at, deleted_at, created_at, updated_at) FROM stdin;
+1	claudio.sanhueza	Claudio	Sanhueza	Soto	claudio.sanhueza@mineduc.cl	1	1	$2y$12$GrnxPHFd61xMpXbSuJdNq.Xi77Lp/TSBBrPv0/N6.cftO721JwE9K	\N	\N	\N	2025-09-22 13:25:03	2025-09-22 13:25:03
+3	ariel.torrealba	Ariel	Torrealba	Orellana	ariel.torrealba@mineduc.cl	2	1	$2y$12$ht669dJyNZ0FFWQihPWgnuLr4ENSq12Z0uqc/PA9TPcsW9DvcEes6	\N	\N	\N	2025-09-22 13:25:03	2025-09-22 13:25:03
+6	hans.sprohnle	Hans	Spröhnle	Orellana	hans.sprohnle@mineduc.cl	6	1	$2y$12$LBrtCUsuJ5n1e48xiX70jujQaKXZp7fLzZxxltVRH4u1N4TnQ62lG	\N	\N	\N	2025-09-22 13:25:04	2025-09-22 13:25:04
+7	camila.montero	Camila	Montero	Cid	camila.montero@mineduc.cl	7	1	$2y$12$kZwCdsf3otFEnkbflHBc5e3Ru1RJZ4SuO1A7RllqQD9UhNgwseGr6	\N	\N	\N	2025-09-22 13:25:04	2025-09-22 13:25:04
+8	marcela.cortes	Marcela	Cortés	Adasme	marcela.cortes@mineduc.cl	7	1	$2y$12$WnUNXo0Jq9/25z81ky72NOUyMn3YWtPhQ7.rzw8cg53VR/C3vd3rG	\N	\N	\N	2025-09-22 13:25:04	2025-09-22 13:25:04
+9	claudia.mancilla	Claudia	Mancilla	Matus de la Parra	claudia.mancilla@mineduc.cl	8	1	$2y$12$bfOQmFuxPB0mTHfa9BYNfu.Iw.WQk/9cg807PQLByNqfVTLvzbt5q	\N	\N	\N	2025-09-22 13:25:04	2025-09-22 13:25:04
+10	jimena.sanhueza	Jimena	Sanhueza	Martínez	jimena.sanhueza@mineduc.cl	8	1	$2y$12$75EzaRMumHI9HTcIT0GHMOT9XG4k4ln9l4Z5lSpVHR52D2fAgrAzC	\N	\N	\N	2025-09-22 13:25:05	2025-09-22 13:25:05
+11	felipe.arriet	Felipe	Arriet	Pacheco	felipe.arriet@mineduc.cl	9	1	$2y$12$mhV81CXOtwZSAvpeNGKG7.FgBgynv7yVOKvsvxaO/Mh4DGYerqbEG	\N	\N	\N	2025-09-22 13:25:05	2025-09-22 13:25:05
+13	daniel.jara	Daniel	Jara	Baginsky	daniel.jara@mineduc.cl	14	1	$2y$12$JFVKFJ0Mp7XjmLWbOhbQ8.ONb/NFgIDNk6hp7IsPBZ94Tz.wal2B2	\N	\N	\N	2025-09-22 13:25:05	2025-09-22 13:25:05
+14	macarena.calderon	Macarena	Calderon	Guiñez	macarena.calderon@mineduc.cl	14	1	$2y$12$mLRodGgvzCT2aYzJdaGQLu5ZKgy/G.AKhrk5RWbbHOMhG.8DvdIIS	\N	\N	\N	2025-09-22 13:25:05	2025-09-22 13:25:05
+15	jonathan.ojeda	Jonathan	Ojeda	Campos	jonathan.ojeda@mineduc.cl	15	1	$2y$12$oHLLnPoh4F4uv6S46CrMRe80Q/Q8cEMcJvojD37HZb1UimnMlHK1i	\N	\N	\N	2025-09-22 13:25:06	2025-09-22 13:25:06
+16	sebastian.solis	Sebastián	Solís	Rojas	sebastian.solis@mineduc.cl	16	1	$2y$12$BpdwW9Rd65fBJnknqVU25OP8O5V3T10OG8LRHTQBEvLZmtX6Mgkzq	\N	\N	\N	2025-09-22 13:25:06	2025-09-22 13:25:06
+17	jaime.bravo	Jaime	Bravo	Munita	jaime.bravo@mineduc.cl	16	1	$2y$12$XCQXX5LAO9pGsKfARbVsO.UW2UUpW73Fzxi9D./oTDsTCUOG.I9l6	\N	\N	\N	2025-09-22 13:25:06	2025-09-22 13:25:06
+18	macarena.noguera	Macarena	Noguera	Osorio	macarena.noguera@mineduc.cl	17	1	$2y$12$NOJPxPJtKACl0ARhmBHbw..neAkxEscb2GQgL6QUOcUDLVpn6772S	\N	\N	\N	2025-09-22 13:25:06	2025-09-22 13:25:06
+19	johanna.bascur	Johanna	Bascur	González	johanna.bascur@mineduc.cl	11	1	$2y$12$/6d9MWX7nPOED78tThXb3OXhQtnwJ5g61DSDjV7UGj2irNdTJZffG	\N	\N	\N	2025-09-22 13:25:07	2025-09-22 13:25:07
+20	ivan.tobar	Iván	Tobar	Ortiz	ivan.tobar@mineduc.cl	12	1	$2y$12$prjWkhdsGoNtKCBKaLaZsOGL6D0ao//zZyxS0mph/J2xYLYk/dkPy	\N	\N	\N	2025-09-22 13:25:07	2025-09-22 13:25:07
+21	victoria.parra	Victoria	Parra	Moreno	victoria.parra@mineduc.cl	2	1	$2y$12$Gyu9q20rS9ou1xpUXUO5deyErNOSNNcg8vHwnGAEM5vFgVj1cjq6m	\N	\N	\N	2025-09-22 13:25:07	2025-09-22 13:25:07
+22	renzo.molina	Renzo	Molina	Pardo	renzo.pardo@mineduc.cl	6	1	$2y$12$O1jLIcIEqbASmBy4yJWRouIvb0nIdL6Jpub5n6NhxTV10tG2axTW2	\N	\N	\N	2025-09-22 13:25:07	2025-09-22 13:25:07
+29	juan.anania	Juan	Ananía	Azcorbebeitia	juan.anania@mineduc.cl	15	2	$2y$12$.hmOWkW/D4ueq6KGkINHYelxxR9ajomNhObh5YqS82lI4lObo.w3O	\N	\N	\N	2025-10-02 11:12:31	2025-10-02 11:12:31
+30	lorena.becerra	Lorena	Becerra	Toledo	lorena.becerra@mineduc.cl	3	1	$2y$12$7pvt5uwbcRraPJuQRrWNDOubL3gJlp57K9kCkxwPDZ6gsppXsHl8O	\N	\N	\N	2025-10-02 11:14:49	2025-10-02 11:14:49
+5	regis.yanez	Regis	Yánez	Álvarez	regis.yanez@mineduc.cl	1	1	$2y$12$ovjKI3wqoLkLf7xQQy0y9el5G1.pDOxiQPFFteVtAgV9u/N/7Wcum	\N	\N	\N	2025-09-22 13:25:04	2025-09-23 12:42:39
+31	tamara.garcia	Tamara	García	Heller	tamara.garcia@mineduc.cl	18	1	$2y$12$bc/mKGMdmyHsLIngtPf3TeSZXn3lYM3HwtXe/3J.12PGJ5g81i.Pu	\N	\N	\N	2025-10-02 11:17:24	2025-10-02 11:18:13
+32	nicolas.rubio	Nicolás	Rubio	Guerra	nicloas.rubio@mineduc.cl	4	1	$2y$12$VTsBf1M8.6O3ztqnjdsg1O5dDNXcEdb2lCX3LzpO0OcR2FpI4QH0e	\N	\N	\N	2025-10-02 11:19:53	2025-10-02 11:19:53
+23	adolfo.quinteros	Adolfo	Quinteros	Díaz	adolfo.quinteros@mineduc.cl	1	1	$2y$12$BRz.xG1lNmSpylN5uaoD2emNZcTCvgsI4Pop5G2LCXJn5Mmflxq06	jzZAI456EXy3If2QQMmd0OZZqzT5BA7n3qPE9UMOY2kq7MUBXAyo2nIONmsH	\N	\N	2025-09-22 13:25:03	2025-09-26 11:28:53
+24	carolina.ponce	Carolina	Ponce	Palacios	carolina.ponce@mineduc.cl	4	1	$2y$12$4MO3JvKSpIghe/jLj773te43WG/Nn49SWJFheQZd/QsJT475iTJ5e	\N	\N	\N	2025-10-01 18:54:57	2025-10-01 18:54:57
+25	claudia.riquelme	Claudia	Riquelme	Arellano	claudia.riquelme@mineduc.cl	7	1	$2y$12$L2YAxt50voKd7Lq6OXwbP.r40OpjUzNj.OkClNo/YpwsvaFVVxOYq	\N	\N	\N	2025-10-01 19:08:42	2025-10-01 19:08:58
+26	elleine.ocampo	Elleine	Ocampo	Vidal	elleine.ocampo@mineduc.cl	7	1	$2y$12$QvgqNRKiLb738oUQ7mnR5usK9//mQuSIAEQyxK1egcXjqrTF7/bZC	\N	\N	\N	2025-10-01 19:54:22	2025-10-01 19:54:22
+27	fabiola.flores	Fabiola	Flores	Velozo	fabiola.flores@mineduc.cl	3	1	$2y$12$RSNyOEH6ECr8.YIaewG7Juzakntb..7WK6wqLKmDvin9N4q5qUgme	\N	\N	\N	2025-10-02 11:07:50	2025-10-02 11:07:50
+28	javiera.rivera	Javiera	Rivera	Navarrete	javiera.rivera@mineduc.cl	2	1	$2y$12$SDyL2upzPlD9a/bHaIUcU.oRaDHJxB5H49Phohnj3XBwKs5m5poJK	\N	\N	\N	2025-10-02 11:09:49	2025-10-02 11:09:49
+33	paula.guardia	Paula	Guardia	Gutiérrez	paula.guardia@mineduc.cl	9	1	$2y$12$NOoZpRfN/CWnb.ytZYT19.YvV41Q0PCcKuShqiiQqOtpXTmFOmfgK	\N	\N	\N	2025-10-02 11:21:21	2025-10-02 11:21:21
+34	valentina.rojas	Valentina	Rojas	Carvallo	valentina.rojas@mineduc.cl	6	1	$2y$12$/bwVrnz26cX5OFkryamATez0V5a50g8F3f9.eJBcfTDKGdSd.hZOy	\N	\N	\N	2025-10-02 11:38:36	2025-10-02 11:38:36
+35	sabastian.cares	Sebastián	Cares	Mulato	sabastian.cares@mineduc.cl	16	1	$2y$12$jBTCdj5JSZGuFwUUZWbIy.K9Uy8oZ6.08.wF76/Bud3.7M2KIgzne	\N	\N	\N	2025-10-02 11:39:50	2025-10-02 11:39:50
+12	valeria.castañeda	Valeria	Castañeda	Vera	valeria.castaneda@mineduc.cl	10	1	$2y$12$K/3cclbIN9qPhycz6e4Qn.m7Ofb1D/vJDwhRsU2SiFDDKhkC7ODBq	\N	\N	\N	2025-09-22 13:25:05	2025-10-02 11:44:04
+4	camila.vasquez	Camila	Vásquez	Zúñiga	camila.vasquez@mineduc.cl	4	2	$2y$12$XL2mMppOL/611WC0D/NJROtr1xItTQiORdtkaLDMeisD5ijMQLLLG	\N	\N	\N	2025-09-22 13:25:03	2025-10-02 11:44:24
+2	nicolas.borgono	Nicolás	Borgoño	Becerra	nicolas.borgono@mineduc.cl	5	1	$2y$12$ISm/9V7CzCSpOooxI0qpf.m.PCkGAxS.JZlMAkidKwNdap69y6bO6	\N	\N	\N	2025-09-22 13:25:03	2025-10-02 11:44:40
+\.
+
+
+--
+-- Data for Name: workflow_log; Type: TABLE DATA; Schema: public; Owner: scg
+--
+
+COPY public.workflow_log (id, cod_indicador, mes, "año", accion, de_estado, a_estado, cod_usuario, mensaje, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: archivos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.archivos_id_seq', 1, true);
+
+
+--
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- Name: iframes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.iframes_id_seq', 2, true);
+
+
+--
+-- Name: indicador_cod_indicador_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.indicador_cod_indicador_seq', 4, true);
+
+
+--
+-- Name: indicador_mensual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.indicador_mensual_id_seq', 3, true);
+
+
+--
+-- Name: indicador_proyeccion_mensual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.indicador_proyeccion_mensual_id_seq', 11, true);
+
+
+--
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
+
+
+--
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 21, true);
+
+
+--
+-- Name: permisos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.permisos_id_seq', 41, true);
+
+
+--
+-- Name: reporte_adjunto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.reporte_adjunto_id_seq', 1, false);
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.roles_id_seq', 5, true);
+
+
+--
+-- Name: workflow_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: scg
+--
+
+SELECT pg_catalog.setval('public.workflow_log_id_seq', 1, false);
+
+
+--
+-- Name: archivos archivos_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.archivos
+    ADD CONSTRAINT archivos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.cache_locks
+    ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.cache
+    ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: departamento departamento_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT departamento_pkey PRIMARY KEY (cod_departamento);
+
+
+--
+-- Name: division division_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.division
+    ADD CONSTRAINT division_pkey PRIMARY KEY (cod_division);
+
+
+--
+-- Name: estado_usuario estado_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.estado_usuario
+    ADD CONSTRAINT estado_usuario_pkey PRIMARY KEY (cod_estado_usuario);
+
+
+--
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- Name: iframes iframes_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.iframes
+    ADD CONSTRAINT iframes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: indicador_mensual indicador_mensual_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_mensual
+    ADD CONSTRAINT indicador_mensual_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: indicador indicador_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador
+    ADD CONSTRAINT indicador_pkey PRIMARY KEY (cod_indicador);
+
+
+--
+-- Name: indicador_proyeccion_mensual indicador_proyeccion_mensual_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_proyeccion_mensual
+    ADD CONSTRAINT indicador_proyeccion_mensual_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.job_batches
+    ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.jobs
+    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: model_has_permissions model_has_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.model_has_permissions
+    ADD CONSTRAINT model_has_permissions_pkey PRIMARY KEY (permission_id, model_id, model_type);
+
+
+--
+-- Name: model_has_roles model_has_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.model_has_roles
+    ADD CONSTRAINT model_has_roles_pkey PRIMARY KEY (role_id, model_id, model_type);
+
+
+--
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.password_reset_tokens
+    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
+
+
+--
+-- Name: permisos permisos_name_guard_name_unique; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.permisos
+    ADD CONSTRAINT permisos_name_guard_name_unique UNIQUE (name, guard_name);
+
+
+--
+-- Name: permisos permisos_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.permisos
+    ADD CONSTRAINT permisos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reporte_adjunto reporte_adjunto_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.reporte_adjunto
+    ADD CONSTRAINT reporte_adjunto_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: role_has_permissions role_has_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.role_has_permissions
+    ADD CONSTRAINT role_has_permissions_pkey PRIMARY KEY (permission_id, role_id);
+
+
+--
+-- Name: roles roles_name_guard_name_unique; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_guard_name_unique UNIQUE (name, guard_name);
+
+
+--
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tipo_indicador tipo_indicador_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.tipo_indicador
+    ADD CONSTRAINT tipo_indicador_pkey PRIMARY KEY (cod_tipo_indicador);
+
+
+--
+-- Name: indicador_proyeccion_mensual uniq_indicador_anio_mes; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_proyeccion_mensual
+    ADD CONSTRAINT uniq_indicador_anio_mes UNIQUE (cod_indicador, anio, mes);
+
+
+--
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (cod_usuario);
+
+
+--
+-- Name: workflow_log workflow_log_pkey; Type: CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.workflow_log
+    ADD CONSTRAINT workflow_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: archivos_archivable_type_archivable_id_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX archivos_archivable_type_archivable_id_index ON public.archivos USING btree (archivable_type, archivable_id);
+
+
+--
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
+
+
+--
+-- Name: model_has_permissions_model_id_model_type_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX model_has_permissions_model_id_model_type_index ON public.model_has_permissions USING btree (model_id, model_type);
+
+
+--
+-- Name: model_has_roles_model_id_model_type_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX model_has_roles_model_id_model_type_index ON public.model_has_roles USING btree (model_id, model_type);
+
+
+--
+-- Name: reporte_adjunto_cod_indicador_mes_año_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX "reporte_adjunto_cod_indicador_mes_año_index" ON public.reporte_adjunto USING btree (cod_indicador, mes, "año");
+
+
+--
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
+
+
+--
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+--
+-- Name: workflow_log_cod_indicador_mes_año_index; Type: INDEX; Schema: public; Owner: scg
+--
+
+CREATE INDEX "workflow_log_cod_indicador_mes_año_index" ON public.workflow_log USING btree (cod_indicador, mes, "año");
+
+
+--
+-- Name: departamento departamento_cod_division_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT departamento_cod_division_foreign FOREIGN KEY (cod_division) REFERENCES public.division(cod_division);
+
+
+--
+-- Name: indicador indicador_cod_tipo_indicador_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador
+    ADD CONSTRAINT indicador_cod_tipo_indicador_foreign FOREIGN KEY (cod_tipo_indicador) REFERENCES public.tipo_indicador(cod_tipo_indicador);
+
+
+--
+-- Name: indicador indicador_cod_usuario_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador
+    ADD CONSTRAINT indicador_cod_usuario_foreign FOREIGN KEY (cod_usuario) REFERENCES public.usuario(cod_usuario);
+
+
+--
+-- Name: indicador_mensual indicador_mensual_cod_indicador_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_mensual
+    ADD CONSTRAINT indicador_mensual_cod_indicador_foreign FOREIGN KEY (cod_indicador) REFERENCES public.indicador(cod_indicador);
+
+
+--
+-- Name: indicador_mensual indicador_mensual_cod_usuario_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_mensual
+    ADD CONSTRAINT indicador_mensual_cod_usuario_foreign FOREIGN KEY (cod_usuario) REFERENCES public.usuario(cod_usuario);
+
+
+--
+-- Name: indicador_mensual indicador_mensual_cod_usuario_modificacion_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_mensual
+    ADD CONSTRAINT indicador_mensual_cod_usuario_modificacion_foreign FOREIGN KEY (cod_usuario_modificacion) REFERENCES public.usuario(cod_usuario);
+
+
+--
+-- Name: indicador_proyeccion_mensual indicador_proyeccion_mensual_cod_indicador_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.indicador_proyeccion_mensual
+    ADD CONSTRAINT indicador_proyeccion_mensual_cod_indicador_foreign FOREIGN KEY (cod_indicador) REFERENCES public.indicador(cod_indicador) ON DELETE CASCADE;
+
+
+--
+-- Name: model_has_permissions model_has_permissions_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.model_has_permissions
+    ADD CONSTRAINT model_has_permissions_permission_id_foreign FOREIGN KEY (permission_id) REFERENCES public.permisos(id) ON DELETE CASCADE;
+
+
+--
+-- Name: model_has_roles model_has_roles_role_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.model_has_roles
+    ADD CONSTRAINT model_has_roles_role_id_foreign FOREIGN KEY (role_id) REFERENCES public.roles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: role_has_permissions role_has_permissions_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.role_has_permissions
+    ADD CONSTRAINT role_has_permissions_permission_id_foreign FOREIGN KEY (permission_id) REFERENCES public.permisos(id) ON DELETE CASCADE;
+
+
+--
+-- Name: role_has_permissions role_has_permissions_role_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.role_has_permissions
+    ADD CONSTRAINT role_has_permissions_role_id_foreign FOREIGN KEY (role_id) REFERENCES public.roles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: usuario usuario_cod_departamento_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_cod_departamento_foreign FOREIGN KEY (cod_departamento) REFERENCES public.departamento(cod_departamento);
+
+
+--
+-- Name: usuario usuario_cod_estado_usuario_foreign; Type: FK CONSTRAINT; Schema: public; Owner: scg
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_cod_estado_usuario_foreign FOREIGN KEY (cod_estado_usuario) REFERENCES public.estado_usuario(cod_estado_usuario);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict C02ldMlTb9vm82wHmv9Muk2HDW0Xix4fb3Im4DpFxKjQL5eFAYVQI5VGIpL5RXI
+
