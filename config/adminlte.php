@@ -86,11 +86,11 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img'     => [
-            'path'   => 'img/SGI-Fondo_Negro.png',
-            'alt'    => 'Auth Logo',
+            'path'   => 'img/logo_sdep.png',
+            'alt'    => 'Subsecretaría de Educación Parvularia',
             'class'  => '',
-            'width'  => 200,
-            'height' => 150,
+            'width'  => 350,
+            'height' => 90,
         ],
     ],
 

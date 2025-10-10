@@ -38,7 +38,7 @@
 
      {{-- Resumen del total proyectado del año seleccionado --}}
     <div class="alert alert-info">
-        <strong>Total proyectado {{ $anio }}:</strong> {{ number_format($indicador->total_proyeccion ?? 0, 2) }}
+        <strong>Proyectado {{ $anio }}:</strong> {{ number_format($indicador->total_proyeccion ?? 0, 2) }}%
     </div>
 
     <div class="row justify-content-center">

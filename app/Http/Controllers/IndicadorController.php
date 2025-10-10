@@ -34,9 +34,10 @@ class IndicadorController extends Controller
 
         $query = Indicador::query()
             ->with(['tipoIndicador', 'usuario'])
-            ->withSum(
+            ->withMax(
                 [
-                    'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
+                    //'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
+                    'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)->orderByDesc('valor')
                 ],
                 'valor'
             );
@@ -99,10 +100,10 @@ class IndicadorController extends Controller
             'fecha_cierre'        => 'nullable|date',
             'archivos'            => 'nullable|array|max:5',
             'archivos.*'          => 'file|max:10240',
-            'projections'         => 'required|array|min:1',
+            'projections'         => 'required|array|min:0',
             'projections.*.year'  => 'required|integer|min:' . now()->year,
             'projections.*.month' => 'required|integer|between:1,12',
-            'projections.*.value' => 'required|numeric|min:1',
+            'projections.*.value' => 'required|numeric|min:0',
         ], [
             'cod_usuario.required'        => 'Debe seleccionar un usuario',
             'cod_usuario.exists'          => 'El usuario asignado no es válido',
@@ -111,14 +112,14 @@ class IndicadorController extends Controller
             'projections.required'        => 'Debe agregar al menos una proyección mensual',
             'projections.*.year.min'      => 'El año de la proyección no puede ser menor al año actual',
             'projections.*.month.between' => 'El mes de la proyección debe estar entre 1 y 12',
-            'projections.*.value.min'     => 'El valor de la proyección debe ser mayor o igual a 1',
+            'projections.*.value.min'     => 'El valor de la proyección debe ser mayor o igual a 0',
         ]);
 
         // Meses pasados en año actual
         foreach ($request->projections as $p) {
-            if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
-                return back()->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])->withInput();
-            }
+            //if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
+            //    return back()->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])->withInput();
+            //}
         }
 
         // Duplicados
@@ -199,8 +200,8 @@ class IndicadorController extends Controller
             'registrosMensuales' => fn ($q) => $q->where('año', $anio)->orderBy('mes'),
         ]);
 
-        $indicador->loadSum(['proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)], 'valor');
-        $indicador->loadSum(['registrosMensuales as total_real' => fn ($q) => $q->where('año', $anio)], 'resultado');
+        $indicador->loadMax(['proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)], 'valor');
+        $indicador->loadMax(['registrosMensuales as total_real' => fn ($q) => $q->where('año', $anio)], 'resultado');
 
         return view('indicadores.show', compact('indicador', 'anio'));
     }
@@ -215,9 +216,9 @@ class IndicadorController extends Controller
             'proyecciones' => fn ($q) => $q->where('anio', $anio)->orderBy('mes'),
         ]);
 
-        $indicador->loadSum([
-            'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
-        ], 'valor');
+        $indicador->loadMax([
+             'proyecciones as total_proyeccion' => fn ($q) => $q->where('anio', $anio)
+             ], 'valor');
 
         $usuarios       = Usuario::where('cod_estado_usuario', 1)->get();
         $tiposIndicador = \App\Models\TipoIndicador::all();
@@ -259,13 +260,13 @@ class IndicadorController extends Controller
             }
         }
 
-        foreach ($request->projections as $p) {
-            if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
-                return back()
-                    ->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])
-                    ->withInput();
-            }
-        }
+        //foreach ($request->projections as $p) {
+            //if ((int)$p['year'] === now()->year && (int)$p['month'] < now()->month) {
+            //    return back()
+            //        ->withErrors(['projections' => 'Existen meses anteriores al mes en curso.'])
+            //        ->withInput();
+            //}
+        //}
 
         $dupes = collect($request->projections)
             ->map(fn ($p) => $p['year'] . '-' . str_pad($p['month'], 2, '0', STR_PAD_LEFT))

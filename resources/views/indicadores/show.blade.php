@@ -89,7 +89,28 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Numerador:</label>
+                    <div class="col-md-8">
+                        <p class="">
+                            {{ $indicador->parametro1}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Denominador:</label>
+                    <div class="col-md-8">
+                        <p class="">
+                            {{ $indicador->parametro2}}
+                        </p>
+                    </div>
+                </div>
+
             </div>
+
+            
 
             <div class="col-md-6">
                 <h5>Asignación y Estado</h5>
@@ -128,7 +149,7 @@
 
         <div class="row">
             <div class="col-12">
-                <h5>Proyección y Realidad</h5>
+                <h5>Valor proyectado y actual</h5>
                 <hr>
                 @php
                     $totalProy = (float) ($indicador->total_proyeccion ?? 0);
@@ -138,19 +159,19 @@
                 <div class="row text-center">
                     <div class="col-md-4">
                         <div class="p-2 border rounded">
-                            <div class="small text-muted">Total Proyectado {{ $anio }}</div>
+                            <div class="small text-muted">Proyectado {{ $anio }}</div>
                             <div class="h4 mb-0">{{ number_format($totalProy, 2,',','.') }}</div>
                         </div>
                     </div>
                     <div class="col-md-4 mt-2 mt-md-0">
                         <div class="p-2 border rounded">
-                            <div class="small text-muted">Total Real {{ $anio }}</div>
+                            <div class="small text-muted">Actual {{ $anio }}</div>
                             <div class="h4 mb-0">{{ number_format($totalReal, 2,',','.') }}</div>
                         </div>
                     </div>
                     <div class="col-md-4 mt-2 mt-md-0">
                         <div class="p-2 border rounded">
-                            <div class="small text-muted">Brecha (Proy - Real)</div>
+                            <div class="small text-muted">Brecha (Proy - Actual)</div>
                             <div class="h4 mb-0 {{ $gap < 0 ? 'text-danger' : 'text-success' }}">
                                 {{ number_format($gap, 2,',','.') }}
                             </div>
@@ -201,9 +222,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Total</th>
-                                        <th>{{ number_format($totalProy, 2,',','.') }}</th>
-                                        <th></th>
+
                                     </tr>
                                 </tfoot>
                             </table>

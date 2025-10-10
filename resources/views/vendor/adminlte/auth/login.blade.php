@@ -1,3 +1,9 @@
+<nav class="navbar" style="position:absolute; top:0; left:0; width:100vw; z-index:1050; background-color: #0a2342; height:70px;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <span class="fs-5 d-none d-sm-inline text-white"><h4>Sistema de Gestión de Indicadores</h4></span>
+        <span class="fs-5 d-none d-sm-inline ms-4 text-white"><h4>Unidad de Planificación y Control de Gestión</h4></span>
+    </div>
+</nav>
 @extends('adminlte::auth.auth-page', ['authType' => 'login'])
 
 @section('adminlte_css_pre')
