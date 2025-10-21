@@ -80,6 +80,32 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="parametro1" class="col-md-3 col-form-label text-md-right">Numerador</label>
+                            <div class="col-md-9">
+                                <textarea id="parametro1" class="form-control @error('parametro1') is-invalid @enderror"
+                                    name="parametro1" rows="2">{{ old('parametro1') }}</textarea>
+                                @error('parametro1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="parametro2" class="col-md-3 col-form-label text-md-right">Denominador</label>
+                            <div class="col-md-9">
+                                <textarea id="parametro2" class="form-control @error('parametro2') is-invalid @enderror"
+                                    name="parametro2" rows="2">{{ old('parametro2') }}</textarea>
+                                @error('parametro2')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="meta" class="col-md-3 col-form-label text-md-right">Meta</label>
                             <div class="col-md-9">
                                 <input id="meta" type="number" step="0.01" class="form-control @error('meta') is-invalid @enderror"
@@ -154,7 +180,8 @@
 
                                 // Año y mes iniciales (primer render desde servidor)
                                 $selectedYear  = (int) old('projections.0.year', $currentYear);
-                                $startMonth    = $selectedYear === $currentYear ? $currentMonth : 1;
+                                //$startMonth    = $selectedYear === $currentYear ? $currentMonth : 1;
+                                $startMonth    = 1;
                                 $selectedMonth = (int) old('projections.0.month', $startMonth);
                                 $selectedValue = old('projections.0.value', 0);
                             @endphp
@@ -185,9 +212,6 @@
                                                 </option>
                                                 @endforeach
                                             </select>
-                                            <small class="form-text text-muted">
-                                                No se permiten meses anteriores al mes en curso del {{ $currentYear }} ({{ $monthNames[$currentMonth] }}).
-                                            </small>
                                         </div>
 
                                         <div class="form-group col-md-3">

@@ -115,7 +115,8 @@ return [
         'img'     => [
             'path'   => 'img/SGI-Fondo-Negro.png',
             'alt'    => 'SGI Preloader Image',
-            'effect' => 'animation__wobble',
+            /*'effect' => 'animation__wobble',*/
+            'effect' => 'animation__zommIn',
             'class'  => null,
             'width'  => 200,
             'height' => 'auto',
@@ -130,7 +131,7 @@ return [
     | Here you can activate and change the user menu.
     |
     | For detailed instructions you can look the user menu section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
+Dar inicio a la puesta en marcha del nuevo Sistema de Inventario implementado por la Unidad de Tecnología, el cual permitirá mantener un registro del ingreso, seguimiento y control de los bienes muebles y tecnológicos de la Subsecretaría.    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 

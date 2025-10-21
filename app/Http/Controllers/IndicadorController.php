@@ -170,7 +170,7 @@ class IndicadorController extends Controller
             DB::rollBack();
             report($e);
             return back()->withErrors([
-                'general' => 'Error al crear el indicador'
+                'general' => 'Error al crear el indicador' . $e->getMessage()
             ])->withInput();
         }
 
