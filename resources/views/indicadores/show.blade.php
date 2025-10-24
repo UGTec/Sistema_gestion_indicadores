@@ -25,6 +25,7 @@
             </ul>
         </div>
     @endif
+
     <x-adminlte-card title="Detalles del Indicador" theme="primary" icon="fas fa-info-circle" collapsible maximizable>
         <x-slot name="toolsSlot">
             @can('update', $indicador)
@@ -34,23 +35,25 @@
             @endcan
             <div class="btn-group">
                 @if(!$indicador->cerrado)
-                    @can('indicadores.cerrar')
-                    <form action="{{ route('indicadores.cerrar', $indicador) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-secondary">
-                            <i class="fas fa-lock"></i> Cerrar
-                        </button>
-                    </form>
-                    @endcan
-
-                    @can('indicadores.completar')
-                    <form action="{{ route('indicadores.completar', $indicador) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-success">
-                            <i class="fas fa-check"></i> Completar
-                        </button>
-                    </form>
-                    @endcan
+                    @if($indicador->estado == 'completado')
+                        @can('indicadores.cerrar')
+                        <form action="{{ route('indicadores.cerrar', $indicador) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-lock"></i> Cerrar
+                            </button>
+                        </form>
+                        @endcan
+                    @else
+                        @can('indicadores.completar')
+                        <form action="{{ route('indicadores.completar', $indicador) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-success">
+                                <i class="fas fa-check"></i> Completar
+                            </button>
+                        </form>
+                        @endcan
+                    @endif
                 @else
                     @can('indicadores.reabrir', $indicador)
                     <form action="{{ route('indicadores.reabrir', $indicador) }}" method="POST" class="d-inline">
@@ -110,7 +113,7 @@
 
             </div>
 
-            
+
 
             <div class="col-md-6">
                 <h5>Asignación y Estado</h5>
@@ -266,11 +269,13 @@
         <div class="row mt-4">
             <div class="col-12">
                 <h5>Registro Mensual</h5>
-                @can('indicadores_mensuales.crear', [App\Models\IndicadorMensual::class, $indicador])
-                <a href="{{ route('indicadores-mensuales.create', $indicador) }}" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Agregar Registro Mensual
-                </a>
-                @endcan
+                @if($indicador->estado == 'abierto')
+                    @can('indicadores_mensuales.crear', [App\Models\IndicadorMensual::class, $indicador])
+                    <a href="{{ route('indicadores-mensuales.create', $indicador) }}" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Agregar Registro Mensual
+                    </a>
+                    @endcan
+                @endif
                 <hr>
                 @if($indicador->relationLoaded('indicadoresMensuales') && $indicador->indicadoresMensuales->count() > 0)
                 @php
@@ -281,8 +286,12 @@
                         'Resultado',
                         'Actualizado por',
                         'Fecha',
-                        ['label' => 'Acciones', 'no-export' => true, 'width' => 10],
+                        'Archivos',
                     ];
+
+                    if ($indicador->estado == 'abierto') {
+                        $heads[] = ['label' => 'Acciones', 'no-export' => true, 'width' => 10];
+                    }
                     $config = [
                         'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/es-cl.json'],
                         'order' => [[0, 'asc']],
@@ -300,14 +309,46 @@
                         <td>{{ $mensual->usuario->nombreCompleto() ?? 'N/A' }}</td>
                         <td>{{ optional($mensual->fecha_actualizacion)->format('d-m-y') }} </td>
                         <td>
-                            @if(!$indicador->cerrado)
+                            @if ($mensual->archivos->isNotEmpty())
+                                <ul>
+                                    @foreach ($mensual->archivos as $archivo)
+                                        <li>
+                                            <a href="{{ route('archivos.download', $archivo->id) }}" target="_blank">
+                                                {{ $archivo->nombre_original }}
+                                            </a>
+                                            ({{ round($archivo->tamanho / 1024 / 1024, 2) }} MB)
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <span>(Sin archivos adjuntos)</span>
+                            @endif
+                        </td>
+                        @if($indicador->estado == 'abierto')
+                        <td>
                             @can('update', $mensual)
-                            <a href="{{ route('indicadores-mensuales.edit', [$indicador, $mensual]) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('indicadores-mensuales.edit', [$indicador, $mensual]) }}" class="btn btn-sm btn-warning"
+                            data-toggle="tooltip" title="Editar indicador mensual">
                                 <i class="fas fa-edit"></i>
                             </a>
                             @endcan
+                            @if( auth()->user()->hasRole('Control de Gestión'))
+                                @can('revisar', $mensual)
+                                <a href="{{ route('indicadores-mensuales.revisar', [$indicador, $mensual]) }}" class="btn btn-sm btn-primary"
+                                data-toggle="tooltip" title="Revisión Mensual">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                @endcan
+                            @endif
+                            @if(!$mensual->cod_proceso_estrategico == null && auth()->user()->cod_usuario == $mensual->cod_usuario)
+                            <a href="{{ route('indicadores-mensuales.revisar', [$indicador, $mensual]) }}" class="btn btn-sm btn-secondary"
+                            data-toggle="tooltip" title="Ver Revisión Mensual">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            @endif
                             @can('delete', $mensual)
-                            <form action="{{ route('indicadores-mensuales.destroy', [$indicador, $mensual]) }}" method="POST" class="d-inline">
+                            <form action="{{ route('indicadores-mensuales.destroy', [$indicador, $mensual]) }}" method="POST" class="d-inline"
+                            data-toggle="tooltip" title="Eliminar indicador mensual">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger"
@@ -316,8 +357,8 @@
                                 </button>
                             </form>
                             @endcan
-                            @endif
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                 </x-adminlte-datatable>

@@ -72,6 +72,14 @@ Route::middleware(['auth'])->group(function () {
             ->name('edit')
             ->middleware('can:update,mensual');
 
+        Route::get('/{mensual}/revisar', [IndicadorMensualController::class, 'revisar'])
+            ->name('revisar')
+            ->middleware('can:revisar,mensual');
+
+        // RUTA NUEVA: Maneja el envío del formulario de actualización.
+        Route::post('/{mensual}/revisar', [IndicadorMensualController::class, 'updateRevisar'])
+            ->name('updateRevisar');
+
         Route::put('/{mensual}', [IndicadorMensualController::class, 'update'])
             ->name('update')
             ->middleware('can:update,mensual');

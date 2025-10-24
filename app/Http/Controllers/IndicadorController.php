@@ -9,6 +9,7 @@ use App\Traits\ManejaArchivos;
 use Illuminate\Support\Facades\DB;
 use App\Models\IndicadorProyeccionMensual;
 use App\Notifications\IndicadorAsignadoNotification;
+use Illuminate\Support\Facades\Storage;
 
 class IndicadorController extends Controller
 {
@@ -379,6 +380,11 @@ class IndicadorController extends Controller
     public function forceDelete(Indicador $indicador)
     {
         $this->authorize('forceDelete', Indicador::class); // o usa middleware de permiso
+        // Eliminar archivos asociados
+        foreach ($indicador->archivos as $archivo) {
+            Storage::delete($archivo->ruta); // Elimina archivo físico
+            $archivo->delete();              // Elimina registro en BD
+        }
         $indicador = Indicador::onlyTrashed()->findOrFail($indicador);
         $indicador->forceDelete();
 

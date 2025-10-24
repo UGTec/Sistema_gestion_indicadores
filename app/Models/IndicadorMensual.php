@@ -66,6 +66,17 @@ class IndicadorMensual extends Model
         'fecha_actualizacion',
         'estado',
         'observaciones',
+        //! NUEVAS COLUMNAS !
+        'condicional_oportunidad',
+        'condicional_completitud',
+        'condicional_progreso',
+        'condicional_riesgo',
+        'descripcion_oportunidad',
+        'descripcion_completitud',
+        'descripcion_progreso',
+        'descripcion_riesgo',
+        'gestiones',
+        'cod_proceso_estrategico',
     ];
 
     protected $casts = [
@@ -86,5 +97,49 @@ class IndicadorMensual extends Model
     public function usuarioModificacion(): BelongsTo
     {
         return $this->belongsTo(Usuario::class, 'cod_usuario_modificacion');
+    }
+
+    public function archivos()
+    {
+        return $this->morphMany(Archivo::class, 'archivable');
+    }
+
+    /**
+     * Relación con el Condicional de Oportunidad (Many To One)
+     * UN IndicadorMensual tiene un valor en Condicional de Oportunidad.
+     */
+    public function condicionalOportunidad()
+    {
+        // belongsTo(Modelo_Relacionado, clave_foranea_local, clave_primaria_remota)
+        return $this->belongsTo(Condicional::class, 'condicional_oportunidad', 'cod_condicional');
+    }
+
+    /**
+     * Relación con el Condicional de Completitud (Many To One)
+     */
+    public function condicionalCompletitud()
+    {
+        return $this->belongsTo(Condicional::class, 'condicional_completitud', 'cod_condicional');
+    }
+
+    /**
+     * Relación con el Condicional de Progreso (Many To One)
+     */
+    public function condicionalProgreso()
+    {
+        return $this->belongsTo(Condicional::class, 'condicional_progreso', 'cod_condicional');
+    }
+
+    /**
+     * Relación con el Condicional de Riesgo (Many To One)
+     */
+    public function condicionalRiesgo()
+    {
+        return $this->belongsTo(Condicional::class, 'condicional_riesgo', 'cod_condicional');
+    }
+
+    public function procesoEstrategico()
+    {
+        return $this->belongsTo(ProcesoEstrategico::class, 'cod_proceso_estrategico');
     }
 }

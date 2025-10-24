@@ -28,19 +28,27 @@
                 <i class="fas fa-fw fa-arrow-left"></i> Volver
             </a>
         </x-slot>
-        <form method="POST" action="{{ route('indicadores-mensuales.store', $indicador) }}">
+        <form method="POST" action="{{ route('indicadores-mensuales.store', $indicador) }}" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group row">
                 <label for="mes" class="col-md-4 col-form-label text-md-right">Mes</label>
                 <div class="col-md-6">
                     <select id="mes" class="form-control @error('mes') is-invalid @enderror" name="mes" >
-                        @foreach(range(1, 12) as $month)
-                        <option value="{{ $month }}"
-                            {{ old('mes', \Carbon\Carbon::now()->month) == $month ? 'selected' : '' }}
-                            {{ $month < \Carbon\Carbon::now()->month ? 'disabled' : '' }}>
-                            {{ ucfirst(\Carbon\Carbon::create()->month($month)->locale('es')->monthName) }}
-                        </option>
+                        @foreach(range(1, $currentMonth) as $month)
+                            @php
+                                $disabled = true; // Por defecto deshabilitado
+                                if ($month == $currentMonth) {
+                                    $disabled = false; // mes actual seleccionable
+                                } elseif ($month == $previousMonth && !$existsPrevMonth) {
+                                    $disabled = false; // mes anterior habilitado solo si no tiene registro
+                                }
+                            @endphp
+                            <option value="{{ $month }}"
+                                {{ old('mes') == $month ? 'selected' : '' }}
+                                {{ $disabled ? 'disabled' : '' }}>
+                                {{ ucfirst(\Carbon\Carbon::create()->month($month)->locale('es')->monthName) }}
+                            </option>
                         @endforeach
                     </select>
                     @error('mes')
@@ -103,6 +111,27 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="archivos" class="col-md-4 col-form-label text-md-right">Nuevos Archivos</label>
+                <div class="col-md-6">
+                    <input type="file" id="archivos" class="form-control-file @error('archivos') is-invalid @enderror"
+                        name="archivos[]" multiple>
+                    <small class="form-text text-muted">
+                        Puede seleccionar múltiples archivos (Máximo 10MB en total)
+                    </small>
+                    @error('archivos')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @error('archivos.*')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">
@@ -113,3 +142,27 @@
         </form>
     </x-adminlte-card>
 @stop
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Validación de tamaño máximo de archivos (10MB)
+            const fileInput = document.getElementById('archivos');
+            const maxSize = 10 * 1024 * 1024; // 10MB en bytes
+
+            fileInput.addEventListener('change', function() {
+                const files = this.files;
+                let totalSize = 0;
+
+                for (let i = 0; i < files.length; i++) {
+                    totalSize += files[i].size;
+                }
+
+                if (totalSize > maxSize) {
+                    alert('El tamaño total de los archivos no puede exceder los 10MB');
+                    this.value = ''; // Limpiar la selección
+                }
+            });
+        });
+    </script>
+@endpush

@@ -122,7 +122,7 @@ class Indicador extends Model
     public function completar(): void
     {
         $this->update([
-            'cerrado'      => true,
+            'cerrado'      => false,
             'fecha_cierre' => now(),
             'estado'       => 'completado'
         ]);

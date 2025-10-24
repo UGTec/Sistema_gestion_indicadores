@@ -33,6 +33,7 @@ class PermissionSeeder extends Seeder
             'indicadores_mensuales.crear',
             'indicadores_mensuales.editar',
             'indicadores_mensuales.eliminar',
+            'indicadores_mensuales.revisar',
         ];
 
         // Permisos para Usuarios
@@ -103,17 +104,17 @@ class PermissionSeeder extends Seeder
 
         // Crear permisos en la base de datos
         foreach ($allPermissions as $permission) {
-            Permission::create(['name' => $permission, 'guard_name' => 'web']);
+            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
         }
 
         // Crear roles y asignar permisos según los perfiles del sistema
 
         // 1. Control de Gestión (todos los permisos)
-        $roleControlGestion = Role::create(['name' => 'Control de Gestión', 'guard_name' => 'web']);
+        $roleControlGestion = Role::firstOrCreate(['name' => 'Control de Gestión', 'guard_name' => 'web']);
         $roleControlGestion->givePermissionTo($allPermissions);
 
         // 2. Jefatura de División
-        $roleJefatura = Role::create(['name' => 'Jefatura de División', 'guard_name' => 'web']);
+        $roleJefatura = Role::firstOrCreate(['name' => 'Jefatura de División', 'guard_name' => 'web']);
         $roleJefatura->givePermissionTo([
             'indicadores.ver',
             'archivos.ver',
@@ -122,7 +123,7 @@ class PermissionSeeder extends Seeder
         ]);
 
         // 3. Informante
-        $roleInformante = Role::create(['name' => 'Informante', 'guard_name' => 'web']);
+        $roleInformante = Role::firstOrCreate(['name' => 'Informante', 'guard_name' => 'web']);
         $roleInformante->givePermissionTo([
             'indicadores.ver',
             //'indicadores.crear',
@@ -135,7 +136,7 @@ class PermissionSeeder extends Seeder
         ]);
 
         // 4. Revisor
-        $roleRevisor = Role::create(['name' => 'Revisor', 'guard_name' => 'web']);
+        $roleRevisor = Role::firstOrCreate(['name' => 'Revisor', 'guard_name' => 'web']);
         $roleRevisor->givePermissionTo([
             'indicadores.ver',
             'indicadores.editar',
@@ -143,7 +144,7 @@ class PermissionSeeder extends Seeder
         ]);
 
         // 5. Observador / Auditor
-        $roleObservador = Role::create(['name' => 'Observador', 'guard_name' => 'web']);
+        $roleObservador = Role::firstOrCreate(['name' => 'Observador', 'guard_name' => 'web']);
         $roleObservador->givePermissionTo([
             'indicadores.ver',
         ]);

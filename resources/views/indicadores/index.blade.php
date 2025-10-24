@@ -96,22 +96,23 @@
                             <i class="fas fa-edit"></i> editar
                         </a>
                         @endcan
+
                         @if(!$indicador->cerrado)
                             @can('delete', $indicador)
-                        <form action="{{ route('indicadores.destroy', $indicador) }}" method="POST" class="d-inline"
-                              onsubmit="return confirm('¿Está seguro de que desea eliminar este indicador?\nEsta acción no podrá revertirla');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-xs btn-danger" title="Eliminar Indicador">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </button>
-                        </form>
-                        @endcan
+                            <form action="{{ route('indicadores.destroy', $indicador) }}" method="POST" class="d-inline"
+                                onsubmit="return confirm('¿Está seguro de que desea eliminar este indicador?\nEsta acción no podrá revertirla');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-xs btn-danger" title="Eliminar Indicador">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </form>
+                            @endcan
                             @can('cerrar', $indicador)
                             <form action="{{ route('indicadores.cerrar', $indicador) }}" method="POST" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-xs btn-secondary" title="Cerrar">
-                                    <i class="fas fa-lock"></i>
+                                    <i class="fas fa-lock"></i> Cerrar
                                 </button>
                             </form>
                             @endcan

@@ -138,6 +138,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="invertida_check" class="col-md-3 col-form-label text-md-right">Invertida</label>
+                            <div class="col-md-9 d-flex align-items-center"> <div class="form-check">
+                                    {{-- <input class="form-check-input" type="checkbox" value="1" id="invertida_check" name="invertida" {{ old('invertida') ? 'checked' : '' }}> --}}
+                                    <input class="form-check-input" type="checkbox" value="1" id="invertida_check" name="invertida">
+                                    <label class="form-check-label" for="invertida_check">
+
+                                    </label>
+                                </div>
+                                @error('invertida')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="archivos" class="col-md-3 col-form-label text-md-right">Archivos Adjuntos</label>
                             <div class="col-md-9">
                                 <input type="file" id="archivos" class="form-control-file @error('archivos') is-invalid @enderror"

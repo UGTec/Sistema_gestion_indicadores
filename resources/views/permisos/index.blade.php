@@ -40,22 +40,24 @@
                         <div class="col-md-3 mb-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <h6 class="card-title">{{ $permission->name }}</h6>
-                                    <div class="d-flex justify-content-end">
-                                        @can('permisos.editar')
-                                        <a href="{{ route('permisos.edit', $permission->id) }}" class="btn btn-xs btn-primary mr-2">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        @endcan
-                                        @can('permisos.eliminar')
-                                        <form action="{{ route('permisos.destroy', $permission->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro de eliminar este permiso?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                        @endcan
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="card-title mb-0 text-truncate">{{ $permission->name }}</h6>
+                                        <div class="d-flex">
+                                            @can('permisos.editar')
+                                            <a href="{{ route('permisos.edit', $permission->id) }}" class="btn btn-xs btn-primary mr-2">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            @endcan
+                                            @can('permisos.eliminar')
+                                            <form action="{{ route('permisos.destroy', $permission->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro de eliminar este permiso?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            @endcan
+                                        </div>
                                     </div>
                                 </div>
                             </div>

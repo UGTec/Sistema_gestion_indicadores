@@ -25,6 +25,13 @@ class IndicadorMensualPolicy
             $user->hasRole('Control de Gestión');
     }
 
+    public function revisar(Usuario $user, IndicadorMensual $mensual)
+    {
+        // Solo Control de Gestión puede revisar
+        return $user->cod_usuario == $mensual->cod_usuario ||
+            $user->hasRole('Control de Gestión');
+    }
+
     public function delete(Usuario $user, IndicadorMensual $mensual)
     {
         // Solo Control de Gestión puede eliminar
