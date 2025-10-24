@@ -177,10 +177,10 @@ class IndicadorController extends Controller
 
         // Notificar al USUARIO ASIGNADO
         $usuarioAsignado = Usuario::find($data['cod_usuario']);
-        if ($usuarioAsignado) {
+        //if ($usuarioAsignado) {
             // Usa Notifiable o route() directo si prefieres
-            $usuarioAsignado->notify(new IndicadorAsignadoNotification($indicador));
-        }
+           // $usuarioAsignado->notify(new IndicadorAsignadoNotification($indicador));
+       // }
 
         return redirect()
             ->route('indicadores.show', ['indicador' => $indicador->cod_indicador])

@@ -89,10 +89,10 @@ class FlujoReportes
             ]);
 
             // Notificaciones (ejemplo simple: a creador del indicador)
-            if ($rep->indicador && $rep->indicador->creador) {
-                Notification::route('mail', $rep->indicador->creador->correo_electronico)
-                    ->notify(new ReporteEstadoCambiado($rep));
-            }
+           // if ($rep->indicador && $rep->indicador->creador) {
+            //    Notification::route('mail', $rep->indicador->creador->correo_electronico)
+            //        ->notify(new ReporteEstadoCambiado($rep));
+            //}
 
             return $rep;
         });
